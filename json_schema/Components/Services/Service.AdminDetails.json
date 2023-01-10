@@ -1,0 +1,29 @@
+{
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Service.Admin",
+    "type": "Object",
+    "properties": {
+      "ServiceName": {
+        "type": "string",
+        "description": "The Project Name"
+      },
+      "ServiceAllias": {
+        "type": "string",
+        "description": "Location of the Project from a managmeent perspective "
+      },
+      "ServiceURL": {
+        "type": "Number",
+        "description": "The Project Number"
+      },
+      "ServiceType": {
+        "description": "Entity Specific Identifer",
+        "type": "string"
+      },
+      "ServiceOpenAPI_URL": {
+        "type": "string",
+        "description": "Location of the Project from a managmeent perspective "
+      }
+
+    }
+  }

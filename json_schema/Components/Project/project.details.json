@@ -1,0 +1,29 @@
+{
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Project.Details",
+    "type": "Object",
+    "properties": {
+      "ProjectName": {
+        "type": "string",
+        "description": "The Project Name"
+      },
+      "ProjectNameAlias": {
+        "type": "string",
+        "description": "Location of the Project from a managmeent perspective "
+      },
+      "ProjectNumber": {
+        "type": "Number",
+        "description": "The Project Number"
+      },
+      "UniqueID": {
+        "description": "Entity Specific Identifer",
+        "type": "string"
+      },
+      "AdminLocation": {
+        "type": "string",
+        "description": "Location of the Project from a managmeent perspective "
+      }
+
+    }
+  }
