@@ -15,26 +15,54 @@
       },
       "EntityGUID": {
         "type": "string",
-        "description": "Classifcation of the object"
+        "description": "GUID of parent entity"
     },
     "EntityClassification": {
         "type": "string",
-        "description": "URL of a web service that stores the definition of the classification"
+        "description": "Classification of parent entity"
     },
     "ComponentUserName": {
         "type": "string",
-        "description": "URL of a web service that stores the definition of the classification"
+        "description": "Name of the compoonent provided by user"
     },
     "ComponentUserID": {
         "type": "string",
-        "description": "URL of a web service that stores the definition of the classification"
+        "description": "ID of the compoonent provided by user"
     },
     "ComponentType": {
         "type": "string",
-        "description": "URL of a web service that stores the definition of the classification"
+        "description": "Type of object the component represents"
     },
     "ComponentTypeReference": {
         "type": "string",
-        "description": "URL of a web service that stores the definition of the classification"
+        "description": "URL of a web service that stores the definition of the Component Types"
+    },
+    "ComponentVersion": {
+        "type": "string",
+        "description": "Version of this component"
+    },
+    "ComponentStatus": {
+        "type": "string",
+        "description": "User Defined status for component"
+    },
+    "AuthorSoftware": {
+        "type": "string",
+        "description": "Software Details of component"
+    },
+    "Hash1": {
+        "type": "string",
+        "description": "Hash of potentially many that is used to validate the object"
+    },
+    "PayloadDataType": {
+        "type": "string",
+        "description": "Known payload of data"
+    },
+    "Active": {
+        "type": "string",
+        "description": "Is the data active or not"
+    },
+    "DateCreated": {
+        "type": "string",
+        "description": "One of many potential dates"
     }
   }

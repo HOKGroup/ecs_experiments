@@ -20,10 +20,6 @@
       "UniqueID": {
         "description": "Entity Specific Identifer",
         "type": "string"
-      },
-      "AdminLocation": {
-        "type": "string",
-        "description": "Location of the Project from a managmeent perspective "
       }
 
     }
