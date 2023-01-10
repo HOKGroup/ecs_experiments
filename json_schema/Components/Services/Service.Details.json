@@ -2,8 +2,9 @@
     "$id": "https://example.com/person.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Service.Details",
+    "version": "V0.01",
     "required": ["ServiceName", "ServiceType"],
-    "type": "Object",
+    "type": "object",
     "properties": {
       "ServiceName": {
         "type": "string",

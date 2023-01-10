@@ -1,0 +1,24 @@
+{
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "version": "V0.01",
+    "title": "Entity",
+    "type": "object",
+    "properties": {
+      "EntityGUID": {
+        "type": "string",
+        "description": "URI or Globally Unique ID"
+      },
+      "Context": {
+        "type": "string",
+        "description": "Container location where the data is stored "
+      },
+      "EntityClassifcation": {
+        "type": "string",
+        "description": "Classifcation of the object"
+    },
+    "EntityClassifcationReference": {
+        "type": "string",
+        "description": "URL of a web service that stores the definition of the classification"
+    }
+  }

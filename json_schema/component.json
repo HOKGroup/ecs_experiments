@@ -1,0 +1,40 @@
+{
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "version": "V0.01",
+    "title": "Component",
+    "type": "object",
+    "properties": {
+      "ComponentGUID": {
+        "type": "string",
+        "description": "URI or Globally Unique ID"
+      },
+      "Context": {
+        "type": "string",
+        "description": "Container location where the data is stored "
+      },
+      "EntityGUID": {
+        "type": "string",
+        "description": "Classifcation of the object"
+    },
+    "EntityClassification": {
+        "type": "string",
+        "description": "URL of a web service that stores the definition of the classification"
+    },
+    "ComponentUserName": {
+        "type": "string",
+        "description": "URL of a web service that stores the definition of the classification"
+    },
+    "ComponentUserID": {
+        "type": "string",
+        "description": "URL of a web service that stores the definition of the classification"
+    },
+    "ComponentType": {
+        "type": "string",
+        "description": "URL of a web service that stores the definition of the classification"
+    },
+    "ComponentTypeReference": {
+        "type": "string",
+        "description": "URL of a web service that stores the definition of the classification"
+    }
+  }
