@@ -1,0 +1,30 @@
+{
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Person.Details",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+      "FirstName": {
+        "type": "string",
+        "description": "Persons First Name"
+      },
+      "LastName": {
+        "type": "string",
+        "description": "Persons last Name"
+      },
+      "EmailAddress": {
+        "type": "string",
+        "description": "persons email address"
+      },
+      "UniqueID": {
+        "description": "Entity Specific Identifer",
+        "type": "string"
+      },
+      "AdminLocation": {
+        "type": "string",
+        "description": "Location of the Project from a managmeent perspective "
+      }
+
+    }
+  }
