@@ -34,16 +34,6 @@
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
-    ]
-  },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -54,8 +44,6 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
     "eslint-config-prettier": "^8.6.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.1.0",
     "prettier": "^2.8.2",
     "react-scripts": "5.0.1"
   }
