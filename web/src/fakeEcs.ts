@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker";
 import {
   EcsComponent,
   EcsComponentType,
+  EcsComponentTypeDetailsMapping,
   EcsEntity,
   EcsPersonDetails,
   EcsProjectDetails,
@@ -14,15 +15,15 @@ export function createFakeEntity(): EcsEntity {
     context: "context",
     entityClassification: "classification",
     entityClassificationReference: "classificationReference",
-    components: [],
+    components: {},
   };
 }
 
-export function createFakeComponent(
+export function createFakeComponent<T extends EcsComponentType>(
   entity: EcsEntity,
-  componentType: EcsComponentType
-): EcsComponent {
-  const component = {
+  componentType: T
+): EcsComponent<T> {
+  const component: EcsComponent<T> = {
     componentGUID: faker.datatype.uuid(),
     context: entity.context,
     entityGUID: entity.entityGUID,
@@ -41,18 +42,22 @@ export function createFakeComponent(
     details: createFakeComponentDetails(componentType),
   };
 
-  entity.components.push(component);
+  (entity.components[componentType] as EcsComponent<T>) = component;
 
   return component;
 }
 
-export function createFakeComponentDetails(componentType: EcsComponentType) {
+export function createFakeComponentDetails<T extends EcsComponentType>(
+  componentType: T
+): EcsComponentTypeDetailsMapping[T] {
   switch (componentType) {
     case EcsComponentType.Person:
-      return createFakePersonDetails();
+      return createFakePersonDetails() as any;
     case EcsComponentType.Project:
-      return createFakeProjectDetails();
+      return createFakeProjectDetails() as any;
   }
+
+  throw new Error("Unknown component type");
 }
 
 export function createFakePersonDetails(): EcsPersonDetails {
