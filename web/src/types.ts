@@ -2,11 +2,14 @@ export enum EcsComponentType {
   Person = "person",
   Project = "project",
 }
-export type EcsComponentDetails = EcsPersonDetails | EcsProjectDetails;
 
-export type EcsComponentTypeMapping = {
-  person: EcsPersonDetails;
-  project: EcsProjectDetails;
+export interface EcsComponentTypeDetailsMapping {
+  [EcsComponentType.Person]: EcsPersonDetails;
+  [EcsComponentType.Project]: EcsProjectDetails;
+}
+
+export type EcsEntityComponents = {
+  [T in EcsComponentType]?: EcsComponent<T>;
 };
 
 export interface EcsEntity {
@@ -15,17 +18,16 @@ export interface EcsEntity {
   entityClassification: string;
   entityClassificationReference: string;
 
-  components: EcsComponent[];
+  components: EcsEntityComponents;
 }
 
-export interface EcsComponent {
+export interface EcsComponent<T extends EcsComponentType> {
   componentGUID: string;
   context: string;
   entityGUID: string;
   entityClassification: string;
   componentUserName: string;
   componentUserId: string;
-  componentType: EcsComponentType;
   componentTypeReference: string;
   componentVersion: string;
   componentStatus: string;
@@ -35,7 +37,8 @@ export interface EcsComponent {
   active: string;
   dateCreated: string;
 
-  details: EcsComponentDetails;
+  componentType: T;
+  details: EcsComponentTypeDetailsMapping[T];
 }
 
 export interface EcsPersonDetails {
