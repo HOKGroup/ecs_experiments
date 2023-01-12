@@ -1,50 +1,15 @@
 {
     "$id": "https://example.com/person.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "submittal.requirements",
+    "title": "sspecification.document",
     "version": "V0.01",
     "type": "object",
     "properties": {
-      "SubmitalRequirement": {
-        "type": "array",
-        "items": {
-          "type": {"$ref": "#/$defs/itemstosubmit"}
-        }
-      },
-      "$defs":{
-          "itemstosubmit":{
-            "type":"object",
-            "required": ["Specification Section Name","Specification Section Number","Section Name","Section Number","Section Text"],
-            "properties":{
-              "Specification Section Name":{
-                "type":"string",
-                "description": "The Name of the Section"
-              },
-              "Specification Section Number":{
-                "type":"string",
-                "description": "The Number of the Section"
-              },
-              "Section Name":{
-                "type":"string",
-                "description": "The "
-              }, 
-              "Item Type":{
-                "type":"string",
-                "description": "The "
-              },
-              "Section Number":{
-                "type":"string",
-                "description": "The "
-              },
-              "Section Text":{
-                "type":"string",
-                "description": "The "
-              }
-            }
-          }
-
+      "DocumentText": {
+        "type": "string",
+        "description": "Simple Spec Document Text"
+      }
+ 
       }
         
-
     }
-  }
