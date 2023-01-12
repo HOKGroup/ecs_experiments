@@ -32,11 +32,11 @@
                 "type":"string",
                 "description": "The "
               },
-              "SubSection Number":{
+              "Section Number":{
                 "type":"string",
                 "description": "The "
               },
-              "SubSection Text":{
+              "Section Text":{
                 "type":"string",
                 "description": "The "
               }
