@@ -1,7 +1,6 @@
 {
-    "$id": "https://example.com/person.schema.json",
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "sspecification.document",
+    "$schema": "http://json-schema.org/schema#",
+    "title": "specification.document",
     "version": "V0.01",
     "type": "object",
     "properties": {

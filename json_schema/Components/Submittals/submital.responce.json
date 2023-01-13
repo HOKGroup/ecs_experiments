@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "submittal.responce",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+      "General Action": {
+        "type": "string",
+        "description": "Use Provided Name of the Submittal"
+      },
+      "Description": {
+        "type": "string",
+        "description": "User Provided Number of the submittal"
+      },
+      "ItemAction": {
+        "type": "array",
+        "items":{
+            "type":"string",
+            "description": "List of potential documents or images attached to the submittal"
+        }
+      },
+      "Content Array": {
+        "type": "array",
+        "items":{
+            "type":"string",
+            "description": "List of potential documents or images attached to the submittal"
+        }
+      }
+      }
+        
+    }

@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "submittal.author.details",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+      "Submittal Name": {
+        "type": "string",
+        "description": "Use Provided Name of the Submittal"
+      },
+      "Submittal Number": {
+        "type": "string",
+        "description": "User Provided Number of the submittal"
+      },
+      "Submittal Date": {
+        "type": "string",
+        "description": "Date the submittal was created"
+      },
+      "Submittal Description": {
+        "type": "string",
+        "description": "User Provided Description of the submittal"
+      },
+      "Submittal Contents": {
+        "type": "array",
+        "items":{
+            "type":"string",
+            "description": "List of potential documents or images attached to the submittal"
+        }
+      }
+ 
+      }
+        
+    }

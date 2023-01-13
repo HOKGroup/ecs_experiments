@@ -1,14 +1,12 @@
 {
-    "$id": "https://example.com/person.schema.json",
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$schema": "http://json-schema.org/schema#",
     "title": "submittal.requirements",
     "version": "V0.01",
     "type": "object",
     "properties": {
       "SubmitalRequirement": {
         "type": "array",
-        "items": {
-          "type": {"$ref": "#/$defs/itemstosubmit"}
+        "items": { "$ref": "#/$defs/itemstosubmit" }
         }
       },
       "$defs":{
@@ -26,19 +24,19 @@
               },
               "Section Name":{
                 "type":"string",
-                "description": "The "
+                "description": "The name of the subsection of the specification "
               }, 
               "Item Type":{
                 "type":"string",
-                "description": "The "
+                "description": "The type of item required, Drawing, Report etc"
               },
               "SubSection Number":{
                 "type":"string",
-                "description": "The "
+                "description": "The Number of the subsection of the document"
               },
               "SubSection Text":{
                 "type":"string",
-                "description": "The "
+                "description": "The Text from the subsection of the document"
               }
             }
           }
@@ -47,4 +45,4 @@
         
 
     }
-  }
+  
