@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker as f, faker } from "@faker-js/faker";
 
 import {
   EcsComponent,
@@ -16,7 +16,7 @@ import {
 
 export function createFakeEntity(): EcsEntity {
   return {
-    entityGUID: faker.datatype.uuid(),
+    entityGUID: f.datatype.uuid(),
     context: "context",
     entityClassification: "classification",
     entityClassificationReference: "classificationReference",
@@ -29,18 +29,18 @@ export function createFakeComponent<T extends EcsComponentType>(
   componentType: T
 ): EcsComponent<T> {
   const component: EcsComponent<T> = {
-    componentGUID: faker.datatype.uuid(),
+    componentGUID: f.datatype.uuid(),
     context: entity.context,
     entityGUID: entity.entityGUID,
     entityClassification: entity.entityClassification,
     componentUserName: "userName",
-    componentUserId: faker.datatype.uuid(),
+    componentUserId: f.datatype.uuid(),
     componentType: componentType,
     componentTypeReference: "typeReference",
     componentVersion: "version",
     componentStatus: "status",
     authorSoftware: "authorSoftware",
-    hash1: faker.git.commitSha(),
+    hash1: f.git.commitSha(),
     payloadDataType: "payloadDataType",
     active: "active",
     dateCreated: "dateCreated",
@@ -75,26 +75,26 @@ export function createFakeComponentDetails<T extends EcsComponentType>(
 
 export function createFakePersonDetails(): EcsPersonDetails {
   return {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    emailAddress: faker.internet.exampleEmail(),
-    uniqueId: faker.datatype.uuid(),
+    firstName: f.name.firstName(),
+    lastName: f.name.lastName(),
+    emailAddress: f.internet.exampleEmail(),
+    uniqueId: f.datatype.uuid(),
   };
 }
 
 export function createFakeProjectDetails(): EcsProjectDetails {
   return {
-    projectName: faker.company.bs(),
+    projectName: f.company.bs(),
     projectNameAlias: "projectNameAlias",
-    projectNumber: faker.datatype.number(),
-    uniqueId: faker.datatype.uuid(),
+    projectNumber: f.datatype.number(),
+    uniqueId: f.datatype.uuid(),
     adminLocation: "adminLocation",
   };
 }
 
 export function createFakeSpecificationDocumentDetails(): EcsSpecificationDocumentDetails {
   return {
-    documentText: faker.lorem.lines(10),
+    documentText: f.lorem.lines(10),
   };
 }
 
@@ -107,20 +107,33 @@ export function createFakeSubmittalRequirements(): EcsSubmittalRequirements {
 export function createFakeItemsToSubmit(
   numItems: number = 5
 ): EcsItemsToSubmit[] {
-  return Array.from({ length: numItems }).map((_i) => ({
-    specificationSectionName: "specificationSectionName",
-    specificationSectionNumber: "specificationSectionNumber",
-    sectionName: "sectionName",
-    itemType: "itemType",
-    subSectionNumber: "subSectionNumber",
-    subSectionText: "subSectionText",
-  }));
+  return Array.from({ length: numItems }).map((_i) => {
+    const specificationSectionNumber = f.random.numeric(6);
+    const sectionName = f.helpers.arrayElement([
+      "ACTION SUBMITTALS",
+      "INFORMATIONAL SUBMITTALS",
+      "QUALITY ASSURANCE",
+    ]);
+
+    const itemType = f.helpers.arrayElement(["", "product data"]);
+
+    return {
+      specificationSectionName: `${specificationSectionNumber} ${f.commerce.productMaterial()} ${f.commerce.productName()}.pdf`,
+      specificationSectionNumber,
+      sectionName,
+      itemType,
+      subSectionNumber: `${f.random.numeric()}.${f.random.numeric()}-${f.random.alpha(
+        { casing: "upper" }
+      )}`,
+      subSectionText: faker.commerce.productDescription(),
+    };
+  });
 }
 
 export function createFakeSubmittalDetails(): EcsSubmittalDetails {
   return {
-    submittalName: faker.company.bs(),
-    submittalNumber: faker.datatype.number().toString(),
+    submittalName: f.company.bs(),
+    submittalNumber: f.datatype.number().toString(),
     submittalDate: "submittalDate",
     submittalDescription: "submittalDescription",
     submittalContents: createFakeSubmittalDetailsContents(),
