@@ -1,12 +1,7 @@
-export enum EcsComponentType {
-  Person = "person",
-  Project = "project",
-}
-
-export interface EcsComponentTypeDetailsMapping {
-  [EcsComponentType.Person]: EcsPersonDetails;
-  [EcsComponentType.Project]: EcsProjectDetails;
-}
+import {
+  EcsComponentType,
+  EcsComponentTypeDetailsMapping,
+} from "./ecsComponents";
 
 export type EcsEntityComponents = {
   [T in EcsComponentType]?: EcsComponent<T>;
@@ -41,17 +36,4 @@ export interface EcsComponent<T extends EcsComponentType> {
   details: EcsComponentTypeDetailsMapping[T];
 }
 
-export interface EcsPersonDetails {
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
-  uniqueId: string;
-}
-
-export interface EcsProjectDetails {
-  projectName: string;
-  projectNameAlias: string;
-  projectNumber: number;
-  uniqueId: string;
-  adminLocation: string;
-}
+export * from "./ecsComponents";

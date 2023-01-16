@@ -5,9 +5,14 @@ import {
   EcsComponentType,
   EcsComponentTypeDetailsMapping,
   EcsEntity,
+  EcsItemsToSubmit,
   EcsPersonDetails,
   EcsProjectDetails,
-} from "./types";
+  EcsSpecificationDocumentDetails,
+  EcsSubmittalDetails,
+  EcsSubmittalRequirements,
+  EcsSubmittalResponse,
+} from "./types/types";
 
 export function createFakeEntity(): EcsEntity {
   return {
@@ -55,9 +60,17 @@ export function createFakeComponentDetails<T extends EcsComponentType>(
       return createFakePersonDetails() as any;
     case EcsComponentType.Project:
       return createFakeProjectDetails() as any;
+    case EcsComponentType.SpecificationDocument:
+      return createFakeSpecificationDocumentDetails() as any;
+    case EcsComponentType.SubmittalDetails:
+      return createFakeSubmittalDetails() as any;
+    case EcsComponentType.SubmittalRequirements:
+      return createFakeSubmittalRequirements() as any;
+    case EcsComponentType.SubmittalResponse:
+      return createFakeSubmittalResponse() as any;
   }
 
-  throw new Error("Unknown component type");
+  throw new Error("Unhandled component type");
 }
 
 export function createFakePersonDetails(): EcsPersonDetails {
@@ -76,5 +89,55 @@ export function createFakeProjectDetails(): EcsProjectDetails {
     projectNumber: faker.datatype.number(),
     uniqueId: faker.datatype.uuid(),
     adminLocation: "adminLocation",
+  };
+}
+
+export function createFakeSpecificationDocumentDetails(): EcsSpecificationDocumentDetails {
+  return {
+    documentText: faker.lorem.lines(10),
+  };
+}
+
+export function createFakeSubmittalRequirements(): EcsSubmittalRequirements {
+  return {
+    submittalRequirements: createFakeItemsToSubmit(),
+  };
+}
+
+export function createFakeItemsToSubmit(
+  numItems: number = 5
+): EcsItemsToSubmit[] {
+  return Array.from({ length: numItems }).map((_i) => ({
+    specificationSectionName: "specificationSectionName",
+    specificationSectionNumber: "specificationSectionNumber",
+    sectionName: "sectionName",
+    itemType: "itemType",
+    subSectionNumber: "subSectionNumber",
+    subSectionText: "subSectionText",
+  }));
+}
+
+export function createFakeSubmittalDetails(): EcsSubmittalDetails {
+  return {
+    submittalName: faker.company.bs(),
+    submittalNumber: faker.datatype.number().toString(),
+    submittalDate: "submittalDate",
+    submittalDescription: "submittalDescription",
+    submittalContents: createFakeSubmittalDetailsContents(),
+  };
+}
+
+export function createFakeSubmittalDetailsContents(
+  numItems: number = 2
+): string[] {
+  return Array.from({ length: numItems }).map((_i) => "submittalContents");
+}
+
+export function createFakeSubmittalResponse(): EcsSubmittalResponse {
+  return {
+    generalAction: "generalAction",
+    description: "description",
+    itemAction: [],
+    contentArray: [],
   };
 }
