@@ -70,12 +70,15 @@ title: Add User
 ---
 flowchart TD
     A[Start] --> B{Project Exist?}
-    B --->|Yes| C[Add Person_Details Component+E]
+    B --->|Yes| K[Query Project Layer]
+    K --> C[Add Person_Details Component+E]
     B -->|No| D[Add Project_Detials Component+E]
-    D --> E[Add Project Group1, Group2 Components]
+    D--> J[Create Project Layer]
+    J --> E[Add Project Group1, Group2 Components]
     E --> C
     C --> F[ProjectGroup+PersonDetails MemberOf Relationship]
     F --> G[Add Service_Details Component+E]
     G --> H[Add Service Role1, Role2 Components]
     H --> I[Service Role + PersonDetails MemberOf Relationship]
+    I --> L[Update Project Layer]
 ```
