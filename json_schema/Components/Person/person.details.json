@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "title": "Person.Details",
-    "version": "V0.01",
+    "version": "V0.02",
     "type": "object",
     "properties": {
       "FirstName": {
