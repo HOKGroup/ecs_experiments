@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "relationship.memberof",
+    "version": "V0.01",
+    "required": ["Description", "SourceEntities"],
+    "type": "object",
+    "properties": {
+      "Description": {
+        "type": "string",
+        "description": "What is the relationship doing"
+      },
+      "Created Entity Type": {
+        "type": "string",
+        "description": "If no Entities exist what does it create"
+      },
+      "Created Component": {
+        "type": "string",
+        "description": "If no components exist what does it create"
+      },
+      "AssociatedService": {
+        "type": "string",
+        "description": "Associated Service Attached to the relationsip"
+      },
+      "Service Schedule or Logic": {
+        "type": "string",
+        "description": "what logic is used to activate the service"
+      },
+      "SourceEntities": {
+        "type": "array",
+        "items":{
+            "type":"string",
+            "description": "List of Entities that start the relationship"
+        }
+      },
+      "SourceComponents": {
+        "type": "array",
+        "items":{
+            "type":"string",
+            "description": "List of Compoennts that start the relationship"
+        }
+      },
+      "TargetEntities": {
+        "type": "array",
+        "items":{
+            "type":"string",
+            "description": "List of Entities that recieve the relationship"
+        }
+      },
+      "TargetComponents": {
+        "type": "array",
+        "items":{
+            "type":"string",
+            "description": "List of Components that recieve the relationship"
+        }
+      }
+        
+    }

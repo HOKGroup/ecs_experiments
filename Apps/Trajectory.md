@@ -40,6 +40,8 @@ title: Trajectory App Scope
 ---
 erDiagram
     Person_Entity ||..|{ Person_Component_Details : Parents
+    Company_Entity ||..|{ Company_Component_Detail : Parents
+    Company_Entity ||..|{ Company_Component_Location : Parents
     Project_Entity ||..|{ Project_Component_Details:Parents
     Project_Entity ||..|{ Project_Component_Group1:Parents
     Project_Entity ||..|{ Project_Component_Group2:Parents
@@ -48,6 +50,8 @@ erDiagram
     Service_Entity ||..|{ Service_Component_Role2:Parents
     Project_Component_Group1 }|..|| Relationship_MemberOf1 : Links
     Person_Component_Details }|..|| Relationship_MemberOf1 : Links
+    Company_Component_Detail }|..|| Relationship_MemberOf2 : Links
+    Person_Component_Details }|..|| Relationship_MemberOf2 : Links
     
     Relationship_MemberOf1 {
             FromEntities
@@ -61,8 +65,14 @@ erDiagram
             ToEntities
             ToComponents
         }
-    Service_Component_Role2 }|..|| Relationship_MemberOf2 :Links
-    Person_Component_Details }|..|| Relationship_MemberOf2 :Links
+        Relationship_MemberOf3 {
+            FromEntities
+            FromComponents
+            ToEntities
+            ToComponents
+        }
+    Service_Component_Role2 }|..|| Relationship_MemberOf3 :Links
+    Person_Component_Details }|..|| Relationship_MemberOf3 :Links
 ```
 ```mermaid
 ---
@@ -77,6 +87,7 @@ flowchart TD
     J --> E[Add Project Group1, Group2 Components]
     E --> C
     C --> F[ProjectGroup+PersonDetails MemberOf Relationship]
+    
     F --> G[Add Service_Details Component+E]
     G --> H[Add Service Role1, Role2 Components]
     H --> I[Service Role + PersonDetails MemberOf Relationship]
