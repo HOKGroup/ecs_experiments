@@ -31,7 +31,7 @@ def create_table(conn, create_table_sql):
         print(e)
 
 def main():
-    database = r"B:\Git\ecs_experiments\json_schema\PythonScripts\ecs.db"
+    database = r"S:\Git\ecs_experiments\json_schema\PythonScripts\ecs.db"
 
     sql_create_entity_table = """ CREATE TABLE IF NOT EXISTS entity (
                                         entity_guid integer PRIMARY KEY AUTOINCREMENT,

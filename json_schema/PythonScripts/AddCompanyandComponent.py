@@ -68,14 +68,18 @@ def main():
     conn = create_connection(database)
     with conn:
         # create a new entity
-        enitity = ('Person', 'http...', 'hok-staff-active', '20220403');
+        enitity = ('Company', 'http...', 'http:Some Company URL', '20200405');
         entity_guid = create_entity(conn, enitity)
 
-        # component
-        component1 = ('hok-staff-active', "$random string goes here$","1", entity_guid, 'Person', 'person.details', 'http...', 'json', 'HOK' ,0 ,'looking good', 1, '20220403' , 'HOK People APP' ,'jdjdjdjdjd' ,'person.details.v01', '{"FirstName" : "Greg", "LastName" : "Schleusner", "Email": "greg.schleusner@firm.com", "UniqueID" : "1010101010101010"}')
-
+        # component - Company.Details
+        component1 = ('http:Some Company URL', "$Company Name Goes Here$","", entity_guid, 'Company', 'company.details', 'http...', 'json', 'My Company Name' ,0 ,'resently moved', 1, '20010403' , 'NA' ,'some hash' ,'project.details.v01', '{"CompanyName" : "My Company", "Company Acronym" : "MCN", "UniqueID" : "313131313131"}')
+        
+        # component - Company.Location
+        component2 = ('http:Some Company URL', "$Company Locaton Name Goes Here$","", entity_guid, 'Company', 'company.location', 'http...', 'json', 'Santa Barbara Location' ,2 ,'Newly Updated', 1, '20210101' , 'NA' ,'some hash' ,'project.location.v01', '{"LocationName" : "Santa Barbara", "LocationAllias" : "North LA", "Address1" : "1234 Coast Street", "Address2" : "Suite1", "City" : "Santa Barbara", "State" : "CA", "Postal Code" : "97858", "UniqueID" : "414141414141", "AdminLocation" : "LA"}')
+        
         # create componnet
         create_component(conn, component1)
+        create_component(conn, component2)
 
 
 

@@ -68,15 +68,18 @@ def main():
     conn = create_connection(database)
     with conn:
         # create a new entity
-        enitity = ('Person', 'http...', 'hok-staff-active', '20220403');
+        enitity = ('Project', 'http...', 'hok-project-active', '20220403');
         entity_guid = create_entity(conn, enitity)
 
-        # component
-        component1 = ('hok-staff-active', "$random string goes here$","1", entity_guid, 'Person', 'person.details', 'http...', 'json', 'HOK' ,0 ,'looking good', 1, '20220403' , 'HOK People APP' ,'jdjdjdjdjd' ,'person.details.v01', '{"FirstName" : "Greg", "LastName" : "Schleusner", "Email": "greg.schleusner@firm.com", "UniqueID" : "1010101010101010"}')
+        # component project.details
+        component1 = ('hok-project-active', "$Project Name Goes here$","1231312.00", entity_guid, 'Project', 'project.details', 'http...', 'json', 'HOK' ,0 ,'on track', 1, '20220403' , 'Project App' ,'some hash' ,'project.details.v01', '{"ProjectName" : "My Project", "ProjectNameAlias" : "fox bannana grass", "ProjectNumber": "1231312.00", "UniqueID" : "2121212121", "AdminLocation" : "LA"}')
+
+        # component project.location.map
+        component2 = ('hok-project-active', "Legal Site Boundry","1231312.00", entity_guid, 'Project', 'project.location.map', 'http...', 'geojson', 'HOK' ,0 ,'Surveyed', 1, '20220403' , 'Mapping App' ,'some hash' ,'project.location.map.v01', '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"coordinates":[[[-119.69575654897366,34.42077299472784],[-119.69645693125482,34.42011949900281],[-119.69609819886695,34.41988698716244],[-119.69540849314501,34.420524631724675],[-119.69575654897366,34.42077299472784]]],"type":"Polygon"}}]}')
 
         # create componnet
         create_component(conn, component1)
-
+        create_component(conn, component2)
 
 
 if __name__ == '__main__':
