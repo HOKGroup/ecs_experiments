@@ -1,6 +1,8 @@
 import sqlite3
 from sqlite3 import Error
+import os
 
+os.remove("S:\Git\ecs_experiments\json_schema\PythonScripts\ecs.db")
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
@@ -65,17 +67,44 @@ def main():
     
     sql_create_relationship_table = """CREATE TABLE IF NOT EXISTS relationship (
                                         relationship_guid integer PRIMARY KEY AUTOINCREMENT,
-                                        context text
+                                        context text,
+                                        relationship_type text,
+                                        relationship_type_reference text,
+                                        relationship_source_entities text,
+                                        relationship_source_components text,
+                                        relationship_destination_entities text,
+                                        relationship_destination_components text,
+                                        active integer,
+                                        version integer,
+                                        date_created text
                                     );"""
     
     sql_create_layer_table = """CREATE TABLE IF NOT EXISTS layer (
                                         layer_guid integer PRIMARY KEY AUTOINCREMENT,
-                                        context text
+                                        context text,
+                                        layer_name text,
+                                        layer_id text,
+                                        layer_entities text,
+                                        layer_components text,
+                                        layer_relationships text,
+                                        layer_owner text,
+                                        layer_description text,
+                                        layer_function text,
+                                        layer_update_method text,
+                                        active integer,
+                                        version integer,
+                                        date_created text
                                     );"""
     
     sql_create_scene_table = """CREATE TABLE IF NOT EXISTS scene (
                                         scene_guid integer PRIMARY KEY AUTOINCREMENT,
-                                        context text
+                                        context text,
+                                        scene_name text,
+                                        scene_id text,
+                                        scene_layers text,
+                                        active integer,
+                                        version integer,
+                                        date_created text
                                     );"""
 
     # create a database connection

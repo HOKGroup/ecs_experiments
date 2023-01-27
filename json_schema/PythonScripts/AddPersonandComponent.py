@@ -62,7 +62,6 @@ def create_component(conn, component):
 def main():
     database = r"S:\Git\ecs_experiments\json_schema\PythonScripts\ecs.db"
 
-    
 
     # create a database connection
     conn = create_connection(database)

@@ -77,9 +77,22 @@ def main():
         # component project.location.map
         component2 = ('hok-project-active', "Legal Site Boundry","1231312.00", entity_guid, 'Project', 'project.location.map', 'http...', 'geojson', 'HOK' ,0 ,'Surveyed', 1, '20220403' , 'Mapping App' ,'some hash' ,'project.location.map.v01', '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"coordinates":[[[-119.69575654897366,34.42077299472784],[-119.69645693125482,34.42011949900281],[-119.69609819886695,34.41988698716244],[-119.69540849314501,34.420524631724675],[-119.69575654897366,34.42077299472784]]],"type":"Polygon"}}]}')
 
+        # component project.group1
+        component3 = ('hok-project-active', "HOK Regular Staff","001", entity_guid, 'Project', 'project.group', 'http...', 'json', 'HOK' ,0 ,'Standard Group', 1, '20220403' , 'Project App' ,'some hash' ,'project.group.v01', '{"GroupName" : "HOK Regular Staff", "UniqueID" : "001"}')
+
+         # component project.group2
+        component4 = ('hok-project-active', "HOK Admins","002", entity_guid, 'Project', 'project.group', 'http...', 'json', 'HOK' ,0 ,'Standard Group', 1, '20220403' , 'Project App' ,'some hash' ,'project.group.v01', '{"GroupName" : "Admins", "UniqueID" : "002"}')
+
+         # component project.group3
+        component5 = ('hok-project-active', "External Structual Team","003", entity_guid, 'Project', 'project.group', 'http...', 'json', 'HOK' ,0 ,'Standard Group', 1, '20220403' , 'Project App' ,'some hash' ,'project.group.v01', '{"GroupName" : "External Structure", "UniqueID" : "003"}')
+
+
         # create componnet
         create_component(conn, component1)
         create_component(conn, component2)
+        create_component(conn, component3)
+        create_component(conn, component4)
+        create_component(conn, component5)
 
 
 if __name__ == '__main__':
