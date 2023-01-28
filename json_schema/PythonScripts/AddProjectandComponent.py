@@ -74,8 +74,8 @@ def main():
         # component project.details
         component1 = ('hok-project-active', "$Project Name Goes here$","1231312.00", entity_guid, 'Project', 'project.details', 'http...', 'json', 'HOK' ,0 ,'on track', 1, '20220403' , 'Project App' ,'some hash' ,'project.details.v01', '{"ProjectName" : "My Project", "ProjectNameAlias" : "fox bannana grass", "ProjectNumber": "1231312.00", "UniqueID" : "2121212121", "AdminLocation" : "LA"}')
 
-        # component project.location.map
-        component2 = ('hok-project-active', "Legal Site Boundry","1231312.00", entity_guid, 'Project', 'project.location.map', 'http...', 'geojson', 'HOK' ,0 ,'Surveyed', 1, '20220403' , 'Mapping App' ,'some hash' ,'project.location.map.v01', '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"coordinates":[[[-119.69575654897366,34.42077299472784],[-119.69645693125482,34.42011949900281],[-119.69609819886695,34.41988698716244],[-119.69540849314501,34.420524631724675],[-119.69575654897366,34.42077299472784]]],"type":"Polygon"}}]}')
+        # component project.location.polygon
+        component2 = ('hok-project-active', "Legal Site Boundry","1231312.00", entity_guid, 'Project', 'project.location.polygon', 'http...', 'geojson', 'HOK' ,0 ,'Surveyed', 1, '20220403' , 'Mapping App' ,'some hash' ,'project.location.polygon.v01', '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"coordinates":[[[-119.69575654897366,34.42077299472784],[-119.69645693125482,34.42011949900281],[-119.69609819886695,34.41988698716244],[-119.69540849314501,34.420524631724675],[-119.69575654897366,34.42077299472784]]],"type":"Polygon"}}]}')
 
         # component project.group1
         component3 = ('hok-project-active', "HOK Regular Staff","001", entity_guid, 'Project', 'project.group', 'http...', 'json', 'HOK' ,0 ,'Standard Group', 1, '20220403' , 'Project App' ,'some hash' ,'project.group.v01', '{"GroupName" : "HOK Regular Staff", "UniqueID" : "001"}')

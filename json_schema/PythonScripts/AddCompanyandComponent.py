@@ -74,13 +74,17 @@ def main():
         # component - Company.Details
         component1 = ('http:Some Company URL', "$Company Name Goes Here$","", entity_guid, 'Company', 'company.details', 'http...', 'json', 'My Company Name' ,0 ,'resently moved', 1, '20010403' , 'NA' ,'some hash' ,'project.details.v01', '{"CompanyName" : "My Company", "Company Acronym" : "MCN", "UniqueID" : "313131313131"}')
         
-        # component - Company.Location
+        # component - Company.Location.details
         component2 = ('http:Some Company URL', "$Company Locaton Name Goes Here$","", entity_guid, 'Company', 'company.location.details', 'http...', 'json', 'Santa Barbara Location' ,2 ,'Newly Updated', 1, '20210101' , 'NA' ,'some hash' ,'project.location.v01', '{"LocationName" : "Santa Barbara", "LocationAllias" : "North LA", "Address1" : "1234 Coast Street", "Address2" : "Suite1", "City" : "Santa Barbara", "State" : "CA", "Postal Code" : "97858", "UniqueID" : "414141414141", "AdminLocation" : "LA"}')
+
+        # component Company.Location.point
+        component3 = ('Some Company Address', "Address Point on Map","1231312.00", entity_guid, 'company', 'project.location.point', 'http...', 'geojson', 'HOK' ,0 ,'Surveyed', 1, '20220403' , 'Mapping App' ,'some hash' ,'project.location.point.v01', '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"coordinates":[[[-119.69575654897366,34.42077299472784],[-119.69645693125482,34.42011949900281],[-119.69609819886695,34.41988698716244],[-119.69540849314501,34.420524631724675],[-119.69575654897366,34.42077299472784]]],"type":"Polygon"}},{"type":"Feature","properties":{},"geometry":{"coordinates":[-119.5951085481465,34.43417862651167],"type":"Point"}}]}')
+        
         
         # create componnet
         create_component(conn, component1)
         create_component(conn, component2)
-
+        create_component(conn, component3)
 
 
 if __name__ == '__main__':

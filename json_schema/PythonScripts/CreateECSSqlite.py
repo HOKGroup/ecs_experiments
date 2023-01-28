@@ -68,6 +68,7 @@ def main():
     sql_create_relationship_table = """CREATE TABLE IF NOT EXISTS relationship (
                                         relationship_guid integer PRIMARY KEY AUTOINCREMENT,
                                         context text,
+                                        relationship_name text,
                                         relationship_type text,
                                         relationship_type_reference text,
                                         relationship_source_entities text,
@@ -107,6 +108,13 @@ def main():
                                         date_created text
                                     );"""
 
+    sql_create_payload_table = """CREATE TABLE IF NOT EXISTS payload (
+                                        payload_guid integer PRIMARY KEY AUTOINCREMENT,
+                                        component_guid text,
+                                        payload blob,
+                                        FOREIGN KEY (component_guid) REFERENCES component (component_guid)
+                                    );"""                                   
+
     # create a database connection
     conn = create_connection(database)
 
@@ -115,17 +123,20 @@ def main():
         # create projects entity
         create_table(conn, sql_create_entity_table)
 
-        # create tasks component
+        # create component table
         create_table(conn, sql_create_component_table)
 
-        # create tasks table
+        # create realtionship table
         create_table(conn, sql_create_relationship_table)
 
-        # create tasks table
+        # create layer table
         create_table(conn, sql_create_layer_table)
 
-        # create tasks table
+        # create scene table
         create_table(conn, sql_create_scene_table)
+
+        # create payload table
+        create_table(conn, sql_create_payload_table)
     else:
         print("Error! cannot create the database connection.")
 
