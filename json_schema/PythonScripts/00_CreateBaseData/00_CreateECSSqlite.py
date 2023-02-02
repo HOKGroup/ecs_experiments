@@ -2,7 +2,10 @@ import sqlite3
 from sqlite3 import Error
 import os
 
-os.remove("S:\Git\ecs_experiments\json_schema\PythonScripts\ecs.db")
+try:
+    os.remove("S:\Git\ecs_experiments\json_schema\PythonScripts\ecs.db")
+except FileNotFoundError:
+    pass
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
