@@ -48,6 +48,8 @@ def main():
 
     sql_create_component_table = """CREATE TABLE IF NOT EXISTS component (
                                         component_guid integer PRIMARY KEY AUTOINCREMENT,
+                                        component_sequence_name text,
+                                        component_sequence_id text,
                                         context text,
                                         component_name text,
                                         component_id text,
