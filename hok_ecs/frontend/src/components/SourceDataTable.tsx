@@ -1,14 +1,14 @@
-import React from "react";
-import Table from "react-bootstrap/Table";
-import { EntityOrComponentValue } from "../App";
+import React from 'react';
+import Table from 'react-bootstrap/Table';
+import { EntityOrComponentValue } from '../App';
 
 interface Props {
-    onClick: (v: EntityOrComponentValue) => void;
+  onClick: (v: EntityOrComponentValue) => void;
 }
 const SourceDataTable: React.FC<Props> = ({ onClick }) => {
   return (
     <Table bordered hover>
-      <thead style={{ position: "sticky", top: 0 }}>
+      <thead style={{ position: 'sticky', top: 0 }}>
         <tr>
           <th>First</th>
           <th>Last</th>
@@ -17,7 +17,7 @@ const SourceDataTable: React.FC<Props> = ({ onClick }) => {
       </thead>
       <tbody>
         <tr
-          onClick={() => onClick({ type: "component", component_guid: "1234" })}
+          onClick={() => onClick({ type: 'component', component_guid: '1234' })}
         >
           <td>Jim</td>
           <td>Steps</td>
@@ -25,9 +25,7 @@ const SourceDataTable: React.FC<Props> = ({ onClick }) => {
         </tr>
         <tr className="table-active table-primary border-dark">
           <td>Steve</td>
-          <td>
-            Whats
-          </td>
+          <td>Whats</td>
           <td>Steve.whats@example.com</td>
         </tr>
         <tr>

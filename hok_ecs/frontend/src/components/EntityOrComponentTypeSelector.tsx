@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import Select, { ActionMeta, SingleValue } from "react-select";
+import Select, { ActionMeta, SingleValue } from 'react-select';
 import type { EntityOrComponentType } from '../App';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 type Option = {
-  type: "entity" | "component";
+  type: 'entity' | 'component';
   value: string;
   label: string;
 };
@@ -17,21 +17,28 @@ type Option = {
 const EntityOrComponentTypeSelector: React.FC<Props> = ({
   entityTypes,
   componentTypes,
-  onSelect
+  onSelect,
 }) => {
-  const entityOptions = entityTypes.map((t) => ({ type: "entity", value: t, label: t } as Option));
-  const componentOptions = componentTypes.map((t) => ({ type: "component", value: t, label: t } as Option));
+  const entityOptions = entityTypes.map(
+    (t) => ({ type: 'entity', value: t, label: t } as Option),
+  );
+  const componentOptions = componentTypes.map(
+    (t) => ({ type: 'component', value: t, label: t } as Option),
+  );
 
-  const onChange = useCallback((newValue: SingleValue<Option>, _actionMeta: ActionMeta<Option>) => {
-    if (!newValue) return;
+  const onChange = useCallback(
+    (newValue: SingleValue<Option>, _actionMeta: ActionMeta<Option>) => {
+      if (!newValue) return;
 
-    onSelect(newValue);
-    //if (newValue.type === "entity") {
+      onSelect(newValue);
+      //if (newValue.type === "entity") {
       //onSelectEntityType(newValue.value)
-    //} else if (newValue.type === "component") {
+      //} else if (newValue.type === "component") {
       //onSelectComponentType(newValue.value)
-    //}
-  }, [onSelect])
+      //}
+    },
+    [onSelect],
+  );
 
   return (
     <div>
@@ -40,11 +47,11 @@ const EntityOrComponentTypeSelector: React.FC<Props> = ({
         onChange={onChange}
         options={[
           {
-            label: "Entity",
+            label: 'Entity',
             options: entityOptions,
           },
           {
-            label: "Component",
+            label: 'Component',
             options: componentOptions,
           },
         ]}
