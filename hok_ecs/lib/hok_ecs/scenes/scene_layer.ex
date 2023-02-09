@@ -1,5 +1,6 @@
 defmodule HokEcs.Scenes.SceneLayer do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   alias HokEcs.Layers.Layer
@@ -7,7 +8,7 @@ defmodule HokEcs.Scenes.SceneLayer do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "scene_layers" do
+  typed_schema "scene_layers" do
     belongs_to :scene, Scene,
       foreign_key: :scene_guid,
       references: :scene_guid

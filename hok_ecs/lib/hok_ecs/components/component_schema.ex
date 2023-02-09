@@ -1,5 +1,6 @@
 defmodule HokEcs.Components.ComponentSchema do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   @attrs [:name, :schema]
@@ -7,7 +8,7 @@ defmodule HokEcs.Components.ComponentSchema do
 
   @primary_key {:component_schema_guid, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "component_schemas" do
+  typed_schema "component_schemas" do
     field :name, :string
     field :schema, :map
 

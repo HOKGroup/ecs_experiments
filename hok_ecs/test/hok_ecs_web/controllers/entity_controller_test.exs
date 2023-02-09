@@ -40,8 +40,7 @@ defmodule HokEcsWeb.EntityControllerTest do
 
   describe "create entity" do
     test "renders entity when data is valid", %{conn: conn} do
-      conn =
-        post(conn, Routes.entity_path(conn, :create), entity: @create_attrs)
+      conn = post(conn, Routes.entity_path(conn, :create), entity: @create_attrs)
 
       assert %{"entity_guid" => entity_guid} = json_response(conn, 201)["data"]
 
@@ -53,8 +52,7 @@ defmodule HokEcsWeb.EntityControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn =
-        post(conn, Routes.entity_path(conn, :create), entity: @invalid_attrs)
+      conn = post(conn, Routes.entity_path(conn, :create), entity: @invalid_attrs)
 
       response = json_response(conn, 422)
 
@@ -73,8 +71,7 @@ defmodule HokEcsWeb.EntityControllerTest do
     test "renders entity for valid entity guid", %{conn: conn, entity: entity} do
       entity_guid = entity.entity_guid
 
-      conn =
-        get(conn, Routes.entity_path(conn, :show, entity_guid))
+      conn = get(conn, Routes.entity_path(conn, :show, entity_guid))
 
       assert %{"entity_guid" => ^entity_guid} = json_response(conn, 200)["data"]
     end
@@ -87,8 +84,7 @@ defmodule HokEcsWeb.EntityControllerTest do
       conn: conn,
       entity: %Entity{entity_guid: entity_guid} = entity
     } do
-      conn =
-        put(conn, Routes.entity_path(conn, :update, entity), entity: @update_attrs)
+      conn = put(conn, Routes.entity_path(conn, :update, entity), entity: @update_attrs)
 
       assert %{"entity_guid" => ^entity_guid} = json_response(conn, 200)["data"]
 
@@ -100,8 +96,7 @@ defmodule HokEcsWeb.EntityControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, entity: entity} do
-      conn =
-        put(conn, Routes.entity_path(conn, :update, entity), entity: @invalid_attrs)
+      conn = put(conn, Routes.entity_path(conn, :update, entity), entity: @invalid_attrs)
 
       response = json_response(conn, 422)
 

@@ -1,5 +1,6 @@
 defmodule HokEcs.Events.Event do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   alias HokEcs.Entities.Entity
@@ -10,7 +11,7 @@ defmodule HokEcs.Events.Event do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "events" do
+  typed_schema "events" do
     field :data, :map
     field :type, :string
 

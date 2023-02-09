@@ -20,11 +20,15 @@ defmodule HokEcsWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
   scope "/api", HokEcsWeb do
     pipe_through :api
 
     resources "/entities", EntityController, only: [:index, :create, :show, :update]
+  end
+
+  scope "/app", HokEcsWeb do
+    get "/", WebappController, :index
+    get "/*path", WebappController, :index
   end
 
   # Enables LiveDashboard only for development

@@ -9,6 +9,7 @@ defmodule HokEcs.Relationships.Operations do
     RelationshipDestinationComponent
   }
 
+  @spec relationship_with_links(Relationship.t()) :: Relationship.t()
   def relationship_with_links(%Relationship{} = relationship) do
     relationship
     |> Repo.preload([
@@ -19,6 +20,14 @@ defmodule HokEcs.Relationships.Operations do
     ])
   end
 
+  @spec create_relationship_joins_in_multi(
+          Ecto.Multi.t(),
+          list(String.t()),
+          list(String.t()),
+          list(String.t()),
+          list(String.t())
+        ) ::
+          Ecto.Multi.t()
   def create_relationship_joins_in_multi(
         %Ecto.Multi{} = multi,
         source_entity_guids,

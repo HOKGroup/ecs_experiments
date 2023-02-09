@@ -30,7 +30,8 @@ defmodule HokEcs.MixProject do
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test
-      ]
+      ],
+      dialyzer: [plt_add_apps: [:mix]]
     ]
   end
 
@@ -70,7 +71,10 @@ defmodule HokEcs.MixProject do
       {:ex_json_schema, "~> 0.9.2"},
       {:ecto_psql_extras, "~> 0.6", only: :dev},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:typed_ecto_schema, "~> 0.4.1", runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 

@@ -13,6 +13,7 @@ defmodule HokEcs.Events do
       [%Event{}, ...]
 
   """
+  @spec list_events :: list(Event.t())
   def list_events do
     Repo.all(Event)
   end
@@ -31,8 +32,11 @@ defmodule HokEcs.Events do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_event!(String.t()) :: Event.t()
   def get_event!(id), do: Repo.get!(Event, id)
 
+  @spec create_entity_created_event(Entity.t(), map()) ::
+          {:ok, Event.t()} | {:error, Ecto.Changeset.t()}
   def create_entity_created_event(%Entity{} = entity, attrs \\ %{}) do
     %Event{
       type: "entity_created",
@@ -42,6 +46,8 @@ defmodule HokEcs.Events do
     |> Repo.insert()
   end
 
+  @spec create_entity_updated_event(Entity.t(), map()) ::
+          {:ok, Event.t()} | {:error, Ecto.Changeset.t()}
   def create_entity_updated_event(%Entity{} = entity, attrs \\ %{}) do
     %Event{
       type: "entity_updated",
@@ -51,6 +57,8 @@ defmodule HokEcs.Events do
     |> Repo.insert()
   end
 
+  @spec create_component_created_event(Component.t(), map()) ::
+          {:ok, Event.t()} | {:error, Ecto.Changeset.t()}
   def create_component_created_event(%Component{} = component, attrs \\ %{}) do
     %Event{
       type: "component_created",
@@ -60,6 +68,8 @@ defmodule HokEcs.Events do
     |> Repo.insert()
   end
 
+  @spec create_component_updated_event(Component.t(), map()) ::
+          {:ok, Event.t()} | {:error, Ecto.Changeset.t()}
   def create_component_updated_event(%Component{} = component, attrs \\ %{}) do
     %Event{
       type: "component_updated",

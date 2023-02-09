@@ -16,6 +16,36 @@ defmodule HokEcs.EntitiesTest do
       assert Entities.list_entities() == [entity]
     end
 
+    test "list_entities_by_classification/1 returns all entities with the given classification" do
+      matching_entity_1 = entity_fixture(%{classification: "my classification"})
+      matching_entity_1_guid = matching_entity_1.entity_guid
+
+      matching_entity_2 = entity_fixture(%{classification: "my classification"})
+      matching_entity_2_guid = matching_entity_2.entity_guid
+
+      _other_entity_1 = entity_fixture()
+      _other_entity_2 = entity_fixture()
+
+      result = Entities.list_entities_by_classification("my classification")
+
+      assert [
+               %Entity{
+                 entity_guid: ^matching_entity_1_guid
+               },
+               %Entity{
+                 entity_guid: ^matching_entity_2_guid
+               }
+             ] = result
+    end
+
+    test "list_entities_by_classification/1 returns an empty list if no entities match the given classification" do
+      entity_fixture(%{classification: "one"})
+      entity_fixture(%{classification: "two"})
+      entity_fixture(%{classification: "three"})
+
+      assert [] == Entities.list_entities_by_classification("four")
+    end
+
     test "get_entity!/1 returns the entity with given id" do
       entity = entity_fixture()
       assert Entities.get_entity!(entity.entity_guid) == entity

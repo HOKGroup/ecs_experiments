@@ -1,5 +1,6 @@
 defmodule HokEcs.Relationships.Relationship do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   alias HokEcs.Relationships.{
@@ -20,7 +21,7 @@ defmodule HokEcs.Relationships.Relationship do
 
   @primary_key {:relationship_guid, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "relationships" do
+  typed_schema "relationships" do
     field :active, :boolean, default: false
     field :context, :string
     field :relationship_name, :string

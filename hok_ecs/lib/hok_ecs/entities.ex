@@ -20,8 +20,15 @@ defmodule HokEcs.Entities do
       [%Entity{}, ...]
 
   """
+  @spec list_entities :: list(Entity.t())
   def list_entities do
     Repo.all(Entity)
+  end
+
+  @spec list_entities_by_classification(String.t()) :: list(Entity.t())
+  def list_entities_by_classification(classification) do
+    query = from Entity, where: [classification: ^classification]
+    Repo.all(query)
   end
 
   @doc """
@@ -38,6 +45,7 @@ defmodule HokEcs.Entities do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_entity!(String.t()) :: Entity.t()
   def get_entity!(id), do: Repo.get!(Entity, id)
 
   @doc """
@@ -52,6 +60,7 @@ defmodule HokEcs.Entities do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_entity(map()) :: {:ok, Entity.t()} | {:error, Ecto.Changeset.t()}
   def create_entity(attrs \\ %{}) do
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:entity, Entity.changeset(%Entity{}, attrs))
@@ -77,6 +86,7 @@ defmodule HokEcs.Entities do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_entity(Entity.t(), map()) :: {:ok, Entity.t()} | {:error, Ecto.Changeset.t()}
   def update_entity(%Entity{} = entity, attrs) do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:entity, Entity.changeset(entity, attrs))
@@ -99,6 +109,7 @@ defmodule HokEcs.Entities do
       %Ecto.Changeset{data: %Entity{}}
 
   """
+  @spec change_entity(Entity.t(), map()) :: Ecto.Changeset.t()
   def change_entity(%Entity{} = entity, attrs \\ %{}) do
     Entity.changeset(entity, attrs)
   end

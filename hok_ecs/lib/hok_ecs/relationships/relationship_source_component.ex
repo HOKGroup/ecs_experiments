@@ -1,10 +1,11 @@
 defmodule HokEcs.Relationships.RelationshipSourceComponent do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "relationship_source_components" do
+  typed_schema "relationship_source_components" do
     field :relationship_guid, :binary_id
     field :component_guid, :binary_id
 

@@ -1,5 +1,6 @@
 defmodule HokEcs.Entities.Entity do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   @attrs [:classification, :classification_reference, :context, :creation_date]
@@ -7,7 +8,7 @@ defmodule HokEcs.Entities.Entity do
   @primary_key {:entity_guid, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   @derive {Phoenix.Param, key: :entity_guid}
-  schema "entities" do
+  typed_schema "entities" do
     field :classification_reference, :string
     field :classification, :string
     field :context, :string

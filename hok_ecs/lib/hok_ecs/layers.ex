@@ -17,6 +17,7 @@ defmodule HokEcs.Layers do
       [%Layer{}, ...]
 
   """
+  @spec list_layers :: list(Layer.t())
   def list_layers do
     Repo.all(Layer)
   end
@@ -35,6 +36,7 @@ defmodule HokEcs.Layers do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_layer!(String.t()) :: Layer.t()
   def get_layer!(id), do: Repo.get!(Layer, id)
 
   @doc """
@@ -49,6 +51,7 @@ defmodule HokEcs.Layers do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_layer(map()) :: {:ok, Layer.t()} | {:error, Ecto.Changeset.t()}
   def create_layer(attrs \\ %{}) do
     %Layer{}
     |> Layer.changeset(attrs)
@@ -67,6 +70,7 @@ defmodule HokEcs.Layers do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_layer(Layer.t(), map()) :: {:ok, Layer.t()} | {:error, Ecto.Changeset.t()}
   def update_layer(%Layer{} = layer, attrs) do
     layer
     |> Layer.changeset(attrs)
@@ -85,6 +89,7 @@ defmodule HokEcs.Layers do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_layer(Layer.t()) :: {:ok, Layer.t()} | {:error, Ecto.Changeset.t()}
   def delete_layer(%Layer{} = layer) do
     Repo.delete(layer)
   end
@@ -98,10 +103,13 @@ defmodule HokEcs.Layers do
       %Ecto.Changeset{data: %Layer{}}
 
   """
+  @spec change_layer(Layer.t(), map()) :: Ecto.Changeset.t()
   def change_layer(%Layer{} = layer, attrs \\ %{}) do
     Layer.changeset(layer, attrs)
   end
 
+  @spec add_entity_to_layer(String.t(), Layer.t()) ::
+          {:ok, LayerEntity.t()} | {:error, Ecto.Changeset.t()}
   def add_entity_to_layer(entity_guid, %Layer{} = layer) do
     %LayerEntity{}
     |> LayerEntity.changeset(%{
@@ -111,6 +119,8 @@ defmodule HokEcs.Layers do
     |> Repo.insert()
   end
 
+  @spec add_component_to_layer(String.t(), Layer.t()) ::
+          {:ok, LayerComponent.t()} | {:error, Ecto.Changeset.t()}
   def add_component_to_layer(component_guid, %Layer{} = layer) do
     %LayerComponent{}
     |> LayerComponent.changeset(%{
@@ -120,6 +130,8 @@ defmodule HokEcs.Layers do
     |> Repo.insert()
   end
 
+  @spec add_relationship_to_layer(String.t(), Layer.t()) ::
+          {:ok, LayerRelationship.t()} | {:error, Ecto.Changeset.t()}
   def add_relationship_to_layer(relationship_guid, %Layer{} = layer) do
     %LayerRelationship{}
     |> LayerRelationship.changeset(%{
@@ -135,6 +147,7 @@ defmodule HokEcs.Layers do
     components: [:component_schema]
   ]
 
+  @spec get_layer_data(Layer.t() | String.t()) :: Layer.t() | nil
   def get_layer_data(%Layer{} = layer) do
     layer
     |> Map.get(:layer_guid)

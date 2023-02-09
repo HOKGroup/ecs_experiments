@@ -1,4 +1,5 @@
 defmodule HokEcs.Components do
+  import Ecto.Query, warn: false
   alias HokEcs.Repo
   alias __MODULE__.Component
   alias HokEcs.Events
@@ -13,8 +14,15 @@ defmodule HokEcs.Components do
       [%Component{}, ...]
 
   """
+  @spec list_components :: list(Component.t())
   def list_components do
     Repo.all(Component)
+  end
+
+  @spec list_components_by_component_type(String.t()) :: list(Component.t())
+  def list_components_by_component_type(component_type) do
+    query = from Component, where: [component_type: ^component_type]
+    Repo.all(query)
   end
 
   @doc """
@@ -31,6 +39,7 @@ defmodule HokEcs.Components do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_component!(String.t()) :: Component.t()
   def get_component!(id), do: Repo.get!(Component, id)
 
   @doc """
@@ -45,6 +54,7 @@ defmodule HokEcs.Components do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_component(map()) :: {:ok, Component.t()} | {:error, Ecto.Changeset.t()}
   def create_component(attrs \\ %{}) do
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:component, Component.changeset(%Component{}, attrs))
@@ -70,7 +80,9 @@ defmodule HokEcs.Components do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_component(%Component{} = component, attrs) do
+  @spec update_component(Component.t(), map()) ::
+          {:ok, Component.t()} | {:error, Ecto.Changeset.t()}
+  def(update_component(%Component{} = component, attrs)) do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:component, Component.changeset(component, attrs))
     |> Ecto.Multi.run(:event, fn _repo, %{component: component} ->
@@ -107,6 +119,7 @@ defmodule HokEcs.Components do
       [%ComponentSchema{}, ...]
 
   """
+  @spec list_component_schemas :: list(ComponentSchema.t())
   def list_component_schemas do
     Repo.all(ComponentSchema)
   end
@@ -125,6 +138,7 @@ defmodule HokEcs.Components do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_component_schema!(String.t()) :: ComponentSchema.t()
   def get_component_schema!(id), do: Repo.get!(ComponentSchema, id)
 
   @doc """
@@ -139,6 +153,8 @@ defmodule HokEcs.Components do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_component_schema(map()) ::
+          {:ok, ComponentSchema.t()} | {:error, Ecto.Changeset.t()}
   def create_component_schema(attrs \\ %{}) do
     %ComponentSchema{}
     |> ComponentSchema.changeset(attrs)
@@ -157,6 +173,8 @@ defmodule HokEcs.Components do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_component_schema(ComponentSchema.t(), map()) ::
+          {:ok, ComponentSchema.t()} | {:error, Ecto.Changeset.t()}
   def update_component_schema(%ComponentSchema{} = component_schema, attrs) do
     component_schema
     |> ComponentSchema.changeset(attrs)
@@ -175,6 +193,8 @@ defmodule HokEcs.Components do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_component_schema(ComponentSchema.t()) ::
+          {:ok, ComponentSchema.t()} | {:error, Ecto.Changeset.t()}
   def delete_component_schema(%ComponentSchema{} = component_schema) do
     Repo.delete(component_schema)
   end
@@ -188,6 +208,7 @@ defmodule HokEcs.Components do
       %Ecto.Changeset{data: %ComponentSchema{}}
 
   """
+  @spec change_component_schema(ComponentSchema.t(), map()) :: Ecto.Changeset.t()
   def change_component_schema(%ComponentSchema{} = component_schema, attrs \\ %{}) do
     ComponentSchema.changeset(component_schema, attrs)
   end

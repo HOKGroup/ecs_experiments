@@ -16,6 +16,7 @@ defmodule HokEcs.Relationships do
       [%Relationship{}, ...]
 
   """
+  @spec list_relationships :: list(Relationship.t())
   def list_relationships do
     Repo.all(Relationship)
   end
@@ -34,6 +35,7 @@ defmodule HokEcs.Relationships do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_relationship!(String.t()) :: Relationship.t()
   def get_relationship!(id), do: Repo.get!(Relationship, id)
 
   @doc """
@@ -48,6 +50,7 @@ defmodule HokEcs.Relationships do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_relationship(map()) :: {:ok, Relationship.t()} | {:error, Ecto.Changeset.t()}
   def create_relationship(attrs \\ %{}) do
     %Relationship{}
     |> Relationship.changeset(attrs)
@@ -66,6 +69,8 @@ defmodule HokEcs.Relationships do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_relationship(Relationship.t(), map()) ::
+          {:ok, Relationship.t()} | {:error, Ecto.Changeset.t()}
   def update_relationship(%Relationship{} = relationship, attrs) do
     relationship
     |> Relationship.changeset(attrs)
@@ -84,6 +89,8 @@ defmodule HokEcs.Relationships do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_relationship(Relationship.t()) ::
+          {:ok, Relationship.t()} | {:error, Ecto.Changeset.t()}
   def delete_relationship(%Relationship{} = relationship) do
     Repo.delete(relationship)
   end
@@ -97,10 +104,18 @@ defmodule HokEcs.Relationships do
       %Ecto.Changeset{data: %Relationship{}}
 
   """
+  @spec change_relationship(Relationship.t(), map()) :: Ecto.Changeset.t()
   def change_relationship(%Relationship{} = relationship, attrs \\ %{}) do
     Relationship.changeset(relationship, attrs)
   end
 
+  @spec create_relationship(
+          map(),
+          list(String.t()),
+          list(String.t()),
+          list(String.t()),
+          list(String.t())
+        ) :: {:ok, Relationship.t()} | {:error, Ecto.Changeset.t()}
   def create_relationship(
         attrs \\ %{},
         source_entity_guids,
@@ -108,25 +123,33 @@ defmodule HokEcs.Relationships do
         destination_entity_guids,
         destination_component_guids
       ) do
-    with {:ok, result} <-
-           Ecto.Multi.new()
-           |> Ecto.Multi.insert(:relationship, Relationship.changeset(%Relationship{}, attrs))
-           |> Operations.create_relationship_joins_in_multi(
-             source_entity_guids,
-             source_component_guids,
-             destination_entity_guids,
-             destination_component_guids
-           )
-           |> Repo.transaction() do
-      result
-      |> Map.get(:relationship)
-      |> Operations.relationship_with_links()
-      |> Helpers.ok()
-    else
-      {:error, _, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
+    case Ecto.Multi.new()
+         |> Ecto.Multi.insert(:relationship, Relationship.changeset(%Relationship{}, attrs))
+         |> Operations.create_relationship_joins_in_multi(
+           source_entity_guids,
+           source_component_guids,
+           destination_entity_guids,
+           destination_component_guids
+         )
+         |> Repo.transaction() do
+      {:ok, result} ->
+        result
+        |> Map.get(:relationship)
+        |> Operations.relationship_with_links()
+        |> Helpers.ok()
+
+      {:error, _, %Ecto.Changeset{} = changeset, _} ->
+        {:error, changeset}
     end
   end
 
+  @spec add_links_to_relationship(
+          Relationship.t(),
+          list(String.t()),
+          list(String.t()),
+          list(String.t()),
+          list(String.t())
+        ) :: {:ok, Relationship.t()} | {:error, Ecto.Changeset.t()}
   def add_links_to_relationship(
         %Relationship{} = relationship,
         source_entity_guids,
@@ -134,22 +157,23 @@ defmodule HokEcs.Relationships do
         destination_entity_guids,
         destination_component_guids
       ) do
-    with {:ok, result} <-
-           Ecto.Multi.new()
-           |> Ecto.Multi.put(:relationship, relationship)
-           |> Operations.create_relationship_joins_in_multi(
-             source_entity_guids,
-             source_component_guids,
-             destination_entity_guids,
-             destination_component_guids
-           )
-           |> Repo.transaction() do
-      result
-      |> Map.get(:relationship)
-      |> Operations.relationship_with_links()
-      |> Helpers.ok()
-    else
-      {:error, _, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
+    case Ecto.Multi.new()
+         |> Ecto.Multi.put(:relationship, relationship)
+         |> Operations.create_relationship_joins_in_multi(
+           source_entity_guids,
+           source_component_guids,
+           destination_entity_guids,
+           destination_component_guids
+         )
+         |> Repo.transaction() do
+      {:ok, result} ->
+        result
+        |> Map.get(:relationship)
+        |> Operations.relationship_with_links()
+        |> Helpers.ok()
+
+      {:error, _, %Ecto.Changeset{} = changeset, _} ->
+        {:error, changeset}
     end
   end
 end

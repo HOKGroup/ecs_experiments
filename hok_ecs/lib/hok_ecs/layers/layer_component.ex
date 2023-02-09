@@ -1,5 +1,6 @@
 defmodule HokEcs.Layers.LayerComponent do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   alias HokEcs.Components.Component
@@ -7,7 +8,7 @@ defmodule HokEcs.Layers.LayerComponent do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "layer_components" do
+  typed_schema "layer_components" do
     # field :layer_guid, :binary_id
     # field :component_guid, :binary_id
 

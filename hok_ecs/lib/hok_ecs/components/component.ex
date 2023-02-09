@@ -1,5 +1,6 @@
 defmodule HokEcs.Components.Component do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   alias HokEcs.Components.ComponentSchema
@@ -30,7 +31,7 @@ defmodule HokEcs.Components.Component do
   @primary_key {:component_guid, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   @derive {Phoenix.Param, key: :component_guid}
-  schema "components" do
+  typed_schema "components" do
     field :active, :boolean
     field :creation_date, :string
     field :authoring_application, :string

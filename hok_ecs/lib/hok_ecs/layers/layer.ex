@@ -1,5 +1,6 @@
 defmodule HokEcs.Layers.Layer do
-  use Ecto.Schema
+  use TypedEctoSchema
+
   import Ecto.Changeset
 
   alias HokEcs.Layers.{LayerEntity, LayerComponent, LayerRelationship}
@@ -21,7 +22,7 @@ defmodule HokEcs.Layers.Layer do
 
   @primary_key {:layer_guid, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "layers" do
+  typed_schema "layers" do
     field :active, :boolean
     field :context, :string
     field :layer_description, :string
