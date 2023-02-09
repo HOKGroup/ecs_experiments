@@ -20,11 +20,11 @@ defmodule HokEcsWeb.Router do
     get "/", PageController, :index
   end
 
-  scope "/api", HokEcsWeb do
-    pipe_through :api
+  forward "/api/graphql", Absinthe.Plug, schema: HokEcsWeb.AbsintheSchema
 
-    resources "/entities", EntityController, only: [:index, :create, :show, :update]
-  end
+  forward "/api/graphiql",
+          Absinthe.Plug.GraphiQL,
+          schema: HokEcsWeb.AbsintheSchema
 
   scope "/app", HokEcsWeb do
     get "/", WebappController, :index
