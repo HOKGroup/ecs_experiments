@@ -38,16 +38,19 @@ def create_table(conn, create_table_sql):
 def main():
     database = r"S:\Git\ecs_experiments\json_schema\PythonScripts\ecs.db"
 
+    
     sql_create_entity_table = """ CREATE TABLE IF NOT EXISTS entity (
-                                        entity_guid integer PRIMARY KEY AUTOINCREMENT,
+                                        entity_guid text PRIMARY KEY,
                                         classification text NOT NULL,
                                         classification_reference text,
                                         context text,
                                         creation_date text
                                     ); """
 
+                                    
+
     sql_create_component_table = """CREATE TABLE IF NOT EXISTS component (
-                                        component_guid integer PRIMARY KEY AUTOINCREMENT,
+                                        component_guid text PRIMARY KEY,
                                         component_sequence_name text,
                                         component_sequence_id text,
                                         context text,
@@ -71,7 +74,7 @@ def main():
                                     );"""
     
     sql_create_relationship_table = """CREATE TABLE IF NOT EXISTS relationship (
-                                        relationship_guid integer PRIMARY KEY AUTOINCREMENT,
+                                        relationship_guid text PRIMARY KEY,
                                         context text,
                                         relationship_name text,
                                         relationship_type text,
@@ -86,7 +89,7 @@ def main():
                                     );"""
     
     sql_create_layer_table = """CREATE TABLE IF NOT EXISTS layer (
-                                        layer_guid integer PRIMARY KEY AUTOINCREMENT,
+                                        layer_guid text PRIMARY KEY,
                                         context text,
                                         layer_name text,
                                         layer_id text,
@@ -103,7 +106,7 @@ def main():
                                     );"""
     
     sql_create_scene_table = """CREATE TABLE IF NOT EXISTS scene (
-                                        scene_guid integer PRIMARY KEY AUTOINCREMENT,
+                                        scene_guid text PRIMARY KEY,
                                         context text,
                                         scene_name text,
                                         scene_id text,
@@ -114,7 +117,7 @@ def main():
                                     );"""
 
     sql_create_payload_table = """CREATE TABLE IF NOT EXISTS payload (
-                                        payload_guid integer PRIMARY KEY AUTOINCREMENT,
+                                        payload_guid text PRIMARY KEY ,
                                         component_guid text,
                                         payload blob,
                                         FOREIGN KEY (component_guid) REFERENCES component (component_guid)

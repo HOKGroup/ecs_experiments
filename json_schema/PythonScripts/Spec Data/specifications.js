@@ -1,10 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "specification.document",
-    "version": "V0.01",
+    "title": "Word Document Schema",
     "type": "object",
     "properties": {
-        "DocumentText": {
+        "document_structure": {
             "type": "array",
             "items": {
                 "type": "object",
