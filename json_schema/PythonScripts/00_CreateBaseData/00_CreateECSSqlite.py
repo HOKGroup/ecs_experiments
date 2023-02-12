@@ -41,9 +41,10 @@ def main():
     
     sql_create_entity_table = """ CREATE TABLE IF NOT EXISTS entity (
                                         entity_guid text PRIMARY KEY,
-                                        classification text NOT NULL,
-                                        classification_reference text,
                                         context text,
+                                        context_id text,
+                                        classification text,
+                                        classification_reference text,
                                         creation_date text
                                     ); """
 
@@ -52,15 +53,16 @@ def main():
     sql_create_component_table = """CREATE TABLE IF NOT EXISTS component (
                                         component_guid text PRIMARY KEY,
                                         component_sequence_name text,
-                                        component_sequence_id text,
+                                        component_sequence_value text,
                                         context text,
+                                        context_id text,
                                         component_name text,
                                         component_id text,
                                         entity_guid text,
                                         entity_classification text,
                                         component_type text,
                                         component_type_referenece text,
-                                        component_payload_type text,
+                                        component_type_payload text,
                                         owner text,
                                         version integer,
                                         status text,
@@ -68,7 +70,6 @@ def main():
                                         creation_date text,
                                         authoring_application text,
                                         hash1 text,
-                                        schema text,
                                         payload blob,
                                         FOREIGN KEY (entity_guid) REFERENCES entity (entity_guid)
                                     );"""
