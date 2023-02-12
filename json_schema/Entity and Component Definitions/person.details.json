@@ -1,25 +1,31 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "Person.Details",
-    "version": "V0.02",
+    "title": "person.details",
+    "data_format": "json",
+    "version": "V0.01",
     "type": "object",
     "properties": {
-      "FirstName": {
+      "first_name": {
         "type": "string",
         "description": "Persons First Name"
       },
-      "LastName": {
+      "last_name": {
         "type": "string",
         "description": "Persons last Name"
       },
-      "EmailAddress": {
+      "email_address": {
         "type": "string",
         "description": "persons email address"
       },
-      "UniqueID": {
+      "unique_id": {
         "description": "Entity Specific Identifer",
         "type": "string"
       }
-
-    }
-  }
+    },
+    "required": [
+      "first_name",
+      "last_name",
+      "email_address",
+      "unique_id"
+      ]
+}

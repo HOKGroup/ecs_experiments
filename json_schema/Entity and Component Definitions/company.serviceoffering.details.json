@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "company.serviceoffering.details",
+    "version": "V0.01",
+    "data_format": "json",
+    "type": "object",
+    "properties": {
+      "service_offerings": {
+        "type": "array",
+        "items":{
+            "type":"string",
+            "description": "List of services the company provides;  archtiectural design, landscape design, urban planning, ...structural engineering, ... "
+        }
+      }
+    },
+    "required": [
+      "service_offerings"
+      ]
+}

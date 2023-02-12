@@ -2,6 +2,7 @@
     "$schema": "http://json-schema.org/schema#",
     "title": "submittal.requirements",
     "version": "V0.01",
+    "data_format": "json",
     "type": "object",
     "properties": {
       "SubmitalRequirement": {

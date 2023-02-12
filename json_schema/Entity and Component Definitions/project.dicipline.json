@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.dicipline",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "dicipline": {
+            "type": "string",
+            "description": "Dicipline on the project",
+            "enum": [
+                "Architecture",
+                "Structural Engineering",
+                "Building Services",
+                "HVAC Engineering",
+                "Plumbing Engineering",
+                "Electrical Engineering",
+                "Fire Protection",
+                "*"
+
+            ]
+          }
+    
+        },
+      "required": [
+          "project_name"
+          ]
+    }

@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "company.details",
+    "version": "V0.01",
+    "data_format": "geojson",
+    "type": "object",
+    "properties": {
+      "geometry": {
+        "type": "point",
+        "description": "coordinates for a point in geojson"
+      }
+    },
+    "required": [
+      "point"
+      ]
+}

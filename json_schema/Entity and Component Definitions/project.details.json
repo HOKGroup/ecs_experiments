@@ -1,29 +1,37 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "Project.Details",
+    "title": "project.details",
+    "data_format": "json",
     "version": "V0.01",
     "type": "object",
     "properties": {
-      "ProjectName": {
+      "project_name": {
         "type": "string",
         "description": "The Project Name"
       },
-      "ProjectNameAlias": {
+      "project_name_alias": {
         "type": "string",
         "description": "Location of the Project from a managmeent perspective "
       },
-      "ProjectNumber": {
-        "type": "Number",
+      "project_number": {
+        "type": "string",
         "description": "The Project Number"
       },
-      "UniqueID": {
+      "unique_id": {
         "description": "Entity Specific Identifer",
         "type": "string"
       },
-      "AdminLocation": {
+      "admin_location": {
         "type": "string",
         "description": "Location of the Project from a managmeent perspective "
       }
 
-    }
-  }
+    },
+  "required": [
+      "project_name",
+      "project_name_alias",
+      "project_number",
+      "unique_id",
+      "admin_location"
+      ]
+}

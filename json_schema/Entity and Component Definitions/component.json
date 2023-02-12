@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "version": "V0.01",
+    "data_format": "json",
     "title": "component",
     "type": "object",
     "properties": {

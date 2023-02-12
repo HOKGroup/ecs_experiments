@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "company.details",
+    "version": "V0.01",
+    "data_format": "json",
+    "type": "object",
+    "properties": {
+      "company_name": {
+        "type": "string",
+        "description": "Company Name"
+      },
+      "company_short_name": {
+        "type": "string",
+        "description": "Abbreviaion or short name for company"
+      },
+      "unique_id": {
+        "description": "Company Unique ID",
+        "type": "string"
+      }
+    },
+    "required": [
+      "comapny_name",
+      "unique_id"
+      ]
+}

@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "specification.document",
+    "data_format": "json",
     "version": "V0.01",
     "type": "object",
     "properties": {

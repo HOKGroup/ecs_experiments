@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "company.location.details",
+    "version": "V0.01",
+    "data_format": "json",
+    "type": "object",
+    "properties": {
+      "location_name": {
+        "type": "string",
+        "description": "Company Locaiton Name"
+      },
+      "location_short_name": {
+        "type": "string",
+        "description": "Abbreviaion or short name for company location"
+      },
+      "address1": {
+        "type": "string",
+        "description": "First Address Line"
+      },
+      "address2": {
+        "type": "string",
+        "description": "Second Address Line"
+      },
+      "city": {
+        "type": "string",
+        "description": "City"
+      },
+      "state_province": {
+        "type": "string",
+        "description": "State for province"
+      },
+      "country": {
+        "type": "string",
+        "description": "Country"
+      },
+      "postal_code": {
+        "type": "string",
+        "description": "Postal Code"
+      },
+      "telephone": {
+        "type": "string",
+        "description": "Telephone for location"
+      },
+      "fax": {
+        "type": "string",
+        "description": "Fax for location"
+      },
+      "unique_id": {
+        "description": "Company Location Unique ID",
+        "type": "string"
+      }
+    },
+    "required": [
+      "location_name",
+      "unique_id"
+      ]
+}
