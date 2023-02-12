@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "version": "V0.01",
+    "title": "Component",
+    "type": "object",
+    "properties": {
+        "component_guid": {
+            "type": "string",
+            "description": "URI or Globally Unique ID"
+        },
+        "component_sequence_name": {
+            "type": "string",
+            "description": "For Components that have a sequence to them, like documents or other data this is where the defintion name is stored"
+        },
+        "component_sequence_value": {
+            "type": "string",
+            "description": "For Components that have a sequence this is where the sequence value is stored... 001, 002, A, B C..."
+        },
+        "context": {
+            "type": "string",
+            "description": "Container location where the data is stored "
+        },
+        "context_id": {
+            "type": "string",
+            "description": "Unique Identifier of a context that this data belongs, a project, enterprise, ect. "
+        },
+        "component_name": {
+            "type": "string",
+            "description": "User Name for the component "
+        },
+        "component_id": {
+            "type": "string",
+            "description": "User number for the component "
+        },
+        "entity_guid": {
+            "type": "string",
+            "description": "GUID of parent entity"
+        },
+        "entity_classification": {
+            "type": "string",
+            "description": "Classification of parent entity"
+        },
+        "component_type": {
+            "type": "string",
+            "description": "Definition of component; Like Person.Details, Specification.Document, Submital.Responce, etc"
+        },
+        "component_type_reference": {
+            "type": "string",
+            "description": "reference to the version and location of the defintion of the component_type; Can be local or URI etc"
+        },
+        "component_type_payload": {
+            "type": "string",
+            "description": "what is the expected encododing of the data in the component payload.  json,geojson,gltf, object, 3dm, rvt, ifc etc"
+        },
+        "owner": {
+            "type": "string",
+            "description": "The user or entity that is the owner of this component"
+        },
+        "version": {
+            "type": "string",
+            "description": "The version of this component"
+        },
+        "status": {
+            "type": "string",
+            "description": "User define value for nature of component"
+        },
+        "active": {
+            "type": "boolean",
+            "description": "Is the component a valid, active component"
+        },
+        "creation_date": {
+            "type": "string",
+            "description": "Date that this version of the component was created"
+        },
+        "authoring_application": {
+            "type": "string",
+            "description": "Application that generated the component"
+        },
+        "hash1": {
+            "type": "string",
+            "description": "Hash of potentially many that is used to validate the object"
+        },
+        "payload": {
+            "type": "object",
+            "description": "Payload of the component"
+        }
+    },
+        "required": [
+            "component_guid",
+            "context",
+            "context_id",
+            "entity_guid",
+            "component_type",
+            "component_type_reference",
+            "component_type_payload",
+            "owner",
+            "version",
+            "active",
+            "creation_date",
+            "payload"
+
+        ],
+        "foreignKeys": [
+            {
+            "reference": {
+                "$ref": "file:///json_schema/entity.json#/properties/entity_guid"
+                },
+                "field": "entity_guid"
+            }
+        ]
+
+}
