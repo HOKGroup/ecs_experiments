@@ -45,7 +45,7 @@ defmodule HokEcs.DatabaseSeeder do
         "version" => "V0.01",
         "type" => "object",
         "properties" => %{
-          "General Action" => %{
+          "GeneralAction" => %{
             "type" => "string",
             "description" => "Use Provided Name of the Submittal"
           },
@@ -60,7 +60,7 @@ defmodule HokEcs.DatabaseSeeder do
               "description" => "List of potential documents or images attached to the submittal"
             }
           },
-          "Content Array" => %{
+          "ContentArray" => %{
             "type" => "array",
             "items" => %{
               "type" => "string",
@@ -302,8 +302,8 @@ defmodule HokEcs.DatabaseSeeder do
         schema: "person.details.v01",
         payload: %{
           "FirstName" => "Greg",
-          "lastName" => "Schleusner",
-          "Email" => "greg.schleusner@firm.com",
+          "LastName" => "Schleusner",
+          "EmailAddress" => "greg.schleusner@firm.com",
           "UniqueID" => "10101010101010"
         }
       }
@@ -693,7 +693,7 @@ defmodule HokEcs.DatabaseSeeder do
         schema: "project.details.v01",
         payload: %{
           "CompanyName" => "My Company",
-          "Company Acronym" => "MCN",
+          "CompanyAcronym" => "MCN",
           "UniqueID" => "313131313131"
         }
       }
@@ -723,7 +723,7 @@ defmodule HokEcs.DatabaseSeeder do
           "Address2" => "Suite1",
           "City" => "Santa Barbara",
           "State" => "CA",
-          "Postal Code" => "97858",
+          "PostalCode" => "97858",
           "UniqueID" => "4141414141",
           "AdminLocation" => "LA"
         }

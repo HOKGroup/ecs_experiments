@@ -7,6 +7,17 @@ defmodule HokEcsWeb.AbsintheSchema do
 
   import __MODULE__.Helpers
 
+  scalar :json do
+    parse fn input ->
+      case Jason.decode(input.value) do
+        {:ok, result} -> result
+        _ -> :error
+      end
+    end
+
+    serialize &Jason.encode!/1
+  end
+
   object :entity do
     field :entity_guid, non_null(:id)
     field :classification_reference, :string
@@ -27,6 +38,7 @@ defmodule HokEcsWeb.AbsintheSchema do
     field :owner, :string
     field :version, :integer
     field :status, :boolean
+    field :payload, :json
   end
 
   query do

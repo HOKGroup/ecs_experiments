@@ -1,0 +1,11 @@
+schema: http://localhost:4000/api/graphql
+documents:
+  - src/**/*.tsx
+ignoreNoDocuments: true
+generates:
+  ./src/gql/:
+    preset: client
+    plugins: []
+config:
+  scalars:
+    Json: string

@@ -1,0 +1,4 @@
+.data-table__header {
+  position: sticky;
+  top: 0;
+}
