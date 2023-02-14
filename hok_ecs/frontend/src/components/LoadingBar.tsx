@@ -45,7 +45,7 @@ const LoadingBar: React.FC<Props> = ({ loading, ...props }) => {
     return (
       <ProgressBar
         {...props}
-        className={`${props.className || ''} loading-bar__progress-bar`}
+        className={`${props.className ?? ''} loading-bar__progress-bar`}
         variant="info"
         now={now}
       />

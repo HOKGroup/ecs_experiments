@@ -76,7 +76,8 @@ defmodule HokEcs.MixProject do
       {:typed_ecto_schema, "~> 0.4.1", runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:absinthe, "~> 1.7"},
-      {:absinthe_plug, "~> 1.5"}
+      {:absinthe_plug, "~> 1.5"},
+      {:absinthe_error_payload, "~> 1.0"}
     ]
   end
 

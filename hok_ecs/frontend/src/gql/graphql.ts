@@ -46,18 +46,112 @@ export type Entity = {
   entityGuid: Scalars['ID'];
 };
 
+export type Relationship = {
+  __typename?: 'Relationship';
+  relationshipGuid: Scalars['ID'];
+  relationshipName?: Maybe<Scalars['String']>;
+  relationshipType?: Maybe<Scalars['String']>;
+};
+
+export type RelationshipPayload = {
+  __typename?: 'RelationshipPayload';
+  /** A list of failed validations. May be blank or null if mutation succeeded. */
+  messages?: Maybe<Array<Maybe<ValidationMessage>>>;
+  /** The object created/updated/deleted by the mutation. May be null if mutation failed. */
+  result?: Maybe<Relationship>;
+  /** Indicates if the mutation completed successfully or not. */
+  successful: Scalars['Boolean'];
+};
+
+export type RootMutationType = {
+  __typename?: 'RootMutationType';
+  createRelationship: RelationshipPayload;
+};
+
+export type RootMutationTypeCreateRelationshipArgs = {
+  destinationComponentGuids?: InputMaybe<Array<Scalars['ID']>>;
+  destinationEntityGuids?: InputMaybe<Array<Scalars['ID']>>;
+  relationshipType?: InputMaybe<Scalars['String']>;
+  sourceComponentGuids?: InputMaybe<Array<Scalars['ID']>>;
+  sourceEntityGuids?: InputMaybe<Array<Scalars['ID']>>;
+};
+
 export type RootQueryType = {
   __typename?: 'RootQueryType';
-  componentsByComponentType: Array<Component>;
-  entitiesByClassification: Array<Entity>;
+  components: Array<Component>;
+  entities: Array<Entity>;
 };
 
-export type RootQueryTypeComponentsByComponentTypeArgs = {
-  componentType: Scalars['String'];
+export type RootQueryTypeComponentsArgs = {
+  componentType?: InputMaybe<Scalars['String']>;
+  entityGuid?: InputMaybe<Scalars['String']>;
 };
 
-export type RootQueryTypeEntitiesByClassificationArgs = {
-  classification: Scalars['String'];
+export type RootQueryTypeEntitiesArgs = {
+  classification?: InputMaybe<Scalars['String']>;
+};
+
+/**
+ * Validation messages are returned when mutation input does not meet the requirements.
+ *   While client-side validation is highly recommended to provide the best User Experience,
+ *   All inputs will always be validated server-side.
+ *
+ *   Some examples of validations are:
+ *
+ *   * Username must be at least 10 characters
+ *   * Email field does not contain an email address
+ *   * Birth Date is required
+ *
+ *   While GraphQL has support for required values, mutation data fields are always
+ *   set to optional in our API. This allows 'required field' messages
+ *   to be returned in the same manner as other validations. The only exceptions
+ *   are id fields, which may be required to perform updates or deletes.
+ */
+export type ValidationMessage = {
+  __typename?: 'ValidationMessage';
+  /** A unique error code for the type of validation used. */
+  code: Scalars['String'];
+  /**
+   * The input field that the error applies to. The field can be used to
+   * identify which field the error message should be displayed next to in the
+   * presentation layer.
+   *
+   * If there are multiple errors to display for a field, multiple validation
+   * messages will be in the result.
+   *
+   * This field may be null in cases where an error cannot be applied to a specific field.
+   */
+  field?: Maybe<Scalars['String']>;
+  /**
+   * A friendly error message, appropriate for display to the end user.
+   *
+   * The message is interpolated to include the appropriate variables.
+   *
+   * Example: `Username must be at least 10 characters`
+   *
+   * This message may change without notice, so we do not recommend you match against the text.
+   * Instead, use the *code* field for matching.
+   */
+  message?: Maybe<Scalars['String']>;
+  /** A list of substitutions to be applied to a validation message template */
+  options?: Maybe<Array<Maybe<ValidationOption>>>;
+  /**
+   * A template used to generate the error message, with placeholders for option substiution.
+   *
+   * Example: `Username must be at least {count} characters`
+   *
+   * This message may change without notice, so we do not recommend you match against the text.
+   * Instead, use the *code* field for matching.
+   */
+  template?: Maybe<Scalars['String']>;
+};
+
+export type ValidationOption = {
+  __typename?: 'ValidationOption';
+  /** The name of a variable to be subsituted in a validation message template */
+  key: Scalars['String'];
+  /** The value of a variable to be substituted in a validation message template */
+  value: Scalars['String'];
 };
 
 export type EntitiesByClassificationQueryVariables = Exact<{
@@ -66,10 +160,7 @@ export type EntitiesByClassificationQueryVariables = Exact<{
 
 export type EntitiesByClassificationQuery = {
   __typename?: 'RootQueryType';
-  entitiesByClassification: Array<{
-    __typename?: 'Entity';
-    entityGuid: string;
-  }>;
+  entities: Array<{ __typename?: 'Entity'; entityGuid: string }>;
 };
 
 export type ComponentsByComponentTypeQueryVariables = Exact<{
@@ -78,11 +169,29 @@ export type ComponentsByComponentTypeQueryVariables = Exact<{
 
 export type ComponentsByComponentTypeQuery = {
   __typename?: 'RootQueryType';
-  componentsByComponentType: Array<{
+  components: Array<{
     __typename?: 'Component';
     componentGuid: string;
+    componentType?: string | null;
     payload?: string | null;
   }>;
+};
+
+export type CreateRelationshipMutationVariables = Exact<{
+  relationshipType?: InputMaybe<Scalars['String']>;
+  sourceEntityGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  sourceComponentGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  destinationEntityGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  destinationComponentGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+export type CreateRelationshipMutation = {
+  __typename?: 'RootMutationType';
+  createRelationship: {
+    __typename?: 'RelationshipPayload';
+    successful: boolean;
+    result?: { __typename?: 'Relationship'; relationshipGuid: string } | null;
+  };
 };
 
 export const EntitiesByClassificationDocument = {
@@ -113,7 +222,7 @@ export const EntitiesByClassificationDocument = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'entitiesByClassification' },
+            name: { kind: 'Name', value: 'entities' },
             arguments: [
               {
                 kind: 'Argument',
@@ -167,7 +276,7 @@ export const ComponentsByComponentTypeDocument = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'componentsByComponentType' },
+            name: { kind: 'Name', value: 'components' },
             arguments: [
               {
                 kind: 'Argument',
@@ -185,6 +294,10 @@ export const ComponentsByComponentTypeDocument = {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'componentGuid' },
                 },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'componentType' },
+                },
                 { kind: 'Field', name: { kind: 'Name', value: 'payload' } },
               ],
             },
@@ -196,4 +309,153 @@ export const ComponentsByComponentTypeDocument = {
 } as unknown as DocumentNode<
   ComponentsByComponentTypeQuery,
   ComponentsByComponentTypeQueryVariables
+>;
+export const CreateRelationshipDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateRelationship' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'relationshipType' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'sourceEntityGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'sourceComponentGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'destinationEntityGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'destinationComponentGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createRelationship' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'relationshipType' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'relationshipType' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sourceEntityGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'sourceEntityGuids' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sourceComponentGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'sourceComponentGuids' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'destinationEntityGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'destinationEntityGuids' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'destinationComponentGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'destinationComponentGuids' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'successful' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'result' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'relationshipGuid' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateRelationshipMutation,
+  CreateRelationshipMutationVariables
 >;

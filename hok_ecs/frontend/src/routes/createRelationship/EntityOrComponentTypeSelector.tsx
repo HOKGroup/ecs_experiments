@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
-import Select, { ActionMeta, SingleValue } from 'react-select';
+import Select from 'react-select';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
-import CursorToggle from './CursorToggle';
+import CursorToggle from '../../components/CursorToggle';
 
 interface Props {
   entityTypes: string[];
@@ -10,11 +10,11 @@ interface Props {
   isEnabled?: boolean;
 }
 
-type Option = {
+interface Option {
   type: 'entity' | 'component';
   value: string;
   label: string;
-};
+}
 
 const EntityOrComponentTypeSelector: React.FC<Props> = ({
   entityTypes,
@@ -31,20 +31,11 @@ const EntityOrComponentTypeSelector: React.FC<Props> = ({
     (t) => ({ type: 'component', value: t, label: t } as Option),
   );
 
-  const onChange = useCallback(
-    (newValue: SingleValue<Option>, _actionMeta: ActionMeta<Option>) => {
-      if (!newValue) return;
-
-      onSelect(newValue);
-    },
-    [onSelect],
-  );
-
   // Replaces default react-select filter function
   // with case-sensitive version
   const filterOption = useCallback(
     (option: FilterOptionOption<Option>, inputValue: string) => {
-      return option.label.indexOf(inputValue) !== -1;
+      return option.label.includes(inputValue);
     },
     [],
   );

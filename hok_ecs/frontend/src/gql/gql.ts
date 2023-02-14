@@ -13,10 +13,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-  '\n  query EntitiesByClassification($classification: String!) {\n    entitiesByClassification(classification: $classification) {\n      entityGuid\n    }\n  }\n':
+  '\n  query EntitiesByClassification($classification: String!) {\n    entities(classification: $classification) {\n      entityGuid\n    }\n  }\n':
     types.EntitiesByClassificationDocument,
-  '\n  query ComponentsByComponentType($componentType: String!) {\n    componentsByComponentType(componentType: $componentType) {\n      componentGuid\n      payload\n    }\n  }\n':
+  '\n  query ComponentsByComponentType($componentType: String!) {\n    components(componentType: $componentType) {\n      componentGuid\n      componentType\n      payload\n    }\n  }\n':
     types.ComponentsByComponentTypeDocument,
+  '\n  mutation CreateRelationship(\n    $relationshipType: String\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    createRelationship(\n      relationshipType: $relationshipType\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n':
+    types.CreateRelationshipDocument,
 };
 
 /**
@@ -37,14 +39,20 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query EntitiesByClassification($classification: String!) {\n    entitiesByClassification(classification: $classification) {\n      entityGuid\n    }\n  }\n',
-): (typeof documents)['\n  query EntitiesByClassification($classification: String!) {\n    entitiesByClassification(classification: $classification) {\n      entityGuid\n    }\n  }\n'];
+  source: '\n  query EntitiesByClassification($classification: String!) {\n    entities(classification: $classification) {\n      entityGuid\n    }\n  }\n',
+): (typeof documents)['\n  query EntitiesByClassification($classification: String!) {\n    entities(classification: $classification) {\n      entityGuid\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query ComponentsByComponentType($componentType: String!) {\n    componentsByComponentType(componentType: $componentType) {\n      componentGuid\n      payload\n    }\n  }\n',
-): (typeof documents)['\n  query ComponentsByComponentType($componentType: String!) {\n    componentsByComponentType(componentType: $componentType) {\n      componentGuid\n      payload\n    }\n  }\n'];
+  source: '\n  query ComponentsByComponentType($componentType: String!) {\n    components(componentType: $componentType) {\n      componentGuid\n      componentType\n      payload\n    }\n  }\n',
+): (typeof documents)['\n  query ComponentsByComponentType($componentType: String!) {\n    components(componentType: $componentType) {\n      componentGuid\n      componentType\n      payload\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateRelationship(\n    $relationshipType: String\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    createRelationship(\n      relationshipType: $relationshipType\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateRelationship(\n    $relationshipType: String\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    createRelationship(\n      relationshipType: $relationshipType\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n'];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

@@ -11,12 +11,12 @@ defmodule HokEcs.EntitiesTest do
   describe "entities" do
     @invalid_attrs %{classification_reference: 1234}
 
-    test "list_entities/0 returns all entities" do
+    test "list_entities/1 with no args returns all entities" do
       entity = entity_fixture()
       assert Entities.list_entities() == [entity]
     end
 
-    test "list_entities_by_classification/1 returns all entities with the given classification" do
+    test "list_entities/1 with classification returns all entities with the given classification" do
       matching_entity_1 = entity_fixture(%{classification: "my classification"})
       matching_entity_1_guid = matching_entity_1.entity_guid
 
@@ -26,7 +26,7 @@ defmodule HokEcs.EntitiesTest do
       _other_entity_1 = entity_fixture()
       _other_entity_2 = entity_fixture()
 
-      result = Entities.list_entities_by_classification("my classification")
+      result = Entities.list_entities(%{classification: "my classification"})
 
       assert [
                %Entity{
@@ -38,12 +38,12 @@ defmodule HokEcs.EntitiesTest do
              ] = result
     end
 
-    test "list_entities_by_classification/1 returns an empty list if no entities match the given classification" do
+    test "list_entities/1 with classification returns an empty list if no entities match the given classification" do
       entity_fixture(%{classification: "one"})
       entity_fixture(%{classification: "two"})
       entity_fixture(%{classification: "three"})
 
-      assert [] == Entities.list_entities_by_classification("four")
+      assert [] == Entities.list_entities(%{classification: "four"})
     end
 
     test "get_entity!/1 returns the entity with given id" do

@@ -14,14 +14,22 @@ defmodule HokEcs.Components do
       [%Component{}, ...]
 
   """
-  @spec list_components :: list(Component.t())
-  def list_components do
-    Repo.all(Component)
-  end
+  @spec list_components(map()) :: list(Component.t())
+  def list_components(args \\ %{}) do
+    query = from(Component)
 
-  @spec list_components_by_component_type(String.t()) :: list(Component.t())
-  def list_components_by_component_type(component_type) do
-    query = from Component, where: [component_type: ^component_type]
+    query =
+      case Map.get(args, :entity_guid) do
+        nil -> query
+        entity_guid -> where(query, entity_guid: ^entity_guid)
+      end
+
+    query =
+      case Map.get(args, :component_type) do
+        nil -> query
+        component_type -> where(query, component_type: ^component_type)
+      end
+
     Repo.all(query)
   end
 

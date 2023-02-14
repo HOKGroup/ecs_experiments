@@ -1,7 +1,7 @@
 defmodule HokEcsWeb.PageController do
   use HokEcsWeb, :controller
 
-  def index(conn, _params) do
-    render(conn, "index.html")
+  def app_redirect(conn, _params) do
+    redirect(conn, to: "/app")
   end
 end

@@ -6,10 +6,10 @@ interface Props {
 }
 
 const RelationshipTypeBadge: React.FC<Props> = ({ relationshipType }) => {
-  const bgClass = relationshipType ? 'primary' : 'secondary';
+  const bgClass = relationshipType ? 'bg-primary' : 'bg-secondary';
 
   return (
-    <h4 className="py-4">
+    <h4 className="py-4 mx-n4">
       <div
         className={`relationship__type__badge ${bgClass} p-4 rounded bg-gradient w-100`}
       >

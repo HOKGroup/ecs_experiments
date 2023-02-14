@@ -1,5 +1,8 @@
 import React from 'react';
-import { EntityOrComponentValue, RelationshipType } from '../App';
+import {
+  EntityOrComponentValue,
+  RelationshipType,
+} from '../CreateRelationship';
 import RelationshipMemberBadge from './RelationshipMemberBadge';
 import RelationshipTypeBadge from './RelationshipTypeBadge';
 

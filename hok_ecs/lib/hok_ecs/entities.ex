@@ -20,14 +20,16 @@ defmodule HokEcs.Entities do
       [%Entity{}, ...]
 
   """
-  @spec list_entities :: list(Entity.t())
-  def list_entities do
-    Repo.all(Entity)
-  end
+  @spec list_entities(map()) :: list(Entity.t())
+  def list_entities(args \\ %{}) do
+    query = from(Entity)
 
-  @spec list_entities_by_classification(String.t()) :: list(Entity.t())
-  def list_entities_by_classification(classification) do
-    query = from Entity, where: [classification: ^classification]
+    query =
+      case Map.get(args, :classification) do
+        nil -> query
+        classification -> where(query, classification: ^classification)
+      end
+
     Repo.all(query)
   end
 

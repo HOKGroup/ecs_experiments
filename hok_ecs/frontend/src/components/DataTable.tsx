@@ -24,7 +24,7 @@ const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
   onClickRow,
   hiddenColumns,
 }) => {
-  const hiddenCols = hiddenColumns || [];
+  const hiddenCols = hiddenColumns ?? [];
   const columnVisibility = hiddenCols.reduce(
     (acc, col) => ({ ...acc, [col]: false }),
     {},
@@ -40,7 +40,7 @@ const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
   });
 
   return (
-    <Table bordered hover>
+    <Table striped bordered hover>
       <thead className="bg-dark data-table__header">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
@@ -59,7 +59,7 @@ const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => {
-          const isActive = isRowActive && isRowActive(row);
+          const isActive = isRowActive?.(row);
           const className = isActive
             ? 'table-active table-primary border-dark'
             : '';
@@ -67,7 +67,7 @@ const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
             <tr
               key={row.id}
               className={className}
-              onClick={() => onClickRow && onClickRow(row)}
+              onClick={() => onClickRow?.(row)}
             >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { RelationshipType } from '../App';
+import { RelationshipType } from '../CreateRelationship';
 
 interface Props {
   onSelect: (relationshipType: RelationshipType | null) => void;

@@ -1,12 +1,23 @@
 import { ColumnDef, Row } from '@tanstack/react-table';
-import React, { memo, useCallback, useMemo } from 'react';
-import Table from 'react-bootstrap/Table';
-import { EntityOrComponentType, EntityOrComponentValue } from '../App';
-import DataTable from './DataTable';
+import React, { useCallback, useMemo } from 'react';
+import {
+  EntityOrComponentType,
+  EntityOrComponentValue,
+} from '../CreateRelationship';
+import DataTable from '../../components/DataTable';
+import {
+  CompanyDetails,
+  CompanyLocationDetails,
+  Payload,
+  PersonDetails,
+  ProjectDetails,
+  ProjectGroup,
+  ServiceDetails,
+} from '../../parsePayload';
 
 interface ComponentData {
   componentGuid: string;
-  payload: any;
+  payload: Payload;
 }
 
 interface EntityData {
@@ -18,8 +29,8 @@ type Data = ComponentData | EntityData;
 interface Props {
   onClick: (v: EntityOrComponentValue) => void;
   entityOrComponentType: EntityOrComponentType;
-  destinationData: Data[];
-  destinationValue: EntityOrComponentValue | undefined;
+  sourceData: Data[];
+  sourceValue: EntityOrComponentValue | undefined;
 }
 
 const entityColumns: ColumnDef<EntityData>[] = [
@@ -29,8 +40,8 @@ const entityColumns: ColumnDef<EntityData>[] = [
   },
   {
     header: 'LABEL',
-    id: 'LABEL',
     accessorKey: 'entityGuid',
+    id: 'LABEL',
   },
 ];
 
@@ -49,60 +60,81 @@ const getComponentColumns = (
       header: 'GUID',
       accessorKey: 'componentGuid',
     },
-    {
-      header: 'LABEL',
-      id: 'LABEL',
-      accessorKey: 'componentGuid',
-    },
   ];
 
   switch (componentType) {
-    case 'project.details':
+    case 'project.details': {
       return [
         {
+          header: 'Name',
+          accessorFn: (c) => (c.payload as ProjectDetails).ProjectName,
+        },
+        {
+          header: 'Number',
+          accessorFn: (c) => (c.payload as ProjectDetails).ProjectNumber,
+        },
+        {
           header: 'Alias',
-          accessorFn: (c) => c.payload.ProjectNameAlias,
+          accessorFn: (c) => (c.payload as ProjectDetails).ProjectNameAlias,
         },
         {
           header: 'LABEL',
+          accessorFn: (c) => (c.payload as ProjectDetails).ProjectNameAlias,
           id: 'LABEL',
-          accessorFn: (c) => c.payload.ProjectNameAlias,
         },
       ];
+    }
     case 'company.details':
       return [
         {
           header: 'Name',
-          accessorFn: (c) => c.payload.CompanyName,
+          accessorFn: (c) => (c.payload as CompanyDetails).CompanyName,
+        },
+        {
+          header: 'Acronym',
+          accessorFn: (c) => (c.payload as CompanyDetails).CompanyAcronym,
         },
         {
           header: 'LABEL',
+          accessorFn: (c) => (c.payload as CompanyDetails).CompanyName,
           id: 'LABEL',
-          accessorFn: (c) => c.payload.CompanyName,
         },
       ];
     case 'company.location.details':
       return [
         {
           header: 'Name',
-          accessorFn: (c) => c.payload.LocationName,
+          accessorFn: (c) => (c.payload as CompanyLocationDetails).LocationName,
+        },
+        {
+          header: 'Alias',
+          accessorFn: (c) =>
+            (c.payload as CompanyLocationDetails).LocationAlias,
         },
         {
           header: 'LABEL',
+          accessorFn: (c) => (c.payload as CompanyLocationDetails).LocationName,
           id: 'LABEL',
-          accessorFn: (c) => c.payload.LocationName,
         },
       ];
     case 'service.details':
       return [
         {
           header: 'Name',
-          accessorFn: (c) => c.payload.ServiceName,
+          accessorFn: (c) => (c.payload as ServiceDetails).ServiceName,
+        },
+        {
+          header: 'Acronym',
+          accessorFn: (c) => (c.payload as ServiceDetails).ServiceAcronym,
+        },
+        {
+          header: 'URL',
+          accessorFn: (c) => (c.payload as ServiceDetails).BaseURL,
         },
         {
           header: 'LABEL',
+          accessorFn: (c) => (c.payload as ServiceDetails).ServiceName,
           id: 'LABEL',
-          accessorFn: (c) => c.payload.ServiceName,
         },
       ];
 
@@ -110,24 +142,32 @@ const getComponentColumns = (
       return [
         {
           header: 'Group',
-          accessorFn: (c) => c.payload.GroupName,
+          accessorFn: (c) => (c.payload as ProjectGroup).GroupName,
         },
         {
           header: 'LABEL',
+          accessorFn: (c) => (c.payload as ProjectGroup).GroupName,
           id: 'LABEL',
-          accessorFn: (c) => c.payload.GroupName,
         },
       ];
     case 'person.details':
       return [
         {
+          header: 'First',
+          accessorFn: (c) => (c.payload as PersonDetails).FirstName,
+        },
+        {
+          header: 'Last',
+          accessorFn: (c) => (c.payload as PersonDetails).LastName,
+        },
+        {
           header: 'Email',
-          accessorFn: (c) => c.payload.EmailAddress,
+          accessorFn: (c) => (c.payload as PersonDetails).EmailAddress,
         },
         {
           header: 'LABEL',
+          accessorFn: (c) => (c.payload as PersonDetails).EmailAddress,
           id: 'LABEL',
-          accessorFn: (c) => c.payload.EmailAddress,
         },
       ];
     default:
@@ -135,11 +175,11 @@ const getComponentColumns = (
   }
 };
 
-const DestinationDataTable: React.FC<Props> = ({
+const SourceDataTable: React.FC<Props> = ({
   onClick,
   entityOrComponentType,
-  destinationData,
-  destinationValue,
+  sourceData,
+  sourceValue,
 }) => {
   const columns = useMemo(
     () => getColumns(entityOrComponentType),
@@ -148,28 +188,27 @@ const DestinationDataTable: React.FC<Props> = ({
 
   const isRowActive = useCallback(
     (row: Row<Data>) => {
-      if (!destinationValue) return false;
+      if (!sourceValue) return false;
 
-      if (destinationValue.type === 'entity') {
+      if (sourceValue.type === 'entity') {
         return (
-          destinationValue.entityGuid ===
-          (row.original as EntityData).entityGuid
+          sourceValue.entityGuid === (row.original as EntityData).entityGuid
         );
       }
 
       return (
-        destinationValue.componentGuid ===
+        sourceValue.componentGuid ===
         (row.original as ComponentData).componentGuid
       );
     },
-    [destinationValue],
+    [sourceValue],
   );
 
   return (
     <DataTable
       hiddenColumns={['LABEL']}
       columns={columns}
-      data={destinationData}
+      data={sourceData}
       isRowActive={isRowActive}
       onClickRow={(row) => {
         const { type } = entityOrComponentType;
@@ -180,7 +219,7 @@ const DestinationDataTable: React.FC<Props> = ({
             entityGuid: (row.original as EntityData).entityGuid,
             label: row.getValue('LABEL'),
           });
-        } else if (type === 'component') {
+        } else {
           onClick({
             type: 'component',
             componentGuid: (row.original as ComponentData).componentGuid,
@@ -192,4 +231,4 @@ const DestinationDataTable: React.FC<Props> = ({
   );
 };
 
-export default DestinationDataTable;
+export default SourceDataTable;

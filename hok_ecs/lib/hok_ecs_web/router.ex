@@ -17,7 +17,7 @@ defmodule HokEcsWeb.Router do
   scope "/", HokEcsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", PageController, :app_redirect
   end
 
   forward "/api/graphql", Absinthe.Plug, schema: HokEcsWeb.AbsintheSchema

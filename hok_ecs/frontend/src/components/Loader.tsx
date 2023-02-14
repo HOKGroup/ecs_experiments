@@ -36,6 +36,8 @@ const Loader: React.FC<PropsWithChildren<Props>> = ({
 
       setTimeoutInstance(timeout);
     }
+
+    return clearTimeoutInstance;
   }, [loading]);
 
   if (loading || !isExpired) {
