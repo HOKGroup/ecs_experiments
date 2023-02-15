@@ -13,7 +13,7 @@ class CompanyDetailsForm:
         self.schema_files = {
             "entity": "json_schema/Entity and Component Definitions/entity.json",
             "component": "json_schema/Entity and Component Definitions/component.json",
-            "payload": "json_schema/Entity and Component Definitions/person.details.json"
+            "payload": "json_schema\Entity and Component Definitions\project.ifc.full.json"
         }
 
         self.schemas = {}
@@ -91,6 +91,10 @@ class CompanyDetailsForm:
                     uuid_ent_comp = uuid_ent
                     field.insert(0, uuid_ent_comp)
 
+                # If the property is an "text file"
+                elif options["type"] == "string" and options.get("format") == "text":
+                    field = tk.Text(frame, height=10, width=200)
+                    field.pack()
 
                 else:
                     field = tk.Entry(frame)
@@ -104,21 +108,6 @@ class CompanyDetailsForm:
         save_button = tk.Button(master, text="Save", command=self.save_data)
         save_button.pack()
 
-        # Bind key presses to generate UUIDs
-        master.bind("1", lambda event: self.insert_uuid(event, 1))
-        master.bind("2", lambda event: self.insert_uuid(event, 2))
-
-    def insert_uuid(self, event, uuid_number):
-        uuid_value = str(uuid.uuid4())
-        field = self.master.focus_get()
-        if isinstance(field, tk.Text):
-            field.insert(tk.INSERT, uuid_value)
-        elif isinstance(field, tk.Entry):
-            current_text = field.get()
-            current_cursor_pos = field.index(tk.INSERT)
-            field.delete(0, tk.END)
-            field.insert(0, current_text[:current_cursor_pos] + uuid_value + current_text[current_cursor_pos:])
-            field.icursor(current_cursor_pos + len(uuid_value))
 
     def save_data(self):
         for name, schema in self.schemas.items():

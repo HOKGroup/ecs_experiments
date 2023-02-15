@@ -22,3 +22,4 @@ shell.nix
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+json_schema/PythonScripts/temp.py
