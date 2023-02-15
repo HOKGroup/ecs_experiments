@@ -7,15 +7,18 @@
     "properties": {
         "component_guid": {
             "type": "string",
-            "description": "URI or Globally Unique ID"
+            "description": "URI or Globally Unique ID",
+            "format":"uuid_component"
         },
         "component_sequence_name": {
             "type": "string",
-            "description": "For Components that have a sequence to them, like documents or other data this is where the defintion name is stored"
+            "description": "For Components that have a sequence to them, like documents or other data this is where the defintion name is stored",
+            "format":"squence_name"
         },
         "component_sequence_value": {
             "type": "string",
-            "description": "For Components that have a sequence this is where the sequence value is stored... 001, 002, A, B C..."
+            "description": "For Components that have a sequence this is where the sequence value is stored... 001, 002, A, B C...",
+            "format":"squence_number"
         },
         "context": {
             "type": "string",
@@ -38,7 +41,7 @@
         "entity_guid": {
             "type": "string",
             "description": "GUID of parent entity",
-            "uuid1": "generate"
+            "format":"uuid_component_entity"
         },
         "entity_classification": {
             "type": "string",
@@ -47,7 +50,20 @@
         },
         "component_type": {
             "type": "string",
-            "description": "Definition of component; Like Person.Details, Specification.Document, Submital.Responce, etc"
+            "description": "Definition of component; Like Person.Details, Specification.Document, Submital.Responce, etc",
+            "enum": [
+                "person.details",
+                "person.project.add",
+                "company.details",
+                "company.location.details",
+                "compnay.location.point",
+                "company.serviceoffering.details",
+                "project.details",
+                "project.dicipline",
+                "project.group",
+                "project.location.polygon",
+                "service.admin.details"
+            ]
         },
         "component_type_reference": {
             "type": "string",
@@ -76,7 +92,8 @@
         },
         "creation_date": {
             "type": "string",
-            "description": "Date that this version of the component was created"
+            "description": "Date that this version of the component was created",
+            "format": "date-time"
         },
         "authoring_application": {
             "type": "string",

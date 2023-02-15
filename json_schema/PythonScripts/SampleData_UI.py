@@ -2,6 +2,8 @@ import tkinter as tk
 import json
 import os
 import uuid
+from datetime import datetime
+import random
 
 class CompanyDetailsForm:
     def __init__(self, master):
@@ -41,6 +43,55 @@ class CompanyDetailsForm:
                 elif options["type"] == "array":
                     field = tk.Text(frame, height=5, width=30)
                     field.pack()
+                # If the property is a date-time, show the date and time
+                elif options["type"] == "string" and options.get("format") == "date-time":
+                    field = tk.Entry(frame)
+                    field.pack()
+
+                    current_date_time = datetime.now()
+                    field.insert(0, current_date_time)
+
+                # If the property is sequence name
+                elif options["type"] == "string" and options.get("format") == "squence_name":
+                    field = tk.Entry(frame)
+                    field.pack()
+
+                    sequence_name = result_str = ''.join((random.choice('abcdxyzpqr') for i in range(5)))
+                    field.insert(0, sequence_name)
+                
+                                # If the property is sequence number
+                elif options["type"] == "string" and options.get("format") == "squence_number":
+                    field = tk.Entry(frame)
+                    field.pack()
+
+                    sequence_number = random.randint(1, 10)
+                    field.insert(0, sequence_number)
+
+                # If the property is a UUID entity then insert UUID
+                elif options["type"] == "string" and options.get("format") == "uuid_entity":
+                    field = tk.Entry(frame)
+                    field.pack()
+
+                    uuid_ent = uuid.uuid4()
+                    field.insert(0, uuid_ent)
+
+                # If the property is a UUID component then insert UUID
+                elif options["type"] == "string" and options.get("format") == "uuid_component":
+                    field = tk.Entry(frame)
+                    field.pack()
+
+                    uuid_comp = uuid.uuid4()
+                    field.insert(0, uuid_comp)
+
+                # If the property is a UUID_component_entity enter the UUID of the Entity
+                elif options["type"] == "string" and options.get("format") == "uuid_component_entity":
+                    field = tk.Entry(frame)
+                    field.pack()
+
+                    uuid_ent_comp = uuid_ent
+                    field.insert(0, uuid_ent_comp)
+
+
                 else:
                     field = tk.Entry(frame)
                     field.pack()

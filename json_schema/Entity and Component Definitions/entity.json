@@ -7,7 +7,8 @@
     "properties": {
       "entity_guid": {
         "type": "string",
-        "description": "URI or Globally Unique ID"
+        "description": "URI or Globally Unique ID",
+        "format":"uuid_entity"
       },
       "context": {
         "type": "string",
@@ -21,16 +22,28 @@
       },
       "entity_classifcation": {
         "type": "string",
-        "description": "Classifcation of the object"
+        "description": "Classifcation of the object",
+        "enum": [
+          "person",
+          "project",
+          "company",
+          "service",
+          "submital",
+          "rfi",
+          "issue",
+          "skill"
+      ]
     },
     "entity_classifcation_reference": {
         "type": "string",
         "description": "reference to the version and location of the defintion of the entity; Can be local or URI etc",
-        "hidden": "true"
+        "hidden": "true",
+        "format": "uri-reference"
     },
     "creation_date": {
       "type": "string",
-      "description": "Date that this version of the entity was created"
+      "description": "Date that this version of the entity was created",
+      "format":"date-time"
   }
   },
   "required": [
