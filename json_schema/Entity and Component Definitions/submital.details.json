@@ -23,9 +23,9 @@
       },
       "Submittal Contents": {
         "type": "array",
+        "description": "List of potential documents or images attached to the submittal",
         "items":{
-            "type":"string",
-            "description": "List of potential documents or images attached to the submittal"
+            "type":"string"
         }
       }
  

@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.details",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+      "number_of_projects": {
+        "type": "string",
+        "description": "Project Count"
+    },
+    "Average_By_Dicipline": {
+      "type": "array",
+      "description": "List of Projects by Dicipline",
+      "items":{
+          "type":"string"
+      }
+    },
+    "Average_by_Size": {
+        "type": "array",
+        "description": "Size",
+        "items":{
+            "type":"string"
+        }
+    },
+    "Average_by_Region": {
+            "type": "array",
+            "description": "List of Projects by Dicipline",
+            "items":{
+                "type":"string"
+            }
+            }
+
+    },
+  "required": [
+      "project_name",
+      "project_name_alias",
+      "project_number",
+      "unique_id",
+      "admin_location"
+      ]
+}

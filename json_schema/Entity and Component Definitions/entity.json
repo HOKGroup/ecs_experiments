@@ -11,11 +11,13 @@
       },
       "context": {
         "type": "string",
-        "description": "Container location where the data is stored "
+        "description": "Container location where the data is stored ",
+        "hidden": "true"
       },
       "context_id": {
         "type": "string",
-        "description": "Unique Identifier of a context that this data belongs, a project, enterprise, ect. "
+        "description": "Unique Identifier of a context that this data belongs, a project, enterprise, ect. ",
+        "hidden": "true"
       },
       "entity_classifcation": {
         "type": "string",
@@ -23,7 +25,8 @@
     },
     "entity_classifcation_reference": {
         "type": "string",
-        "description": "reference to the version and location of the defintion of the entity; Can be local or URI etc"
+        "description": "reference to the version and location of the defintion of the entity; Can be local or URI etc",
+        "hidden": "true"
     },
     "creation_date": {
       "type": "string",

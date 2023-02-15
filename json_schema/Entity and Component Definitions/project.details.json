@@ -11,7 +11,7 @@
       },
       "project_name_alias": {
         "type": "string",
-        "description": "Location of the Project from a managmeent perspective "
+        "description": "Short name for the project "
       },
       "project_number": {
         "type": "string",

@@ -9,22 +9,22 @@
         "type": "string",
         "description": "Use Provided Name of the Submittal"
       },
-      "Description": {
+      "content": {
         "type": "string",
         "description": "User Provided Number of the submittal"
       },
       "ItemAction": {
         "type": "array",
+        "description": "List of potential documents or images attached to the submittal",
         "items":{
-            "type":"string",
-            "description": "List of potential documents or images attached to the submittal"
+            "type":"string"
         }
       },
       "Content Array": {
         "type": "array",
+        "description": "List of potential documents or images attached to the submittal",
         "items":{
-            "type":"string",
-            "description": "List of potential documents or images attached to the submittal"
+            "type":"string"
         }
       }
       }

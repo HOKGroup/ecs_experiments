@@ -19,11 +19,13 @@
         },
         "context": {
             "type": "string",
-            "description": "Container location where the data is stored "
+            "description": "Container location where the data is stored ",
+            "hidden": "true"
         },
         "context_id": {
             "type": "string",
-            "description": "Unique Identifier of a context that this data belongs, a project, enterprise, ect. "
+            "description": "Unique Identifier of a context that this data belongs, a project, enterprise, ect. ",
+            "hidden": "true"
         },
         "component_name": {
             "type": "string",
@@ -35,11 +37,13 @@
         },
         "entity_guid": {
             "type": "string",
-            "description": "GUID of parent entity"
+            "description": "GUID of parent entity",
+            "uuid1": "generate"
         },
         "entity_classification": {
             "type": "string",
-            "description": "Classification of parent entity"
+            "description": "Classification of parent entity",
+            "hidden": "true"
         },
         "component_type": {
             "type": "string",
@@ -47,7 +51,8 @@
         },
         "component_type_reference": {
             "type": "string",
-            "description": "reference to the version and location of the defintion of the component_type; Can be local or URI etc"
+            "description": "reference to the version and location of the defintion of the component_type; Can be local or URI etc",
+            "hidden": "true"
         },
         "component_type_payload": {
             "type": "string",
@@ -79,7 +84,8 @@
         },
         "hash1": {
             "type": "string",
-            "description": "Hash of potentially many that is used to validate the object"
+            "description": "Hash of potentially many that is used to validate the object",
+            "hidden": "true"
         },
         "payload": {
             "type": "object",
