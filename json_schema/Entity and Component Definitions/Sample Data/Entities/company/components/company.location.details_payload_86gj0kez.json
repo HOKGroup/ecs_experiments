@@ -1,0 +1,13 @@
+{
+    "location_name": "Acme Denver",
+    "location_short_name": "AC Denver",
+    "address1": "4867 Front Range Place",
+    "address2": "#22",
+    "city": "Denver",
+    "state_province": "CO",
+    "country": "USA",
+    "postal_code": "78647",
+    "telephone": "403-445-5754",
+    "fax": "403-445-5754",
+    "unique_id": "0011"
+}

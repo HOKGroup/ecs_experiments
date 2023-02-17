@@ -48,6 +48,7 @@
   },
   "required": [
       "entity_guid",
+      "entity_classifcation",
       "context",
       "context_id",
       "creation_date"

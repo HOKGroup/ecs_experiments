@@ -1,0 +1,16 @@
+{
+    "component_guid": "3a5f1b55-f571-4c57-ac48-8869109657a0",
+    "component_sequence_name": "",
+    "component_sequence_value": "",
+    "component_name": "Luceline Pharm",
+    "component_id": "00005",
+    "entity_guid": "f67f0a9e-c1d3-4837-8fc4-d6e99caaaac1",
+    "component_type": "company.details",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00001",
+    "status": "",
+    "active": "1",
+    "creation_date": "2023-02-17 12:37:57.704046",
+    "authoring_application": "other"
+}

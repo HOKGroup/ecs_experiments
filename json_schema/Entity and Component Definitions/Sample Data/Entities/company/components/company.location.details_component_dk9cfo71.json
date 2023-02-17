@@ -1,0 +1,16 @@
+{
+    "component_guid": "7be5f61a-bd08-456a-9331-18a4f36fd3c1",
+    "component_sequence_name": "zdqpq",
+    "component_sequence_value": "10",
+    "component_name": "HOK LA",
+    "component_id": "017",
+    "entity_guid": "6cf41da7-baa6-41d6-acb2-10e529ee98c1",
+    "component_type": "company.location.details",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00002",
+    "status": "",
+    "active": "1",
+    "creation_date": "2023-02-17 12:49:00.824217",
+    "authoring_application": "other"
+}
