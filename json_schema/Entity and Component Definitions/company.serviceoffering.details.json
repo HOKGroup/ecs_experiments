@@ -5,14 +5,46 @@
     "data_format": "json",
     "type": "object",
     "properties": {
-      "Serivces": {
+      "Primary Service": {
         "type": "object",
         "description": "Services Offered by the Compnay",
         "enum": [
-          "Trajecotory",
-          "Spec Tool",
-          "Simple BIM App",
-          "other"
+          "Architecture",
+          "Interior Design",
+          "Urban Planning",
+          "Structual Engineering",
+          "Building Services Engineering",
+          "Civil Engineering",
+          "Geotechnical Engineering",
+          "Construction Managment"
+      ]
+      },
+      "Serivce2": {
+        "type": "object",
+        "description": "Services Offered by the Compnay",
+        "enum": [
+          "Architecture",
+          "Interior Design",
+          "Urban Planning",
+          "Structual Engineering",
+          "Building Services Engineering",
+          "Civil Engineering",
+          "Geotechnical Engineering",
+          "Construction Managment"
+      ]
+      },
+      "Serivce3": {
+        "type": "object",
+        "description": "Services Offered by the Compnay",
+        "enum": [
+          "Architecture",
+          "Interior Design",
+          "Urban Planning",
+          "Structual Engineering",
+          "Building Services Engineering",
+          "Civil Engineering",
+          "Geotechnical Engineering",
+          "Construction Managment"
       ]
       }
 
