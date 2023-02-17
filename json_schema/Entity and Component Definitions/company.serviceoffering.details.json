@@ -5,15 +5,17 @@
     "data_format": "json",
     "type": "object",
     "properties": {
-      "service_offerings": {
-        "type": "array",
-        "items":{
-            "type":"string",
-            "description": "List of services the company provides;  archtiectural design, landscape design, urban planning, ...structural engineering, ... "
-        }
-      }
-    },
-    "required": [
-      "service_offerings"
+      "Serivces": {
+        "type": "object",
+        "description": "Services Offered by the Compnay",
+        "enum": [
+          "Trajecotory",
+          "Spec Tool",
+          "Simple BIM App",
+          "other"
       ]
+      }
+
+}
+
 }

@@ -72,19 +72,46 @@
         },
         "component_type_payload": {
             "type": "string",
-            "description": "what is the expected encododing of the data in the component payload.  json,geojson,gltf, object, 3dm, rvt, ifc etc"
+            "description": "what is the expected encododing of the data in the component payload.  json,geojson,gltf, object, 3dm, rvt, ifc etc",
+            "enum": [
+                "json",
+                "json-ld",
+                "geojson",
+                "step",
+                "ifc",
+                "dwg",
+                "gltf",
+                "obj",
+                "image",
+                "word",
+                "blob"
+            ]
         },
         "owner": {
             "type": "string",
-            "description": "The user or entity that is the owner of this component"
+            "description": "The user or entity that is the owner of this component",
+            "enum": [
+                "HOK",
+                "SomeCompnay"
+            ]
         },
         "version": {
             "type": "string",
-            "description": "The version of this component"
+            "description": "The version of this component",
+            "enum": [
+                "V.00001",
+                "V.00002",
+                "V.00003"
+            ]
         },
         "status": {
             "type": "string",
-            "description": "User define value for nature of component"
+            "description": "User define value for nature of component",
+            "enum": [
+                "For Client Review",
+                "For Intenral Review",
+                "Option 2"
+            ]
         },
         "active": {
             "type": "boolean",
@@ -97,7 +124,13 @@
         },
         "authoring_application": {
             "type": "string",
-            "description": "Application that generated the component"
+            "description": "Application that generated the component",
+            "enum": [
+                "Trajecotory",
+                "Spec Tool",
+                "Simple BIM App",
+                "other"
+            ]
         },
         "hash1": {
             "type": "string",
@@ -106,7 +139,8 @@
         },
         "payload": {
             "type": "object",
-            "description": "Payload of the component"
+            "description": "Payload of the component",
+            "hidden": "true"
         }
     },
         "required": [

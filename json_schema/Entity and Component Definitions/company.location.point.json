@@ -4,6 +4,8 @@
     "version": "V0.01",
     "data_format": "geojson",
     "type": "object",
+    "description": "Location Point",
+    "format":"text",
     "required": [
       "type",
       "coordinates"
