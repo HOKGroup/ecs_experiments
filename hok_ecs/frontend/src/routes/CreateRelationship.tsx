@@ -1,26 +1,34 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'urql';
+import { useMutation } from 'urql';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import EntityOrComponentTypeSelector from './createRelationship/EntityOrComponentTypeSelector';
-import SourceDataTable from './createRelationship/SourceDataTable';
-import DestinationDataTable from './createRelationship/DestinationDataTable';
 import { graphql } from '../gql';
-import Alert from 'react-bootstrap/Alert';
 import RelationshipTypeSelector from './createRelationship/RelationshipTypeSelector';
-import Loader from '../components/Loader';
-import LoadingSpinner from '../components/LoadingSpinner';
-import LoadingBar from '../components/LoadingBar';
 import Relationship from './createRelationship/Relationship';
 import CancelSubmitButtons from './createRelationship/CancelSubmitButtons';
 import { useNavigate } from 'react-router-dom';
-import parsePayload from '../parsePayload';
-import { hasPresentKey } from 'ts-is-present';
+import DataPanel from './createRelationship/DataPanel';
+import InvertRelationshipButton from './createRelationship/InvertRelationshipButton';
 
-export interface EntityOrComponentType {
-  type: 'entity' | 'component';
-  value: string;
+interface EntityType {
+  type: 'entity';
+  entityClassification: string;
+  componentType: string;
+  label: string;
 }
+
+interface ComponentType {
+  type: 'component';
+  componentType: string;
+  label: string;
+}
+
+export type EntityOrComponentType = EntityType | ComponentType;
+
+// export interface EntityOrComponentType {
+//   type: 'entity' | 'component';
+//   value: string;
+// }
 
 interface EntityValue {
   type: 'entity';
@@ -30,6 +38,7 @@ interface EntityValue {
 
 interface ComponentValue {
   type: 'component';
+  entityGuid: string;
   componentGuid: string;
   label: string;
 }
@@ -40,41 +49,6 @@ export interface RelationshipType {
 }
 
 export type EntityOrComponentValue = EntityValue | ComponentValue;
-
-const ENTITY_TYPES = [
-  'Company',
-  'Project',
-  'Service',
-  'Person',
-  'Specification',
-].sort();
-
-const COMPONENT_TYPES = [
-  'person.details',
-  'project.group',
-  'service.details',
-  'company.location.details',
-  'company.details',
-  'project.details',
-].sort();
-
-const EntitiesByClassificationQuery = graphql(`
-  query EntitiesByClassification($classification: String!) {
-    entities(classification: $classification) {
-      entityGuid
-    }
-  }
-`);
-
-const ComponentsByComponentTypeQuery = graphql(`
-  query ComponentsByComponentType($componentType: String!) {
-    components(componentType: $componentType) {
-      componentGuid
-      componentType
-      payload
-    }
-  }
-`);
 
 const CreateRelationshipMutation = graphql(`
   mutation CreateRelationship(
@@ -99,15 +73,21 @@ const CreateRelationshipMutation = graphql(`
   }
 `);
 
-const App: React.FC = () => {
+const CreateRelationship: React.FC = () => {
   const navigate = useNavigate();
 
-  const [sourceType, setSourceType] = useState(
+  const [sourceType1, setSourceType1] = useState(
     undefined as EntityOrComponentType | undefined,
   );
+
+  const [sourceType2, setSourceType2] = useState(
+    undefined as EntityOrComponentType | undefined,
+  );
+
   const [destinationType1, setDestinationType1] = useState(
     undefined as EntityOrComponentType | undefined,
   );
+
   const [destinationType2, setDestinationType2] = useState(
     undefined as EntityOrComponentType | undefined,
   );
@@ -116,7 +96,11 @@ const App: React.FC = () => {
     undefined as RelationshipType | undefined,
   );
 
-  const [sourceValue, setSourceValue] = useState(
+  const [sourceValue1, setSourceValue1] = useState(
+    undefined as EntityOrComponentValue | undefined,
+  );
+
+  const [sourceValue2, setSourceValue2] = useState(
     undefined as EntityOrComponentValue | undefined,
   );
 
@@ -128,37 +112,16 @@ const App: React.FC = () => {
     undefined as EntityOrComponentValue | undefined,
   );
 
-  const updateSelectedValue = useCallback(
-    (selectedValue: EntityOrComponentValue) =>
-      (v: EntityOrComponentValue | undefined) => {
-        if (!v) {
-          return selectedValue;
-        } else if (v.type === 'entity') {
-          if (v.entityGuid === (selectedValue as EntityValue).entityGuid) {
-            return undefined;
-          } else {
-            return selectedValue;
-          }
-        } else {
-          if (
-            v.componentGuid === (selectedValue as ComponentValue).componentGuid
-          ) {
-            return undefined;
-          } else {
-            return selectedValue;
-          }
-        }
-
-        // fallback
-        return undefined;
-      },
-    [],
-  );
-
   const onSubmit = useCallback(() => {
     if (!relationshipType) return;
+    if (!sourceValue1 && !sourceValue2) return;
+    if (!destinationValue1 && !destinationValue2) return;
+
+    const sourceValue = sourceValue2 ?? sourceValue1;
+    const destinationValue = destinationValue2 ?? destinationValue1;
+
     if (!sourceValue) return;
-    if (!destinationValue2) return;
+    if (!destinationValue) return;
 
     void createRelationship({
       relationshipType: relationshipType.value,
@@ -167,15 +130,19 @@ const App: React.FC = () => {
       sourceComponentGuids:
         sourceValue.type === 'component' ? [sourceValue.componentGuid] : [],
       destinationEntityGuids:
-        destinationValue2.type === 'entity'
-          ? [destinationValue2.entityGuid]
-          : [],
+        destinationValue.type === 'entity' ? [destinationValue.entityGuid] : [],
       destinationComponentGuids:
-        destinationValue2.type === 'component'
-          ? [destinationValue2.componentGuid]
+        destinationValue.type === 'component'
+          ? [destinationValue.componentGuid]
           : [],
     });
-  }, [relationshipType, sourceValue, destinationValue2]);
+  }, [
+    relationshipType,
+    sourceValue1,
+    sourceValue2,
+    destinationValue1,
+    destinationValue2,
+  ]);
 
   const [
     {
@@ -198,207 +165,50 @@ const App: React.FC = () => {
     }
   }, [relationshipData, relationshipError]);
 
-  const [
-    {
-      data: sourceEntitiesData,
-      fetching: sourceEntitiesFetching,
-      error: sourceEntitiesError,
-      stale: sourceEntitiesStale,
-    },
-  ] = useQuery({
-    query: EntitiesByClassificationQuery,
-    variables: sourceType && { classification: sourceType.value },
-    pause: !sourceType || sourceType.type !== 'entity',
-  });
-
-  const [
-    {
-      data: sourceComponentsDataRaw,
-      fetching: sourceComponentsFetching,
-      error: sourceComponentsError,
-      stale: sourceComponentsStale,
-    },
-  ] = useQuery({
-    query: ComponentsByComponentTypeQuery,
-    variables: sourceType && { componentType: sourceType.value },
-    pause: !sourceType || sourceType.type !== 'component',
-  });
-
-  const sourceComponentsData = sourceComponentsDataRaw?.components
-    .map((el) => ({
-      ...el,
-      payload:
-        el.payload && el.componentType ? parsePayload(el.payload) : undefined,
-    }))
-    .filter(hasPresentKey('payload'));
-
-  const sourceData = !sourceType
-    ? undefined
-    : sourceType.type === 'entity'
-    ? sourceEntitiesData?.entities
-    : sourceComponentsData;
-
-  const sourceFetching = sourceEntitiesFetching || sourceComponentsFetching;
-
-  const sourceStale = !sourceType
-    ? false
-    : sourceType.type === 'entity'
-    ? sourceEntitiesStale
-    : sourceComponentsStale;
-
-  const sourceError = !sourceType
-    ? undefined
-    : sourceType.type == 'entity'
-    ? sourceEntitiesError
-    : sourceComponentsError;
-
-  const [
-    {
-      data: destinationEntitiesData1,
-      fetching: destinationEntitiesFetching1,
-      error: destinationEntitiesError1,
-      stale: destinationEntitiesStale1,
-    },
-  ] = useQuery({
-    query: EntitiesByClassificationQuery,
-    variables: destinationType1 && { classification: destinationType1.value },
-    pause: !destinationType1 || destinationType1.type !== 'entity',
-  });
-
-  const [
-    {
-      data: destinationComponentsDataRaw1,
-      fetching: destinationComponentsFetching1,
-      error: destinationComponentsError1,
-      stale: destinationComponentsStale1,
-    },
-  ] = useQuery({
-    query: ComponentsByComponentTypeQuery,
-    variables: destinationType1 && { componentType: destinationType1.value },
-    pause: !destinationType1 || destinationType1.type !== 'component',
-  });
-
-  const destinationComponentsData1 = destinationComponentsDataRaw1?.components
-    .map((el) => ({
-      ...el,
-      payload:
-        el.payload && el.componentType ? parsePayload(el.payload) : undefined,
-    }))
-    .filter(hasPresentKey('payload'));
-
-  const destinationData1 = !destinationType1
-    ? undefined
-    : destinationType1.type === 'entity'
-    ? destinationEntitiesData1?.entities
-    : destinationComponentsData1;
-
-  const destinationFetching1 =
-    destinationEntitiesFetching1 || destinationComponentsFetching1;
-
-  const destinationStale1 = !destinationType1
-    ? false
-    : destinationType1.type === 'entity'
-    ? destinationEntitiesStale1
-    : destinationComponentsStale1;
-
-  const destinationError1 = !destinationType1
-    ? undefined
-    : destinationType1.type == 'entity'
-    ? destinationEntitiesError1
-    : destinationComponentsError1;
-
-  const [
-    {
-      data: destinationEntitiesData2,
-      fetching: destinationEntitiesFetching2,
-      error: destinationEntitiesError2,
-      stale: destinationEntitiesStale2,
-    },
-  ] = useQuery({
-    query: EntitiesByClassificationQuery,
-    variables: destinationType2 && { classification: destinationType2.value },
-    pause:
-      !destinationValue1 ||
-      !destinationType2 ||
-      destinationType2.type !== 'entity',
-  });
-
-  const [
-    {
-      data: destinationComponentsDataRaw2,
-      fetching: destinationComponentsFetching2,
-      error: destinationComponentsError2,
-      stale: destinationComponentsStale2,
-    },
-  ] = useQuery({
-    query: ComponentsByComponentTypeQuery,
-    variables: destinationType2 && { componentType: destinationType2.value },
-    pause:
-      !destinationValue1 ||
-      !destinationType2 ||
-      destinationType2.type !== 'component',
-  });
-
-  const destinationComponentsData2 = destinationComponentsDataRaw2?.components
-    .map((el) => ({
-      ...el,
-      payload:
-        el.payload && el.componentType ? parsePayload(el.payload) : undefined,
-    }))
-    .filter(hasPresentKey('payload'));
-
-  const destinationData2 = !destinationType2
-    ? undefined
-    : destinationType2.type === 'entity'
-    ? destinationEntitiesData2?.entities
-    : destinationComponentsData2;
-
-  const destinationFetching2 =
-    destinationEntitiesFetching2 || destinationComponentsFetching2;
-
-  const destinationStale2 = !destinationType2
-    ? false
-    : destinationType2.type === 'entity'
-    ? destinationEntitiesStale2
-    : destinationComponentsStale2;
-
-  const destinationError2 = !destinationType2
-    ? undefined
-    : destinationType2.type == 'entity'
-    ? destinationEntitiesError2
-    : destinationComponentsError2;
-
   const onClickCancel = useCallback(() => {
-    setSourceValue(undefined);
+    setSourceType1(undefined);
+    setSourceType2(undefined);
+
+    setSourceValue1(undefined);
+    setSourceValue2(undefined);
+
     setRelationshipType(undefined);
+
+    setDestinationType1(undefined);
+    setDestinationType2(undefined);
+
     setDestinationValue1(undefined);
     setDestinationValue2(undefined);
   }, []);
 
-  const onSelectSourceType = useCallback(
-    (sourceType: EntityOrComponentType | null) => {
-      setSourceType(sourceType ?? undefined);
-      setSourceValue(undefined);
-    },
-    [],
-  );
+  const invertRelationship = useCallback(() => {
+    const st1 = sourceType1;
+    const st2 = sourceType2;
+    const sv1 = sourceValue1;
+    const sv2 = sourceValue2;
 
-  const onSelectDestinationType1 = useCallback(
-    (destinationType: EntityOrComponentType | null) => {
-      setDestinationType1(destinationType ?? undefined);
-      setDestinationValue1(undefined);
-      setDestinationValue2(undefined);
-    },
-    [],
-  );
+    const dt1 = destinationType1;
+    const dt2 = destinationType2;
+    const dv1 = destinationValue1;
+    const dv2 = destinationValue2;
 
-  const onSelectDestinationType2 = useCallback(
-    (destinationType: EntityOrComponentType | null) => {
-      setDestinationType2(destinationType ?? undefined);
-      setDestinationValue2(undefined);
-    },
-    [],
-  );
+    setSourceType1(dt1);
+    setSourceType2(dt2);
+    setSourceValue1(dv1);
+    setSourceValue2(dv2);
+
+    setDestinationType1(st1);
+    setDestinationType2(st2);
+    setDestinationValue1(sv1);
+    setDestinationValue2(sv2);
+  }, [
+    sourceType1,
+    sourceType2,
+    sourceValue1,
+    sourceValue2,
+    destinationValue1,
+    destinationValue2,
+  ]);
 
   const onSelectRelationshipType = useCallback(
     (relationshipType: RelationshipType | null) => {
@@ -407,185 +217,63 @@ const App: React.FC = () => {
     [],
   );
 
-  // Toggle selected source if the selected row is clicked
-  const onClickSource = useCallback(
-    (clickedSourceValue: EntityOrComponentValue) => {
-      setSourceValue(updateSelectedValue(clickedSourceValue));
-    },
-    [],
-  );
-
-  const onClickDestination1 = useCallback(
-    (clickedDestinationValue: EntityOrComponentValue) => {
-      setDestinationValue1(updateSelectedValue(clickedDestinationValue));
-      setDestinationValue2(undefined);
-    },
-    [],
-  );
-
-  const onClickDestination2 = useCallback(
-    (clickedDestinationValue: EntityOrComponentValue) => {
-      setDestinationValue2(updateSelectedValue(clickedDestinationValue));
-    },
-    [],
-  );
-
   return (
     <div className="d-flex flex-column justify-content-between">
       <Row>
-        <Col
-          xl="4"
-          lg="12"
-          className="bg-gradient position-relative p-0 border border-2 rounded border-primary d-flex flex-column justify-content-between"
-        >
-          <Loader
-            loading={sourceStale}
-            loadingComponent={
-              <LoadingBar
-                className="position-absolute w-100 rounded-0"
-                loading={true}
-              />
-            }
-          />
-          <Row className="mh-100 p-4">
-            <Col xs="12">
-              <div className="overflow-auto pe-1" style={{ height: '60vh' }}>
-                <Loader
-                  loading={sourceFetching}
-                  loadingComponent={<LoadingSpinner />}
-                >
-                  {sourceError && (
-                    <div className="h-100 w-100">
-                      <Alert variant="danger">Error fetching data</Alert>
-                    </div>
-                  )}
-                  {sourceType && sourceData && (
-                    <SourceDataTable
-                      sourceValue={sourceValue}
-                      onClick={onClickSource}
-                      entityOrComponentType={sourceType}
-                      sourceData={sourceData}
-                    />
-                  )}
-                </Loader>
-              </div>
-            </Col>
-            <Col xs="12" style={{ height: '2rem' }} />
-            <Col xs="12">
-              <EntityOrComponentTypeSelector
-                entityTypes={ENTITY_TYPES}
-                componentTypes={COMPONENT_TYPES}
-                onSelect={onSelectSourceType}
-              />
-            </Col>
-          </Row>
-        </Col>
+        <DataPanel
+          type1={sourceType1}
+          type2={sourceType2}
+          setType1={setSourceType1}
+          setType2={setSourceType2}
+          value1={sourceValue1}
+          value2={sourceValue2}
+          setValue1={setSourceValue1}
+          setValue2={setSourceValue2}
+        />
+
         <Col
           xl="4"
           lg="12"
           className="p-4 d-flex flex-column align-items-center justify-content-center"
         >
+          <InvertRelationshipButton
+            onClick={invertRelationship}
+            canInvert={Boolean(
+              sourceType1 ||
+                sourceType2 ||
+                destinationType1 ||
+                destinationType2,
+            )}
+          />
           <Relationship
             relationshipType={relationshipType}
-            sourceValue={sourceValue}
-            destinationValue={destinationValue2}
+            sourceValue={sourceValue2 ?? sourceValue1}
+            destinationValue={destinationValue2 ?? destinationValue1}
           />
           <RelationshipTypeSelector onSelect={onSelectRelationshipType} />
         </Col>
-        <Col
-          xl="4"
-          lg="12"
-          className="bg-gradient position-relative p-0 border border-2 rounded border-primary d-flex flex-column justify-content-between"
-        >
-          <Loader
-            loading={destinationStale1 || destinationStale2}
-            loadingComponent={
-              <LoadingBar
-                className="position-absolute w-100 rounded-0"
-                loading={true}
-              />
-            }
-          />
-          <Row className="mh-100 p-4">
-            <Col
-              xs={destinationValue1 && destinationType2 ? '6' : '12'}
-              className="p-0"
-            >
-              <div className="overflow-auto pe-1" style={{ height: '60vh' }}>
-                <Loader
-                  loading={destinationFetching1}
-                  loadingComponent={<LoadingSpinner size={100} />}
-                >
-                  {destinationError1 && (
-                    <div className="h-100 w-100">
-                      <Alert variant="danger">Error fetching data</Alert>
-                    </div>
-                  )}
-                  {destinationType1 && destinationData1 && (
-                    <DestinationDataTable
-                      destinationValue={destinationValue1}
-                      onClick={onClickDestination1}
-                      entityOrComponentType={destinationType1}
-                      destinationData={destinationData1}
-                    />
-                  )}
-                </Loader>
-              </div>
-            </Col>
 
-            <Col xs="6" className="p-0">
-              {destinationValue1 && destinationType2 && (
-                <div className="overflow-auto pe-1" style={{ height: '60vh' }}>
-                  <Loader
-                    loading={destinationFetching2}
-                    loadingComponent={<LoadingSpinner size={100} />}
-                  >
-                    {destinationError2 && (
-                      <div className="h-100 w-100">
-                        <Alert variant="danger">Error fetching data</Alert>
-                      </div>
-                    )}
-                    {destinationData2 && (
-                      <DestinationDataTable
-                        destinationValue={destinationValue2}
-                        onClick={onClickDestination2}
-                        entityOrComponentType={destinationType2}
-                        destinationData={destinationData2}
-                      />
-                    )}
-                  </Loader>
-                </div>
-              )}
-            </Col>
-
-            <Col xs="12" style={{ height: '2rem' }} />
-            <Col xl="6">
-              <EntityOrComponentTypeSelector
-                entityTypes={ENTITY_TYPES}
-                componentTypes={COMPONENT_TYPES}
-                onSelect={onSelectDestinationType1}
-              />
-            </Col>
-            <Col xl="6">
-              <EntityOrComponentTypeSelector
-                entityTypes={ENTITY_TYPES}
-                componentTypes={COMPONENT_TYPES}
-                onSelect={onSelectDestinationType2}
-              />
-            </Col>
-          </Row>
-        </Col>
+        <DataPanel
+          type1={destinationType1}
+          type2={destinationType2}
+          setType1={setDestinationType1}
+          setType2={setDestinationType2}
+          value1={destinationValue1}
+          value2={destinationValue2}
+          setValue1={setDestinationValue1}
+          setValue2={setDestinationValue2}
+        />
       </Row>
       <CancelSubmitButtons
         onCancel={onClickCancel}
         onSubmit={onSubmit}
         loading={relationshipFetching}
         canSubmit={Boolean(
-          sourceValue && destinationValue2 && relationshipType,
+          sourceValue1 && destinationValue2 && relationshipType,
         )}
       />
     </div>
   );
 };
 
-export default App;
+export default CreateRelationship;

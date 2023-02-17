@@ -30,6 +30,7 @@ export type Component = {
   componentType?: Maybe<Scalars['String']>;
   componentTypeReference?: Maybe<Scalars['String']>;
   context?: Maybe<Scalars['String']>;
+  entityClassification?: Maybe<Scalars['String']>;
   entityGuid: Scalars['ID'];
   owner?: Maybe<Scalars['String']>;
   payload?: Maybe<Scalars['Json']>;
@@ -80,15 +81,21 @@ export type RootQueryType = {
   __typename?: 'RootQueryType';
   components: Array<Component>;
   entities: Array<Entity>;
+  entityComponentTypes: Array<Scalars['String']>;
 };
 
 export type RootQueryTypeComponentsArgs = {
   componentType?: InputMaybe<Scalars['String']>;
-  entityGuid?: InputMaybe<Scalars['String']>;
+  entityClassification?: InputMaybe<Scalars['String']>;
+  entityGuid?: InputMaybe<Scalars['ID']>;
 };
 
 export type RootQueryTypeEntitiesArgs = {
   classification?: InputMaybe<Scalars['String']>;
+};
+
+export type RootQueryTypeEntityComponentTypesArgs = {
+  entityGuid: Scalars['ID'];
 };
 
 /**
@@ -154,17 +161,25 @@ export type ValidationOption = {
   value: Scalars['String'];
 };
 
-export type EntitiesByClassificationQueryVariables = Exact<{
-  classification: Scalars['String'];
+export type EntitiesQueryQueryVariables = Exact<{
+  entityClassification: Scalars['String'];
+  componentType: Scalars['String'];
 }>;
 
-export type EntitiesByClassificationQuery = {
+export type EntitiesQueryQuery = {
   __typename?: 'RootQueryType';
-  entities: Array<{ __typename?: 'Entity'; entityGuid: string }>;
+  components: Array<{
+    __typename?: 'Component';
+    entityGuid: string;
+    entityClassification?: string | null;
+    componentType?: string | null;
+    payload?: string | null;
+  }>;
 };
 
 export type ComponentsByComponentTypeQueryVariables = Exact<{
   componentType: Scalars['String'];
+  entityGuid?: InputMaybe<Scalars['ID']>;
 }>;
 
 export type ComponentsByComponentTypeQuery = {
@@ -172,9 +187,19 @@ export type ComponentsByComponentTypeQuery = {
   components: Array<{
     __typename?: 'Component';
     componentGuid: string;
+    entityGuid: string;
     componentType?: string | null;
     payload?: string | null;
   }>;
+};
+
+export type EntityComponentTypesQueryVariables = Exact<{
+  entityGuid: Scalars['ID'];
+}>;
+
+export type EntityComponentTypesQuery = {
+  __typename?: 'RootQueryType';
+  entityComponentTypes: Array<string>;
 };
 
 export type CreateRelationshipMutationVariables = Exact<{
@@ -194,19 +219,19 @@ export type CreateRelationshipMutation = {
   };
 };
 
-export const EntitiesByClassificationDocument = {
+export const EntitiesQueryDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'EntitiesByClassification' },
+      name: { kind: 'Name', value: 'EntitiesQuery' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'classification' },
+            name: { kind: 'Name', value: 'entityClassification' },
           },
           type: {
             kind: 'NonNullType',
@@ -216,46 +241,6 @@ export const EntitiesByClassificationDocument = {
             },
           },
         },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'entities' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'classification' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'classification' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  EntitiesByClassificationQuery,
-  EntitiesByClassificationQueryVariables
->;
-export const ComponentsByComponentTypeDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ComponentsByComponentType' },
-      variableDefinitions: [
         {
           kind: 'VariableDefinition',
           variable: {
@@ -280,6 +265,14 @@ export const ComponentsByComponentTypeDocument = {
             arguments: [
               {
                 kind: 'Argument',
+                name: { kind: 'Name', value: 'entityClassification' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'entityClassification' },
+                },
+              },
+              {
+                kind: 'Argument',
                 name: { kind: 'Name', value: 'componentType' },
                 value: {
                   kind: 'Variable',
@@ -290,10 +283,87 @@ export const ComponentsByComponentTypeDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'entityClassification' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'componentType' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'payload' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<EntitiesQueryQuery, EntitiesQueryQueryVariables>;
+export const ComponentsByComponentTypeDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ComponentsByComponentType' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'componentType' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'entityGuid' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'components' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'componentType' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'componentType' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'entityGuid' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'entityGuid' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'componentGuid' },
                 },
+                { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'componentType' },
@@ -309,6 +379,51 @@ export const ComponentsByComponentTypeDocument = {
 } as unknown as DocumentNode<
   ComponentsByComponentTypeQuery,
   ComponentsByComponentTypeQueryVariables
+>;
+export const EntityComponentTypesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EntityComponentTypes' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'entityGuid' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'entityComponentTypes' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'entityGuid' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'entityGuid' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  EntityComponentTypesQuery,
+  EntityComponentTypesQueryVariables
 >;
 export const CreateRelationshipDocument = {
   kind: 'Document',

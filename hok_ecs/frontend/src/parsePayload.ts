@@ -76,7 +76,11 @@ export type PayloadType =
 
 const parsePayload = (payload: string) => {
   // FIXME: use safeParse and handle result union
-  return payloadSchema.parse(JSON.parse(payload));
+  try {
+    return payloadSchema.parse(JSON.parse(payload));
+  } catch (_err) {
+    return {};
+  }
 };
 
 // const parsePayload = <T extends PayloadType>(type: T, payload: string): PayloadMap[T] => {

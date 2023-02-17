@@ -5,6 +5,17 @@ defmodule HokEcs.Components do
   alias HokEcs.Events
   alias HokEcs.Events.Event
 
+  def get_entity_component_types(entity_guid) do
+    query =
+      from c in Component,
+        where: c.entity_guid == ^entity_guid,
+        distinct: c.component_type,
+        order_by: [asc: c.component_type],
+        select: c.component_type
+
+    Repo.all(query)
+  end
+
   @doc """
   Returns the list of components.
 
@@ -16,21 +27,18 @@ defmodule HokEcs.Components do
   """
   @spec list_components(map()) :: list(Component.t())
   def list_components(args \\ %{}) do
-    query = from(Component)
+    args
+    |> Enum.reduce(from(Component), fn
+      {:entity_guid, entity_guid}, query ->
+        where(query, entity_guid: ^entity_guid)
 
-    query =
-      case Map.get(args, :entity_guid) do
-        nil -> query
-        entity_guid -> where(query, entity_guid: ^entity_guid)
-      end
+      {:component_type, component_type}, query ->
+        where(query, component_type: ^component_type)
 
-    query =
-      case Map.get(args, :component_type) do
-        nil -> query
-        component_type -> where(query, component_type: ^component_type)
-      end
-
-    Repo.all(query)
+      {:entity_classification, entity_classification}, query ->
+        where(query, entity_classification: ^entity_classification)
+    end)
+    |> Repo.all()
   end
 
   @doc """

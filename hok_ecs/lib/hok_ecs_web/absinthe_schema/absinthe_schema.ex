@@ -34,6 +34,7 @@ defmodule HokEcsWeb.AbsintheSchema do
   object :component do
     field :component_guid, non_null(:id)
     field :entity_guid, non_null(:id)
+    field :entity_classification, :string
     field :context, :string
     field :component_name, :string
     field :component_id, :string
@@ -67,11 +68,22 @@ defmodule HokEcsWeb.AbsintheSchema do
 
     field :components, non_null_list(:component) do
       arg(:component_type, :string)
-      arg(:entity_guid, :string)
+      arg(:entity_classification, :string)
+      arg(:entity_guid, :id)
 
       resolve(fn args, _ ->
         args
         |> Components.list_components()
+        |> Helpers.ok()
+      end)
+    end
+
+    field :entity_component_types, non_null_list(:string) do
+      arg(:entity_guid, non_null(:id))
+
+      resolve(fn %{entity_guid: entity_guid}, _ ->
+        entity_guid
+        |> Components.get_entity_component_types()
         |> Helpers.ok()
       end)
     end

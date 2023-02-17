@@ -20,12 +20,22 @@ const Relationship: React.FC<Props> = ({
     <div className="bg-gradient text-center d-flex border border-2 rounded border-primary m-4 p-4 w-100 justify-content-center align-items-center">
       <div className="w-100">
         <RelationshipMemberBadge
-          value={sourceValue?.label}
+          value={
+            sourceValue
+              ? `${sourceValue.type.toUpperCase()}: ${sourceValue.label}`
+              : undefined
+          }
           defaultValue="Select a Source"
         />
         <RelationshipTypeBadge relationshipType={relationshipType?.label} />
         <RelationshipMemberBadge
-          value={destinationValue?.label}
+          value={
+            destinationValue
+              ? `${destinationValue.type.toUpperCase()}: ${
+                  destinationValue.label
+                }`
+              : undefined
+          }
           defaultValue="Select a Destination"
         />
       </div>

@@ -14,7 +14,6 @@ interface Props<T> {
   columns: ColumnDef<T>[];
   isRowActive?: (row: Row<T>) => boolean;
   onClickRow?: (row: Row<T>) => void;
-  hiddenColumns?: string[];
 }
 
 const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
@@ -22,21 +21,11 @@ const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
   columns,
   isRowActive,
   onClickRow,
-  hiddenColumns,
 }) => {
-  const hiddenCols = hiddenColumns ?? [];
-  const columnVisibility = hiddenCols.reduce(
-    (acc, col) => ({ ...acc, [col]: false }),
-    {},
-  );
-
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    initialState: {
-      columnVisibility,
-    },
   });
 
   return (
