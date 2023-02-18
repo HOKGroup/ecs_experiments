@@ -23,6 +23,7 @@
       "entity_classifcation": {
         "type": "string",
         "description": "Classifcation of the object",
+        "title" : "My Title",
         "enum": [
           "person",
           "project",

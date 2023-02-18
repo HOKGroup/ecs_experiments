@@ -10,6 +10,7 @@
       ],
       "properties": {
         "type": {
+          "description":"Coordinates",
           "type": "string",
           "enum": [
             "Polygon"

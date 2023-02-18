@@ -61,6 +61,9 @@
                 "project.details",
                 "project.dicipline",
                 "project.group",
+                "person.group",
+                "task.group",
+                "company.group",
                 "project.location.polygon",
                 "service.admin.details"
             ]

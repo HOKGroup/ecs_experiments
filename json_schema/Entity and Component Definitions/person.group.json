@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "person.group",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+      "group_name": {
+        "type": "string",
+        "description": "Group Name"
+      },
+      "group_desrciption": {
+        "type": "string",
+        "description": "Group Desciption"
+      },
+      "close_utomatically": {
+        "type": "boolean",
+        "description": "Should this group be closed Automatically"
+     },
+      "close_date": {
+      "type": "string",
+      "description": "Date that this group will deative itself",
+      "format": "date-time"
+    }
+   }
+}

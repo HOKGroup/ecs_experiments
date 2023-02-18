@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.location.polygon",
+    "version": "V0.01",
+    "data_format": "ifc",
+    "type": "object",
+    "properties": {
+      "geojson": {
+        "type": "string",
+        "description": "geojson",
+        "format":"text"
+    }
+}
+}
