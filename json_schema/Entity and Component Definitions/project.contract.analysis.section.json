@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.contract.analysis.section",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+      "contract_scope": {
+        "type": "string",
+        "description": "Applicable code"
+      },
+      "contract_parties": {
+        "type": "string",
+        "description": "Code Version"
+      },
+      "contract_section": {
+        "type": "string",
+        "description": "Code Section"
+      },
+      "contract_key_requirements": {
+        "type": "string",
+        "description": "Selected Construction Type"
+      },
+      "contract_related_requirements": {
+        "type": "string",
+        "description": "Calucation Criteria"
+      }
+}
+}

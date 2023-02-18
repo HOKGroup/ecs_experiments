@@ -5,7 +5,7 @@ from datetime import datetime
 import os
 
 # Define the output folder
-output_folder = "json_schema\\Entity and Component Definitions\\Sample Data\\Entities"
+output_folder = "json_schema/PythonScripts/temp"
 
 # Create the output folder if it doesn't exist
 if not os.path.exists(output_folder):
@@ -38,14 +38,7 @@ schema = {
         "type": "string",
         "description": "Classification of the object",
         "enum": [
-          "person",
-          "project",
-          "company",
-          "service",
-          "submital",
-          "rfi",
-          "issue",
-          "skill"
+          "specification",
         ]
       },
       "entity_classification_reference": {

@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.code.analysis.construction.type",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+      "code_references": {
+        "type": "string",
+        "description": "Applicable code"
+      },
+      "code_reference_versions": {
+        "type": "string",
+        "description": "Code Version"
+      },
+      "code_section": {
+        "type": "string",
+        "description": "Code Section"
+      },
+      "construction_type": {
+        "type": "string",
+        "description": "Selected Construction Type"
+      },
+      "construction_criteria": {
+        "type": "string",
+        "description": "Calucation Criteria"
+      },
+      "construction_criteria_descirption": {
+        "type": "string",
+        "description": "Details"
+      }
+
+}
+}
