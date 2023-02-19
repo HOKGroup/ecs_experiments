@@ -1,7 +1,7 @@
 {
   "entity_guid": "776d1af1-f73a-45e8-b1af-6f50471a7bee",
-  "context": "sample context",
-  "context_id": "sample context id",
+  "context": "HOK Standard Project Scopes of Work - US",
+  "context_id": "0002",
   "entity_classification": "scopeofwork",
   "entity_classification_reference": "sample reference",
   "creation_date": "2023-02-18T14:42:39.933656"

@@ -24,3 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 json_schema/PythonScripts/temp.py
 sample_table.db
+sample_table_big.db

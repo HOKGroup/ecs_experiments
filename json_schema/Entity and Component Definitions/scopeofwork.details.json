@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "scopeofwork.detail",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "scope_name": {
+          "type": "string",
+          "description": "Scope of Work Name"
+        },
+        "scope_description": {
+          "type": "string",
+          "description": "Scope of Work Description"
+        },
+        "Scope Criteria": {
+            "type": "array",
+            "description": "Key Requirments of the Scope",
+            "items":{
+                "type":"string"
+            }
+          }
+    }
+  
+}

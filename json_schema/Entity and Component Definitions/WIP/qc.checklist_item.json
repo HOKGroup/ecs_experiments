@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "qc.checklist.item",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "checklist_item_name": {
+          "type": "string",
+          "description": "Item Name"
+        },
+        "checklist_description": {
+          "type": "string",
+          "description": "Description "
+        },
+        "Eetails of the Review": {
+            "type": "array",
+            "description": "List of things that are part of the review item",
+            "items":{
+                "type":"string"
+            }
+          }
+        }
+  
+}

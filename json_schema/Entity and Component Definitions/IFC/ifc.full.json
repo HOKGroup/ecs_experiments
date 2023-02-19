@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "project.ifc.full",
+    "title": "ifc.full",
     "version": "V0.01",
     "data_format": "ifc",
     "type": "object",

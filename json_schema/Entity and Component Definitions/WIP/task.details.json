@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "company.group",
+    "title": "task.details",
     "version": "V0.01",
     "type": "object",
     "properties": {

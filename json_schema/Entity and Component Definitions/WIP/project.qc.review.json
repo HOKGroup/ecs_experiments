@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.qc.review",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "qc_review_name": {
+          "type": "string",
+          "description": "QC Review Name"
+        },
+        "qc_review_Description": {
+            "type": "string",
+            "description": "What the Purpose of the QC Review "
+          },
+        "qc_review_start": {
+          "type": "string",
+          "description": "QC Review Start Date ",
+          "format": "date-time"
+        },
+        "qc_review_end": {
+          "type": "string",
+          "description": "QC Review End Date",
+          "format": "date"
+        }
+        }
+  
+}

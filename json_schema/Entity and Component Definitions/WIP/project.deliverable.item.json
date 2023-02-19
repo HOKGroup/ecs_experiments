@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.deliverable.item",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "deliverable_item_name": {
+          "type": "string",
+          "description": "Deliverable Item Name"
+        },
+        "deliverable_item_description": {
+          "type": "string",
+          "description": "Deliverable Item Description "
+        },
+        "Deliverable Criteria": {
+            "type": "array",
+            "description": "Important Components of the Deliverable item",
+            "items":{
+                "type":"string"
+            }
+          }
+    }
+  
+}

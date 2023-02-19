@@ -38,7 +38,7 @@ schema = {
         "type": "string",
         "description": "Classification of the object",
         "enum": [
-          "specification",
+          "classification",
         ]
       },
       "entity_classification_reference": {

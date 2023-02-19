@@ -54,14 +54,23 @@
             "enum": [
                 "person.details",
                 "person.project.add",
+                "classification.detail",
                 "company.details",
                 "company.location.details",
                 "compnay.location.point",
                 "company.serviceoffering.details",
                 "project.details",
+                "project.phase",
+                "project.package",
+                "project.deliverable",
+                "project.deliverable.item",
                 "project.dicipline",
                 "project.location.details",
                 "project.code.analysis",
+                "project.performance.benchmark",
+                "project.performance.detail",
+                "project.performance.item",
+                "project.qc.review",
                 "jurisdiction.code",
                 "jurisdiction.details",
                 "project.group",
@@ -69,7 +78,10 @@
                 "task.group",
                 "company.group",
                 "project.location.polygon",
-                "service.admin.details"
+                "service.admin.details",
+                "scopeofwork.details",
+                "qc.checklist",
+                "qc.checklist.item"
             ]
         },
         "component_type_reference": {

@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.package",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "package_name": {
+          "type": "string",
+          "description": "Package Name"
+        },
+        "package_start": {
+          "type": "string",
+          "description": "Package Start Date ",
+          "format": "date"
+        },
+        "package_end": {
+          "type": "string",
+          "description": "Package End Date",
+          "format": "date"
+        }
+        }
+  
+}
