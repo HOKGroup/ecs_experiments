@@ -1,0 +1,193 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "version": "V0.01",
+    "data_format": "json",
+    "title": "component",
+    "type": "object",
+    "properties": {
+        "component_guid": {
+            "type": "string",
+            "description": "URI or Globally Unique ID",
+            "format":"uuid_component"
+        },
+        "component_sequence_name": {
+            "type": "string",
+            "description": "For Components that have a sequence to them, like documents or other data this is where the defintion name is stored",
+            "format":"squence_name"
+        },
+        "component_sequence_value": {
+            "type": "string",
+            "description": "For Components that have a sequence this is where the sequence value is stored... 001, 002, A, B C...",
+            "format":"squence_number"
+        },
+        "context": {
+            "type": "string",
+            "description": "Container location where the data is stored ",
+            "hidden": "true"
+        },
+        "context_id": {
+            "type": "string",
+            "description": "Unique Identifier of a context that this data belongs, a project, enterprise, ect. ",
+            "hidden": "true"
+        },
+        "component_name": {
+            "type": "string",
+            "description": "User Name for the component "
+        },
+        "component_id": {
+            "type": "string",
+            "description": "User number for the component "
+        },
+        "entity_guid": {
+            "type": "string",
+            "description": "GUID of parent entity",
+            "format":"uuid_component_entity"
+        },
+        "entity_classification": {
+            "type": "string",
+            "description": "Classification of parent entity",
+            "hidden": "true"
+        },
+        "component_type": {
+            "type": "string",
+            "description": "Definition of component; Like Person.Details, Specification.Document, Submital.Responce, etc",
+            "enum": [
+                "person.details",
+                "person.project.add",
+                "classification.detail",
+                "company.details",
+                "company.location.details",
+                "compnay.location.point",
+                "company.serviceoffering.details",
+                "project.code.analysis.details",
+                "project.code.analysis.construction.type",
+                "project.details",
+                "project.phase",
+                "project.package",
+                "project.deliverable",
+                "project.deliverable.item",
+                "project.dicipline",
+                "project.location.details",
+                "project.code.analysis",
+                "project.performance.benchmark",
+                "project.performance.detail",
+                "project.performance.item",
+                "project.qc.review",
+                "jurisdiction.code",
+                "jurisdiction.details",
+                "project.group",
+                "person.group",
+                "task.group",
+                "company.group",
+                "project.location.polygon",
+                "service.admin.details",
+                "scopeofwork.details",
+                "specification.master.details",
+                "specification.master.section",
+                "qc.checklist",
+                "qc.checklist.item"
+            ]
+        },
+        "component_type_reference": {
+            "type": "string",
+            "description": "reference to the version and location of the defintion of the component_type; Can be local or URI etc",
+            "hidden": "true"
+        },
+        "component_type_payload": {
+            "type": "string",
+            "description": "what is the expected encododing of the data in the component payload.  json,geojson,gltf, object, 3dm, rvt, ifc etc",
+            "enum": [
+                "json",
+                "json-ld",
+                "geojson",
+                "step",
+                "ifc",
+                "dwg",
+                "gltf",
+                "obj",
+                "image",
+                "word",
+                "blob"
+            ]
+        },
+        "owner": {
+            "type": "string",
+            "description": "The user or entity that is the owner of this component",
+            "enum": [
+                "HOK",
+                "SomeCompnay"
+            ]
+        },
+        "version": {
+            "type": "string",
+            "description": "The version of this component",
+            "enum": [
+                "V.00001",
+                "V.00002",
+                "V.00003"
+            ]
+        },
+        "status": {
+            "type": "string",
+            "description": "User define value for nature of component",
+            "enum": [
+                "For Client Review",
+                "For Intenral Review",
+                "Option 2"
+            ]
+        },
+        "active": {
+            "type": "boolean",
+            "description": "Is the component a valid, active component"
+        },
+        "creation_date": {
+            "type": "string",
+            "description": "Date that this version of the component was created",
+            "format": "date-time"
+        },
+        "authoring_application": {
+            "type": "string",
+            "description": "Application that generated the component",
+            "enum": [
+                "Trajecotory",
+                "Spec Tool",
+                "Simple BIM App",
+                "other"
+            ]
+        },
+        "hash1": {
+            "type": "string",
+            "description": "Hash of potentially many that is used to validate the object",
+            "hidden": "true"
+        },
+        "payload": {
+            "type": "object",
+            "description": "Payload of the component",
+            "hidden": "true"
+        }
+    },
+        "required": [
+            "component_guid",
+            "context",
+            "context_id",
+            "entity_guid",
+            "component_type",
+            "component_type_reference",
+            "component_type_payload",
+            "owner",
+            "version",
+            "active",
+            "creation_date",
+            "payload"
+
+        ],
+        "foreignKeys": [
+            {
+            "reference": {
+                "$ref": "file:///json_schema/entity.json#/properties/entity_guid"
+                },
+                "field": "entity_guid"
+            }
+        ]
+
+}

@@ -1,0 +1,16 @@
+{
+    "component_guid": "87b1c3c1-1649-4c3d-bcd8-af70ff0056ea",
+    "component_sequence_name": "Specification Sequence",
+    "component_sequence_value": "072100",
+    "component_name": "Thermal Insulation",
+    "component_id": "072100",
+    "entity_guid": "3b76afaa-e7ff-42fd-b102-27a4e46675d6",
+    "component_type": "specification.master.section",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00003",
+    "status": "For Intenral Review",
+    "active": "1",
+    "creation_date": "2023-02-19 14:11:04.108070",
+    "authoring_application": "Spec Tool"
+}

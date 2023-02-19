@@ -20,7 +20,7 @@ class CompanyDetailsForm:
         self.schema_files = {
             "entity": "json_schema/Entity and Component Definitions/entity.json",
             "component": "json_schema/Entity and Component Definitions/component.json",
-            "payload": "json_schema\Entity and Component Definitions\WIP\classification.detail.json"
+            "payload": "json_schema\Entity and Component Definitions\WIP\specification.document.manual.json"
         }
 
         self.schemas = {}

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "qc.checklist",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "checklist_name": {
+          "type": "string",
+          "description": "Checklist Name"
+        },
+        "checklist_description": {
+          "type": "string",
+          "description": "Checklist Description "
+        }
+        }
+  
+}

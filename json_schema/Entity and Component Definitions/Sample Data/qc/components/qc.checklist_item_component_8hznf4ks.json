@@ -1,0 +1,16 @@
+{
+    "component_guid": "a1268fb7-82ee-47fd-956c-5f3aebf82c26",
+    "component_sequence_name": "",
+    "component_sequence_value": "",
+    "component_name": "Seating Options Confirmed",
+    "component_id": "017",
+    "entity_guid": "00dffc5f-4ae8-4c50-98e5-f214a5867ca4",
+    "component_type": "qc.checklist.item",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00003",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-19 13:33:44.323420",
+    "authoring_application": "other"
+}

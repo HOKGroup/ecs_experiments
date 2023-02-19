@@ -1,0 +1,16 @@
+{
+    "component_guid": "ffaf588d-615e-4c2d-b1a8-edc1fa830bc3",
+    "component_sequence_name": "",
+    "component_sequence_value": "",
+    "component_name": "QC Reviewers",
+    "component_id": "",
+    "entity_guid": "d980e8aa-5a15-4ba2-abb2-29104ee91d70",
+    "component_type": "project.group",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00001",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-17 16:13:27.651955",
+    "authoring_application": "Trajecotory"
+}

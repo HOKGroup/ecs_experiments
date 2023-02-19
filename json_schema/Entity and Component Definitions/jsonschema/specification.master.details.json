@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "specification.master.details",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "specification_master_name": {
+          "type": "string",
+          "description": "Name of the Master"
+        },
+        "master_specialization": {
+          "type": "string",
+          "description": "Market or Other Reason for the Master "
+        },
+        "master_owner": {
+          "type": "string",
+          "description": "Person generating the master"
+        }
+      }
+  }

@@ -1,0 +1,16 @@
+{
+    "component_guid": "e71217dc-ad88-4c17-b1b3-083452f7c1df",
+    "component_sequence_name": "bcxzq",
+    "component_sequence_value": "4",
+    "component_name": "",
+    "component_id": "",
+    "entity_guid": "d412e48e-a28e-43a6-8c82-3d448a06c3d7",
+    "component_type": "project.code.analysis.details",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00003",
+    "status": "For Intenral Review",
+    "active": "1",
+    "creation_date": "2023-02-19 13:50:19.207342",
+    "authoring_application": "other"
+}

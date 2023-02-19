@@ -1,0 +1,10 @@
+{
+    "checklist_item_name": "Food and Beverage Delivery Routing",
+    "checklist_item_description": "Confirm the delivery and path has been confirmed",
+    "Details of the Review": [
+        "Liquids",
+        "Refrigerated Items",
+        "Dry Goods",
+        "Food Waste"
+    ]
+}

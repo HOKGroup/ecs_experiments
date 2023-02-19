@@ -1,0 +1,16 @@
+{
+    "component_guid": "3bd8b5d9-1361-4da4-a3c1-43a809989787",
+    "component_sequence_name": "Uniformat",
+    "component_sequence_value": "000003",
+    "component_name": "Standard Foundations",
+    "component_id": "A1010",
+    "entity_guid": "6f0465b1-3180-438f-8b10-62bb4ff09c86",
+    "component_type": "classification.detail",
+    "component_type_payload": "json",
+    "owner": "SomeCompnay",
+    "version": "V.00002",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-19 08:18:07.803862",
+    "authoring_application": "other"
+}

@@ -1,0 +1,16 @@
+{
+    "component_guid": "b0fbaeb5-04d0-4a89-80f6-7afeb68198e6",
+    "component_sequence_name": "ycyyc",
+    "component_sequence_value": "2",
+    "component_name": "",
+    "component_id": "",
+    "entity_guid": "8a4ea2e7-7655-4320-b5a9-7841d12486ba",
+    "component_type": "person.details",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00001",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-17 14:34:43.180156",
+    "authoring_application": "other"
+}

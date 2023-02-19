@@ -1,0 +1,16 @@
+{
+    "component_guid": "7a97cb20-eda5-40c6-a49d-3529ca722b65",
+    "component_sequence_name": "",
+    "component_sequence_value": "",
+    "component_name": "Test Fit",
+    "component_id": "",
+    "entity_guid": "776d1af1-f73a-45e8-b1af-6f50471a7bee",
+    "component_type": "scopeofwork.details",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00001",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-19 07:12:18.871161",
+    "authoring_application": "other"
+}

@@ -3,7 +3,7 @@ import json
 import uuid
 
 # Set the path to the folder containing the JSON files
-folder_path = r'json_schema\Entity and Component Definitions\Sample Data\Entities\person\components'
+folder_path = r'json_schema\Entity and Component Definitions\Sample Data'
 
 # Iterate through all the files in the folder and its subfolders
 for root, dirs, files in os.walk(folder_path):

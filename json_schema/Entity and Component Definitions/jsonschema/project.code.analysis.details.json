@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "project.code.analysis.details",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+        "controling_codes": {
+            "type": "array",
+            "description": "List of Codes that Control on the Project",
+            "items":{
+                "type":"string"
+            }
+      },
+      "code_analysis_summary": {
+        "type": "string",
+        "description": "Written Description of How the Code is applied on the project"
+      }
+
+}
+}

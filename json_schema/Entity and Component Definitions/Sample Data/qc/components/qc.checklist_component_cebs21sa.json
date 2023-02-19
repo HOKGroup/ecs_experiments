@@ -1,0 +1,16 @@
+{
+    "component_guid": "2d5a351a-dfcf-437a-be9b-e5e15ced547e",
+    "component_sequence_name": "",
+    "component_sequence_value": "",
+    "component_name": "Arena DD Checklist",
+    "component_id": "051",
+    "entity_guid": "00dffc5f-4ae8-4c50-98e5-f214a5867ca4",
+    "component_type": "qc.checklist",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00002",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-19 13:29:47.075573",
+    "authoring_application": "other"
+}

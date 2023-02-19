@@ -1,0 +1,16 @@
+{
+    "component_guid": "f0ccba30-9391-40f8-8fed-d953d07e7011",
+    "component_sequence_name": "Phases",
+    "component_sequence_value": "0004",
+    "component_name": "",
+    "component_id": "",
+    "entity_guid": "d412e48e-a28e-43a6-8c82-3d448a06c3d7",
+    "component_type": "project.phase",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00001",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-19 06:48:22.750655",
+    "authoring_application": "other"
+}

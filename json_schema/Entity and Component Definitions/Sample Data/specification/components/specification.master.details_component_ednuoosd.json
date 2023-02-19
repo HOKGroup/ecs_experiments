@@ -1,0 +1,16 @@
+{
+    "component_guid": "89331eda-e462-4f25-9d2d-cd22ea2b24ef",
+    "component_sequence_name": "cxydq",
+    "component_sequence_value": "10",
+    "component_name": "",
+    "component_id": "",
+    "entity_guid": "3b76afaa-e7ff-42fd-b102-27a4e46675d6",
+    "component_type": "specification.master.details",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00003",
+    "status": "For Intenral Review",
+    "active": "",
+    "creation_date": "2023-02-19 14:05:12.034451",
+    "authoring_application": "Spec Tool"
+}

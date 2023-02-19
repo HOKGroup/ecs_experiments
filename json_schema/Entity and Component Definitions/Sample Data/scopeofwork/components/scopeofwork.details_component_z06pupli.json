@@ -1,0 +1,16 @@
+{
+    "component_guid": "ad7b3160-47ad-4feb-b0c5-f4e0e24706fc",
+    "component_sequence_name": "",
+    "component_sequence_value": "",
+    "component_name": "Project Planning",
+    "component_id": "",
+    "entity_guid": "35089aa4-d9bd-44b7-98ac-3fbeabf23998",
+    "component_type": "scopeofwork.details",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00001",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-19 07:12:18.871161",
+    "authoring_application": "other"
+}

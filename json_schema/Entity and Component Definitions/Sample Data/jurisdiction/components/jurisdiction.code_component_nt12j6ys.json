@@ -1,0 +1,16 @@
+{
+    "component_guid": "508a535e-0f71-4a1c-ae93-0b1dbca8edfb",
+    "component_sequence_name": "",
+    "component_sequence_value": "",
+    "component_name": "2018 BUILDING CODES TAKE EFFECT AUGUST 1, 2022",
+    "component_id": "",
+    "entity_guid": "1b415ee8-551e-4970-907a-9aca58c0dde9",
+    "component_type": "jurisdiction.code",
+    "component_type_payload": "json",
+    "owner": "SomeCompnay",
+    "version": "V.00003",
+    "status": "",
+    "active": "",
+    "creation_date": "2023-02-19 13:22:35.611297",
+    "authoring_application": "other"
+}

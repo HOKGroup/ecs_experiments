@@ -1,0 +1,16 @@
+{
+    "component_guid": "9d154cdc-8a35-4cdb-a29c-bad98049810c",
+    "component_sequence_name": "",
+    "component_sequence_value": "",
+    "component_name": "Stolts Construction Management",
+    "component_id": "00004",
+    "entity_guid": "6cf41da7-baa6-41d6-acb2-10e529ee98c1",
+    "component_type": "company.details",
+    "component_type_payload": "json",
+    "owner": "HOK",
+    "version": "V.00001",
+    "status": "",
+    "active": "1",
+    "creation_date": "2023-02-17 12:37:57.704046",
+    "authoring_application": "other"
+}
