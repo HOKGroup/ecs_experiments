@@ -9,7 +9,7 @@
           "type": "string",
           "description": "QC Review Name"
         },
-        "qc_review_Description": {
+        "qc_review_description": {
             "type": "string",
             "description": "What the Purpose of the QC Review "
           },

@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "specification.document",
+    "title": "specification.master.section",
     "data_format": "json",
     "version": "V0.01",
     "type": "object",

@@ -2,7 +2,7 @@
     "component_guid": "8c12afbe-50ce-4754-b212-22603a5c87fe",
     "component_sequence_name": "",
     "component_sequence_value": "",
-    "component_name": "Site Boundry",
+    "component_name": "Site Boundary",
     "component_id": "",
     "entity_guid": "d412e48e-a28e-43a6-8c82-3d448a06c3d7",
     "component_type": "project.location.polygon",
@@ -10,7 +10,7 @@
     "owner": "HOK",
     "version": "V.00001",
     "status": "",
-    "active": "",
+    "active": true,
     "creation_date": "2023-02-17 16:44:48.347179",
     "authoring_application": "other"
 }

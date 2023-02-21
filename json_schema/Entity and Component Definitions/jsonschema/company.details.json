@@ -11,7 +11,7 @@
       },
       "company_short_name": {
         "type": "string",
-        "description": "Abbreviaion or short name for company"
+        "description": "Abbreviation or short name for company"
       },
       "unique_id": {
         "description": "Company Unique ID",
@@ -19,7 +19,7 @@
       }
     },
     "required": [
-      "comapny_name",
+      "company_name",
       "unique_id"
       ]
 }

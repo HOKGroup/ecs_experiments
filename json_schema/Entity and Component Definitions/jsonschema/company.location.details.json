@@ -7,11 +7,11 @@
     "properties": {
       "location_name": {
         "type": "string",
-        "description": "Company Locaiton Name"
+        "description": "Company Location Name"
       },
       "location_short_name": {
         "type": "string",
-        "description": "Abbreviaion or short name for company location"
+        "description": "Abbreviation or short name for company location"
       },
       "address1": {
         "type": "string",

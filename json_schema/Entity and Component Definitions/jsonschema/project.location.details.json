@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "project.details.location",
+    "title": "project.location.details",
     "data_format": "json",
     "version": "V0.01",
     "type": "object",
@@ -11,7 +11,7 @@
       },
       "legal_description": {
         "type": "string",
-        "description": "Legal Description of Propoerty"
+        "description": "Legal Description of Property"
       },
       "address1": {
         "type": "string",

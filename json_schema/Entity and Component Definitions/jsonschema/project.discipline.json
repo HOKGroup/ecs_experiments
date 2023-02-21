@@ -1,13 +1,13 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "project.dicipline",
+    "title": "project.discipline",
     "data_format": "json",
     "version": "V0.01",
     "type": "object",
     "properties": {
-        "dicipline": {
+        "discipline": {
             "type": "string",
-            "description": "Dicipline on the project",
+            "description": "Discipline on the project",
             "enum": [
                 "Architecture",
                 "Structural Engineering",

@@ -1,6 +1,6 @@
 {
     "group_name": "Client  Accounting ",
-    "group_desrciption": "Client  Accounting Contacts",
-    "close_utomatically": "1",
+    "group_description": "Client  Accounting Contacts",
+    "close_automatically": true,
     "close_date": "2024-02-17 16:13:27.652962"
 }

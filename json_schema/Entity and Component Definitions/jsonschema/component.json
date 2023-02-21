@@ -12,7 +12,7 @@
         },
         "component_sequence_name": {
             "type": "string",
-            "description": "For Components that have a sequence to them, like documents or other data this is where the defintion name is stored",
+            "description": "For Components that have a sequence to them, like documents or other data this is where the definition name is stored",
             "format":"squence_name"
         },
         "component_sequence_value": {
@@ -54,10 +54,10 @@
             "enum": [
                 "person.details",
                 "person.project.add",
-                "classification.detail",
+                "classification.details",
                 "company.details",
                 "company.location.details",
-                "compnay.location.point",
+                "company.location.point",
                 "company.serviceoffering.details",
                 "project.code.analysis.details",
                 "project.code.analysis.construction.type",
@@ -66,7 +66,7 @@
                 "project.package",
                 "project.deliverable",
                 "project.deliverable.item",
-                "project.dicipline",
+                "project.discipline",
                 "project.location.details",
                 "project.code.analysis",
                 "project.performance.benchmark",
@@ -115,7 +115,7 @@
             "description": "The user or entity that is the owner of this component",
             "enum": [
                 "HOK",
-                "SomeCompnay"
+                "SomeCompany"
             ]
         },
         "version": {
@@ -132,7 +132,7 @@
             "description": "User define value for nature of component",
             "enum": [
                 "For Client Review",
-                "For Intenral Review",
+                "For Internal Review",
                 "Option 2"
             ]
         },

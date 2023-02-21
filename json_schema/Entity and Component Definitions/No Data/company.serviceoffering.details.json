@@ -7,7 +7,7 @@
     "properties": {
       "Primary Service": {
         "type": "object",
-        "description": "Services Offered by the Compnay",
+        "description": "Services Offered by the Company",
         "enum": [
           "Architecture",
           "Interior Design",
@@ -19,9 +19,9 @@
           "Construction Managment"
       ]
       },
-      "Serivce2": {
+      "Service2": {
         "type": "object",
-        "description": "Services Offered by the Compnay",
+        "description": "Services Offered by the Company",
         "enum": [
           "Architecture",
           "Interior Design",
@@ -33,9 +33,9 @@
           "Construction Managment"
       ]
       },
-      "Serivce3": {
+      "Service3": {
         "type": "object",
-        "description": "Services Offered by the Compnay",
+        "description": "Services Offered by the Company",
         "enum": [
           "Architecture",
           "Interior Design",

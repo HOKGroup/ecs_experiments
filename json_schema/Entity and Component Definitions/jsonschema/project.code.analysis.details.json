@@ -5,7 +5,7 @@
     "version": "V0.01",
     "type": "object",
     "properties": {
-        "controling_codes": {
+        "controlling_codes": {
             "type": "array",
             "description": "List of Codes that Control on the Project",
             "items":{

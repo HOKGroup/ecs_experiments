@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "scopeofwork.detail",
+    "title": "scopeofwork.details",
     "data_format": "json",
     "version": "V0.01",
     "type": "object",

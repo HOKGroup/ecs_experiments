@@ -1,6 +1,6 @@
 {
     "group_name": "HOK Legal",
-    "group_desrciption": "HOK Legal",
-    "close_utomatically": "0",
+    "group_description": "HOK Legal",
+    "close_automatically": false,
     "close_date": "2024-02-17 16:13:27.652962"
 }
