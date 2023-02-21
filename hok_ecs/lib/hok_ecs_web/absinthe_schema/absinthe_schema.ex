@@ -8,6 +8,7 @@ defmodule HokEcsWeb.AbsintheSchema do
   alias HokEcs.Entities
   alias HokEcs.Components
   alias HokEcs.Relationships
+  alias HokEcs.Graph
   alias HokEcs.Helpers
 
   import __MODULE__.Helpers
@@ -64,48 +65,13 @@ defmodule HokEcsWeb.AbsintheSchema do
   object :graph do
     field :nodes, non_null_list(:node),
       resolve: fn _, _ ->
-        query = ~S"""
-        select c.component_guid as node_id, 'component' as type, c.component_type as label
-        from components c
-        union
-        select e.entity_guid as node_id, 'entity' as type, e.entity_classification as label
-        from entities e
-        union
-        select r.relationship_guid as node_id, 'relationship' as type, r.relationship_type as label
-        from relationships r
-        """
-
-        %{rows: rows, columns: columns} = HokEcs.Repo.query!(query)
-
-        rows
-        |> Enum.map(&HokEcs.Repo.load(HokEcs.Graph.Node, {columns, &1}))
+        Graph.get_nodes()
         |> Helpers.ok()
       end
 
     field :edges, non_null_list(:edge),
       resolve: fn _, _ ->
-        query = ~S"""
-        select rsc.relationship_guid as to_id, rsc.component_guid as from_id
-        from relationship_source_components rsc
-        union
-        select rdc.component_guid as to_id, rdc.relationship_guid as from_id
-        from relationship_destination_components rdc
-        union
-        select rse.relationship_guid as to_id, rse.entity_guid as from_id
-        from relationship_source_entities rse
-        union
-        select rde.entity_guid as to_id, rde.relationship_guid as from_id
-        from relationship_destination_entities rde
-        union
-        select components.entity_guid as to_id, components.component_guid as from_id
-        from components
-        """
-
-        %{rows: rows, columns: columns} = HokEcs.Repo.query!(query)
-
-        rows
-        |> Enum.map(&HokEcs.Repo.load(HokEcs.Graph.Edge, {columns, &1}))
-        |> IO.inspect(label: RESULT)
+        Graph.get_edges()
         |> Helpers.ok()
       end
   end
@@ -123,7 +89,7 @@ defmodule HokEcsWeb.AbsintheSchema do
 
   query do
     field :graph, non_null(:graph) do
-      resolve(fn _, _ -> {:ok, %{}} end)
+      resolve_constant(%{})
     end
 
     field :entities, non_null_list(:entity) do

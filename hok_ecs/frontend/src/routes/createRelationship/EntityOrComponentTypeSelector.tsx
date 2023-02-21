@@ -6,7 +6,6 @@ import CursorToggle from '../../components/CursorToggle';
 interface EntityType {
   label: string;
   entityClassification: string;
-  componentType: string;
 }
 
 interface ComponentType {

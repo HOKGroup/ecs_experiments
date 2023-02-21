@@ -13,7 +13,6 @@ import InvertRelationshipButton from './createRelationship/InvertRelationshipBut
 interface EntityType {
   type: 'entity';
   entityClassification: string;
-  componentType: string;
   label: string;
 }
 

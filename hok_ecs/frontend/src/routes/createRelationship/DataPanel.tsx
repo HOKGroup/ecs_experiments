@@ -17,43 +17,36 @@ const ENTITY_TYPES = [
   {
     label: 'Specification',
     entityClassification: 'specification',
-    componentType: 'specification.master.details',
     value: 'specification',
   },
   {
     label: 'Classification',
     entityClassification: 'classification',
-    componentType: 'classification.details',
     value: 'classification',
   },
   {
     label: 'Company',
     entityClassification: 'company',
-    componentType: 'company.details',
     value: 'company',
   },
   {
     label: 'Jurisdiction',
     entityClassification: 'jurisdiction',
-    componentType: 'jurisdiction.details',
     value: 'jurisdiction',
   },
   {
     label: 'Scope of Work',
     entityClassification: 'scopeofwork',
-    componentType: 'scopeofwork.details',
     value: 'scopeofwork',
   },
   {
     label: 'Project',
     entityClassification: 'project',
-    componentType: 'project.details',
     value: 'project',
   },
   {
     label: 'Person',
     entityClassification: 'person',
-    componentType: 'person.details',
     value: 'person',
   },
 ].sort((a, b) => a.label.localeCompare(b.label));
@@ -110,7 +103,6 @@ interface Props {
 interface EntityType {
   type: 'entity';
   entityClassification: string;
-  componentType: string;
   label: string;
 }
 

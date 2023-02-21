@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import VisGraph, { Network } from 'react-vis-graph-wrapper';
+import VisGraph, { Network, Options } from 'react-vis-graph-wrapper';
 import { useQuery } from 'urql';
 import { graphql } from '../gql';
 
@@ -24,6 +24,7 @@ const Relationships: React.FC = () => {
   const [network, setNetwork] = useState(
     undefined as Network | null | undefined,
   );
+
   const [{ data, fetching, error }] = useQuery({
     query: GraphQuery,
   });
@@ -31,20 +32,29 @@ const Relationships: React.FC = () => {
   if (fetching) return <div>LOADING</div>;
   if (error || !data) return <div>ERROR</div>;
 
-  console.log('GRAPH DATA: ', data.graph);
-
   const graph = {
     nodes: data.graph.nodes,
     edges: data.graph.edges,
   };
 
-  const options = {
+  console.log(graph)
+
+  const options: Options = {
     height: '750',
+    physics: {
+      barnesHut: {
+        gravitationalConstant: -3_000,
+        avoidOverlap: 0.05
+      },
+      stabilization: {
+        fit: true
+      }
+    },
     edges: {
       color: 'white',
     },
     configure: {
-      enabled: true,
+      enabled: false,
     },
     groups: {
       RELATIONSHIP: {
@@ -72,9 +82,6 @@ const Relationships: React.FC = () => {
       },
     },
   };
-
-  network?.fit();
-  network?.stabilize();
 
   return <VisGraph graph={graph} options={options} ref={setNetwork} />;
 };
