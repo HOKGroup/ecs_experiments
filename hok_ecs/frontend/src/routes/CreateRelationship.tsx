@@ -269,7 +269,7 @@ const CreateRelationship: React.FC = () => {
         onSubmit={onSubmit}
         loading={relationshipFetching}
         canSubmit={Boolean(
-          sourceValue1 && destinationValue2 && relationshipType,
+          sourceValue1 && destinationValue1 && relationshipType,
         )}
       />
     </div>

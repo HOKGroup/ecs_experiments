@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import { hasPresentKey } from 'ts-is-present';
 import { useQuery } from 'urql';
-import parsePayload from '../../parsePayload';
+import parsePayload, { PayloadMap } from '../../parsePayload';
 import { graphql } from '../../gql';
 import Loader from '../../components/Loader';
 import LoadingBar from '../../components/LoadingBar';
@@ -15,28 +15,46 @@ import EntityOrComponentDataTable from './EntityOrComponentDataTable';
 
 const ENTITY_TYPES = [
   {
+    label: 'Specification',
+    entityClassification: 'specification',
+    componentType: 'specification.master.details',
+    value: 'specification',
+  },
+  {
+    label: 'Classification',
+    entityClassification: 'classification',
+    componentType: 'classification.details',
+    value: 'classification',
+  },
+  {
     label: 'Company',
-    entityClassification: 'Company',
+    entityClassification: 'company',
     componentType: 'company.details',
-    value: 'Company',
+    value: 'company',
+  },
+  {
+    label: 'Jurisdiction',
+    entityClassification: 'jurisdiction',
+    componentType: 'jurisdiction.details',
+    value: 'jurisdiction',
+  },
+  {
+    label: 'Scope of Work',
+    entityClassification: 'scopeofwork',
+    componentType: 'scopeofwork.details',
+    value: 'scopeofwork',
   },
   {
     label: 'Project',
-    entityClassification: 'Project',
+    entityClassification: 'project',
     componentType: 'project.details',
-    value: 'Project',
-  },
-  {
-    label: 'Service',
-    entityClassification: 'Service',
-    componentType: 'service.details',
-    value: 'Service',
+    value: 'project',
   },
   {
     label: 'Person',
-    entityClassification: 'Person',
+    entityClassification: 'person',
     componentType: 'person.details',
-    value: 'Person',
+    value: 'person',
   },
 ].sort((a, b) => a.label.localeCompare(b.label));
 
@@ -70,6 +88,11 @@ const COMPONENT_TYPES = [
     label: 'project.details',
     componentType: 'project.details',
     value: 'project.details',
+  },
+  {
+    label: 'scopeofwork.details',
+    componentType: 'scopeofwork.details',
+    value: 'scopeofwork.details',
   },
 ].sort();
 
@@ -178,7 +201,9 @@ const DataPanel: React.FC<Props> = ({
     .map((el) => ({
       ...el,
       payload:
-        el.payload && el.componentType ? parsePayload(el.payload) : undefined,
+        el.payload && el.componentType
+          ? parsePayload(el.componentType as keyof PayloadMap, el.payload)
+          : undefined,
     }))
     .filter(hasPresentKey('payload'));
 
@@ -201,7 +226,9 @@ const DataPanel: React.FC<Props> = ({
     .map((el) => ({
       ...el,
       payload:
-        el.payload && el.componentType ? parsePayload(el.payload) : undefined,
+        el.payload && el.componentType
+          ? parsePayload(el.componentType as keyof PayloadMap, el.payload)
+          : undefined,
     }))
     .filter(hasPresentKey('payload'));
 
@@ -245,7 +272,9 @@ const DataPanel: React.FC<Props> = ({
     .map((el) => ({
       ...el,
       payload:
-        el.payload && el.componentType ? parsePayload(el.payload) : undefined,
+        el.payload && el.componentType
+          ? parsePayload(el.componentType as keyof PayloadMap, el.payload)
+          : undefined,
     }))
     .filter(hasPresentKey('payload'));
 

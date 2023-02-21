@@ -25,9 +25,9 @@ defmodule HokEcs.Entities do
     query = from(Entity)
 
     query =
-      case Map.get(args, :classification) do
+      case Map.get(args, :entity_classification) do
         nil -> query
-        classification -> where(query, classification: ^classification)
+        classification -> where(query, entity_classification: ^classification)
       end
 
     Repo.all(query)

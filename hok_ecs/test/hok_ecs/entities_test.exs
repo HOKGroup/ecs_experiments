@@ -9,7 +9,7 @@ defmodule HokEcs.EntitiesTest do
   alias HokEcs.Events.Event
 
   describe "entities" do
-    @invalid_attrs %{classification_reference: 1234}
+    @invalid_attrs %{entity_classification_reference: 1234}
 
     test "list_entities/1 with no args returns all entities" do
       entity = entity_fixture()
@@ -17,16 +17,16 @@ defmodule HokEcs.EntitiesTest do
     end
 
     test "list_entities/1 with classification returns all entities with the given classification" do
-      matching_entity_1 = entity_fixture(%{classification: "my classification"})
+      matching_entity_1 = entity_fixture(%{entity_classification: "my classification"})
       matching_entity_1_guid = matching_entity_1.entity_guid
 
-      matching_entity_2 = entity_fixture(%{classification: "my classification"})
+      matching_entity_2 = entity_fixture(%{entity_classification: "my classification"})
       matching_entity_2_guid = matching_entity_2.entity_guid
 
       _other_entity_1 = entity_fixture()
       _other_entity_2 = entity_fixture()
 
-      result = Entities.list_entities(%{classification: "my classification"})
+      result = Entities.list_entities(%{entity_classification: "my classification"})
 
       assert [
                %Entity{
@@ -39,11 +39,11 @@ defmodule HokEcs.EntitiesTest do
     end
 
     test "list_entities/1 with classification returns an empty list if no entities match the given classification" do
-      entity_fixture(%{classification: "one"})
-      entity_fixture(%{classification: "two"})
-      entity_fixture(%{classification: "three"})
+      entity_fixture(%{entity_classification: "one"})
+      entity_fixture(%{entity_classification: "two"})
+      entity_fixture(%{entity_classification: "three"})
 
-      assert [] == Entities.list_entities(%{classification: "four"})
+      assert [] == Entities.list_entities(%{entity_classification: "four"})
     end
 
     test "get_entity!/1 returns the entity with given id" do
@@ -53,14 +53,16 @@ defmodule HokEcs.EntitiesTest do
 
     test "create_entity/1 with valid data creates an entity and entity_created event" do
       valid_attrs = %{
-        classification_reference: "some classification_reference",
-        classification: "some classification",
-        context: "some context"
+        entity_classification_reference: "some classification_reference",
+        entity_classification: "some classification",
+        context: "some context",
+        context_id: "some context id",
+        creation_date: DateTime.utc_now() |> to_string()
       }
 
       assert {:ok, %Entity{} = entity} = Entities.create_entity(valid_attrs)
-      assert entity.classification_reference == "some classification_reference"
-      assert entity.classification == "some classification"
+      assert entity.entity_classification_reference == "some classification_reference"
+      assert entity.entity_classification == "some classification"
       assert entity.context == "some context"
 
       event = Repo.get_by(Event, entity_guid: entity.entity_guid)
@@ -68,8 +70,8 @@ defmodule HokEcs.EntitiesTest do
       assert %{
                type: "entity_created",
                data: %{
-                 "classification_reference" => "some classification_reference",
-                 "classification" => "some classification",
+                 "entity_classification_reference" => "some classification_reference",
+                 "entity_classification" => "some classification",
                  "context" => "some context"
                }
              } = event
@@ -80,7 +82,12 @@ defmodule HokEcs.EntitiesTest do
 
       assert %{
                errors: [
-                 classification_reference: {"is invalid", [type: :string, validation: :cast]}
+                 entity_classification: {"can't be blank", [validation: :required]},
+                 context: {"can't be blank", [validation: :required]},
+                 context_id: {"can't be blank", [validation: :required]},
+                 creation_date: {"can't be blank", [validation: :required]},
+                 entity_classification_reference:
+                   {"is invalid", [type: :string, validation: :cast]}
                ]
              } = changeset
 
@@ -91,14 +98,14 @@ defmodule HokEcs.EntitiesTest do
       entity = entity_fixture()
 
       update_attrs = %{
-        classification_reference: "some updated classification_reference",
-        classification: "some updated classification",
+        entity_classification_reference: "some updated classification_reference",
+        entity_classification: "some updated classification",
         context: "some updated context"
       }
 
       assert {:ok, %Entity{} = entity} = Entities.update_entity(entity, update_attrs)
-      assert entity.classification_reference == "some updated classification_reference"
-      assert entity.classification == "some updated classification"
+      assert entity.entity_classification_reference == "some updated classification_reference"
+      assert entity.entity_classification == "some updated classification"
       assert entity.context == "some updated context"
 
       event = Repo.get_by(Event, entity_guid: entity.entity_guid, type: "entity_updated")

@@ -38,6 +38,12 @@ export type Component = {
   version?: Maybe<Scalars['Int']>;
 };
 
+export type Edge = {
+  __typename?: 'Edge';
+  from: Scalars['ID'];
+  to: Scalars['ID'];
+};
+
 export type Entity = {
   __typename?: 'Entity';
   classification?: Maybe<Scalars['String']>;
@@ -46,6 +52,25 @@ export type Entity = {
   creationDate?: Maybe<Scalars['String']>;
   entityGuid: Scalars['ID'];
 };
+
+export type Graph = {
+  __typename?: 'Graph';
+  edges: Array<Edge>;
+  nodes: Array<Node>;
+};
+
+export type Node = {
+  __typename?: 'Node';
+  id: Scalars['ID'];
+  label: Scalars['String'];
+  type: NodeType;
+};
+
+export enum NodeType {
+  Component = 'COMPONENT',
+  Entity = 'ENTITY',
+  Relationship = 'RELATIONSHIP',
+}
 
 export type Relationship = {
   __typename?: 'Relationship';
@@ -82,6 +107,7 @@ export type RootQueryType = {
   components: Array<Component>;
   entities: Array<Entity>;
   entityComponentTypes: Array<Scalars['String']>;
+  graph: Graph;
 };
 
 export type RootQueryTypeComponentsArgs = {
@@ -91,7 +117,7 @@ export type RootQueryTypeComponentsArgs = {
 };
 
 export type RootQueryTypeEntitiesArgs = {
-  classification?: InputMaybe<Scalars['String']>;
+  entityClassification?: InputMaybe<Scalars['String']>;
 };
 
 export type RootQueryTypeEntityComponentTypesArgs = {
@@ -161,6 +187,40 @@ export type ValidationOption = {
   value: Scalars['String'];
 };
 
+export type CreateRelationshipMutationVariables = Exact<{
+  relationshipType?: InputMaybe<Scalars['String']>;
+  sourceEntityGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  sourceComponentGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  destinationEntityGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  destinationComponentGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+export type CreateRelationshipMutation = {
+  __typename?: 'RootMutationType';
+  createRelationship: {
+    __typename?: 'RelationshipPayload';
+    successful: boolean;
+    result?: { __typename?: 'Relationship'; relationshipGuid: string } | null;
+  };
+};
+
+export type GraphQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GraphQuery = {
+  __typename?: 'RootQueryType';
+  graph: {
+    __typename?: 'Graph';
+    nodes: Array<{
+      __typename?: 'Node';
+      id: string;
+      label: string;
+      title: NodeType;
+      group: NodeType;
+    }>;
+    edges: Array<{ __typename?: 'Edge'; from: string; to: string }>;
+  };
+};
+
 export type EntitiesQueryQueryVariables = Exact<{
   entityClassification: Scalars['String'];
   componentType: Scalars['String'];
@@ -202,23 +262,211 @@ export type EntityComponentTypesQuery = {
   entityComponentTypes: Array<string>;
 };
 
-export type CreateRelationshipMutationVariables = Exact<{
-  relationshipType?: InputMaybe<Scalars['String']>;
-  sourceEntityGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
-  sourceComponentGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
-  destinationEntityGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
-  destinationComponentGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
-}>;
-
-export type CreateRelationshipMutation = {
-  __typename?: 'RootMutationType';
-  createRelationship: {
-    __typename?: 'RelationshipPayload';
-    successful: boolean;
-    result?: { __typename?: 'Relationship'; relationshipGuid: string } | null;
-  };
-};
-
+export const CreateRelationshipDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateRelationship' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'relationshipType' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'sourceEntityGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'sourceComponentGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'destinationEntityGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'destinationComponentGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createRelationship' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'relationshipType' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'relationshipType' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sourceEntityGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'sourceEntityGuids' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sourceComponentGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'sourceComponentGuids' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'destinationEntityGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'destinationEntityGuids' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'destinationComponentGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'destinationComponentGuids' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'successful' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'result' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'relationshipGuid' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateRelationshipMutation,
+  CreateRelationshipMutationVariables
+>;
+export const GraphDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Graph' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'graph' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'title' },
+                        name: { kind: 'Name', value: 'type' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'group' },
+                        name: { kind: 'Name', value: 'type' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'from' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'to' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GraphQuery, GraphQueryVariables>;
 export const EntitiesQueryDocument = {
   kind: 'Document',
   definitions: [
@@ -424,153 +672,4 @@ export const EntityComponentTypesDocument = {
 } as unknown as DocumentNode<
   EntityComponentTypesQuery,
   EntityComponentTypesQueryVariables
->;
-export const CreateRelationshipDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateRelationship' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'relationshipType' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'sourceEntityGuids' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'sourceComponentGuids' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'destinationEntityGuids' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'destinationComponentGuids' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createRelationship' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'relationshipType' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'relationshipType' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'sourceEntityGuids' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sourceEntityGuids' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'sourceComponentGuids' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sourceComponentGuids' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'destinationEntityGuids' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'destinationEntityGuids' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'destinationComponentGuids' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'destinationComponentGuids' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'successful' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'result' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'relationshipGuid' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  CreateRelationshipMutation,
-  CreateRelationshipMutationVariables
 >;

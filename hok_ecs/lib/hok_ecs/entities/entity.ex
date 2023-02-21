@@ -3,15 +3,23 @@ defmodule HokEcs.Entities.Entity do
 
   import Ecto.Changeset
 
-  @attrs [:classification, :classification_reference, :context, :creation_date]
+  @attrs [
+    :context,
+    :context_id,
+    :entity_classification,
+    :entity_classification_reference,
+    :creation_date
+  ]
+  @required [:entity_classification, :context, :context_id, :creation_date]
 
   @primary_key {:entity_guid, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   @derive {Phoenix.Param, key: :entity_guid}
   typed_schema "entities" do
-    field :classification_reference, :string
-    field :classification, :string
     field :context, :string
+    field :context_id, :string
+    field :entity_classification, :string
+    field :entity_classification_reference, :string
     field :creation_date, :string
 
     timestamps()
@@ -21,5 +29,6 @@ defmodule HokEcs.Entities.Entity do
   def changeset(entity, attrs) do
     entity
     |> cast(attrs, @attrs)
+    |> validate_required(@required)
   end
 end

@@ -55,9 +55,79 @@ defmodule HokEcsWeb.AbsintheSchema do
 
   payload_object(:relationship_payload, :relationship)
 
+  enum :node_type do
+    value(:entity, as: "entity")
+    value(:component, as: "component")
+    value(:relationship, as: "relationship")
+  end
+
+  object :graph do
+    field :nodes, non_null_list(:node),
+      resolve: fn _, _ ->
+        query = ~S"""
+        select c.component_guid as node_id, 'component' as type, c.component_type as label
+        from components c
+        union
+        select e.entity_guid as node_id, 'entity' as type, e.entity_classification as label
+        from entities e
+        union
+        select r.relationship_guid as node_id, 'relationship' as type, r.relationship_type as label
+        from relationships r
+        """
+
+        %{rows: rows, columns: columns} = HokEcs.Repo.query!(query)
+
+        rows
+        |> Enum.map(&HokEcs.Repo.load(HokEcs.Graph.Node, {columns, &1}))
+        |> Helpers.ok()
+      end
+
+    field :edges, non_null_list(:edge),
+      resolve: fn _, _ ->
+        query = ~S"""
+        select rsc.relationship_guid as to_id, rsc.component_guid as from_id
+        from relationship_source_components rsc
+        union
+        select rdc.component_guid as to_id, rdc.relationship_guid as from_id
+        from relationship_destination_components rdc
+        union
+        select rse.relationship_guid as to_id, rse.entity_guid as from_id
+        from relationship_source_entities rse
+        union
+        select rde.entity_guid as to_id, rde.relationship_guid as from_id
+        from relationship_destination_entities rde
+        union
+        select components.entity_guid as to_id, components.component_guid as from_id
+        from components
+        """
+
+        %{rows: rows, columns: columns} = HokEcs.Repo.query!(query)
+
+        rows
+        |> Enum.map(&HokEcs.Repo.load(HokEcs.Graph.Edge, {columns, &1}))
+        |> IO.inspect(label: RESULT)
+        |> Helpers.ok()
+      end
+  end
+
+  object :node do
+    field :id, non_null(:id), resolve: fn %{node_id: node_id}, _, _ -> {:ok, node_id} end
+    field :type, non_null(:node_type)
+    field :label, non_null(:string)
+  end
+
+  object :edge do
+    field :from, non_null(:id), resolve: fn %{from_id: from_id}, _, _ -> {:ok, from_id} end
+    field :to, non_null(:id), resolve: fn %{to_id: to_id}, _, _ -> {:ok, to_id} end
+  end
+
   query do
+    field :graph, non_null(:graph) do
+      resolve(fn _, _ -> {:ok, %{}} end)
+    end
+
     field :entities, non_null_list(:entity) do
-      arg(:classification, :string)
+      arg(:entity_classification, :string)
 
       resolve(fn args, _ ->
         args

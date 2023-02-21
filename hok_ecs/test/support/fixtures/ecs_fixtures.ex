@@ -22,6 +22,15 @@ defmodule HokEcs.ECSFixtures do
   }
 
   def entity_fixture(attrs \\ %{}) do
+    attrs =
+      attrs
+      |> Enum.into(%{
+        context: "some_context",
+        context_id: "some_context_id",
+        creation_date: DateTime.utc_now() |> to_string(),
+        entity_classification: "some_entity_classification"
+      })
+
     %Entity{}
     |> Entity.changeset(attrs)
     |> Repo.insert!()
@@ -39,17 +48,18 @@ defmodule HokEcs.ECSFixtures do
         authoring_application: "some authoring_application",
         component_id: "some component_id",
         component_name: "some component_name",
-        component_payload_type: "some component_payload_type",
+        component_type_payload: "some component_payload_type",
         component_type: "some component_type",
         component_type_reference: "some component_type_reference",
         context: "some context",
+        context_id: "some_context_id",
         entity_classification: "some entity_classification",
         hash1: "some hash1",
         owner: "some owner",
         payload: %{},
-        schema: "some schema",
         status: "some status",
-        version: 42
+        version: "42",
+        creation_date: DateTime.utc_now() |> to_string()
       })
 
     %Component{}

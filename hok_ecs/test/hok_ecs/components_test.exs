@@ -34,17 +34,18 @@ defmodule HokEcs.ComponentsTest do
         authoring_application: "some authoring_application",
         component_id: "some component_id",
         component_name: "some component_name",
-        component_payload_type: "some component_payload_type",
+        component_type_payload: "some component_type_payload",
         component_type: "some component_type",
         component_type_reference: "some component_type_reference",
         context: "some context",
+        context_id: "some context id",
         entity_classification: "some entity_classification",
         hash1: "some hash1",
         owner: "some owner",
         payload: %{},
-        schema: "some schema",
         status: "some status",
-        version: 42
+        version: "42",
+        creation_date: DateTime.utc_now() |> to_string()
       }
 
       assert {:ok, %Component{} = component} = Components.create_component(valid_attrs)
@@ -52,7 +53,7 @@ defmodule HokEcs.ComponentsTest do
       assert component.authoring_application == "some authoring_application"
       assert component.component_id == "some component_id"
       assert component.component_name == "some component_name"
-      assert component.component_payload_type == "some component_payload_type"
+      assert component.component_type_payload == "some component_type_payload"
       assert component.component_type == "some component_type"
       assert component.component_type_reference == "some component_type_reference"
       assert component.context == "some context"
@@ -60,9 +61,8 @@ defmodule HokEcs.ComponentsTest do
       assert component.hash1 == "some hash1"
       assert component.owner == "some owner"
       assert component.payload == %{}
-      assert component.schema == "some schema"
       assert component.status == "some status"
-      assert component.version == 42
+      assert component.version == "42"
 
       event = Repo.get_by(Event, component_guid: component.component_guid)
 
@@ -82,7 +82,15 @@ defmodule HokEcs.ComponentsTest do
       attrs = %{
         entity_guid: entity.entity_guid,
         component_schema_guid: component_schema.component_schema_guid,
-        payload: %{"FirstName" => "Bob"}
+        context: "some context",
+        context_id: "some context id",
+        component_type: "some component type",
+        component_type_reference: "some component type reference",
+        component_type_payload: "json",
+        payload: %{"FirstName" => "Bob"},
+        owner: "some owner",
+        version: "some version",
+        creation_date: DateTime.utc_now() |> to_string()
       }
 
       assert {:ok, %Component{} = component} = Components.create_component(attrs)
@@ -135,7 +143,7 @@ defmodule HokEcs.ComponentsTest do
         authoring_application: "some updated authoring_application",
         component_id: "some updated component_id",
         component_name: "some updated component_name",
-        component_payload_type: "some updated component_payload_type",
+        component_type_payload: "some updated component_type_payload",
         component_type: "some updated component_type",
         component_type_reference: "some updated component_type_reference",
         context: "some updated context",
@@ -143,9 +151,8 @@ defmodule HokEcs.ComponentsTest do
         hash1: "some updated hash1",
         owner: "some updated owner",
         payload: %{},
-        schema: "some updated schema",
         status: "some updated status",
-        version: 43
+        version: "43"
       }
 
       assert {:ok, %Component{} = component} =
@@ -155,7 +162,7 @@ defmodule HokEcs.ComponentsTest do
       assert component.authoring_application == "some updated authoring_application"
       assert component.component_id == "some updated component_id"
       assert component.component_name == "some updated component_name"
-      assert component.component_payload_type == "some updated component_payload_type"
+      assert component.component_type_payload == "some updated component_type_payload"
       assert component.component_type == "some updated component_type"
       assert component.component_type_reference == "some updated component_type_reference"
       assert component.context == "some updated context"
@@ -163,9 +170,8 @@ defmodule HokEcs.ComponentsTest do
       assert component.hash1 == "some updated hash1"
       assert component.owner == "some updated owner"
       assert component.payload == %{}
-      assert component.schema == "some updated schema"
       assert component.status == "some updated status"
-      assert component.version == 43
+      assert component.version == "43"
 
       event = Repo.get_by(Event, component_guid: component.component_guid)
 

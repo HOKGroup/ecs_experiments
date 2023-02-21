@@ -6,13 +6,16 @@ defmodule HokEcs.Components.Component do
   alias HokEcs.Components.ComponentSchema
 
   @attrs [
+    :component_sequence_name,
+    :component_sequence_value,
     :context,
+    :context_id,
     :component_name,
     :component_id,
     :entity_classification,
     :component_type,
     :component_type_reference,
-    :component_payload_type,
+    :component_type_payload,
     :owner,
     :version,
     :status,
@@ -20,34 +23,47 @@ defmodule HokEcs.Components.Component do
     :creation_date,
     :authoring_application,
     :hash1,
-    :schema,
     :payload,
     :component_schema_guid,
     :entity_guid
   ]
 
-  @required [:entity_guid]
+  @required [
+    :entity_guid,
+    :context,
+    :context_id,
+    :component_type,
+    :component_type_reference,
+    :component_type_payload,
+    :owner,
+    :version,
+    :active,
+    :creation_date,
+    :payload
+  ]
 
   @primary_key {:component_guid, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   @derive {Phoenix.Param, key: :component_guid}
   typed_schema "components" do
-    field :active, :boolean
+    field :component_sequence_name, :string
+    field :component_sequence_value, :string
+    field :active, :boolean, default: true
     field :creation_date, :string
     field :authoring_application, :string
     field :component_id, :string
     field :component_name, :string
-    field :component_payload_type, :string
+    field :component_type_payload, :string
     field :component_type, :string
     field :component_type_reference, :string
     field :context, :string
+    field :context_id, :string
     field :entity_classification, :string
     field :hash1, :string
     field :owner, :string
     field :payload, :map
-    field :schema, :string
     field :status, :string
-    field :version, :integer
+    field :version, :string
     field :entity_guid, :binary_id
 
     belongs_to :component_schema, ComponentSchema,

@@ -6,13 +6,16 @@ import {
 } from '../CreateRelationship';
 import DataTable from '../../components/DataTable';
 import {
+  ClassificationDetails,
   CompanyDetails,
   CompanyLocationDetails,
+  JurisdictionDetails,
   Payload,
   PersonDetails,
   ProjectDetails,
   ProjectGroup,
-  ServiceDetails,
+  ScopeOfWorkDetails,
+  SpecificationMasterDetails,
 } from '../../parsePayload';
 
 interface ComponentData {
@@ -53,20 +56,34 @@ const getComponentColumns = (
   ];
 
   switch (componentType) {
+    case 'specification.master.details':
+      return [
+        {
+          header: 'Name',
+          id: 'LABEL',
+          accessorFn: (c) =>
+            (c.payload as SpecificationMasterDetails).specification_master_name,
+        },
+        {
+          header: 'Specialization',
+          accessorFn: (c) =>
+            (c.payload as SpecificationMasterDetails).master_specialization,
+        },
+      ];
     case 'project.details': {
       return [
         {
           header: 'Name',
-          accessorFn: (c) => (c.payload as ProjectDetails).ProjectName,
+          accessorFn: (c) => (c.payload as ProjectDetails).project_name,
         },
         {
           header: 'Number',
-          accessorFn: (c) => (c.payload as ProjectDetails).ProjectNumber,
+          accessorFn: (c) => (c.payload as ProjectDetails).project_number,
         },
         {
           header: 'Alias',
           id: 'LABEL',
-          accessorFn: (c) => (c.payload as ProjectDetails).ProjectNameAlias,
+          accessorFn: (c) => (c.payload as ProjectDetails).project_name_alias,
         },
       ];
     }
@@ -75,11 +92,11 @@ const getComponentColumns = (
         {
           header: 'Name',
           id: 'LABEL',
-          accessorFn: (c) => (c.payload as CompanyDetails).CompanyName,
+          accessorFn: (c) => (c.payload as CompanyDetails).company_name,
         },
         {
-          header: 'Acronym',
-          accessorFn: (c) => (c.payload as CompanyDetails).CompanyAcronym,
+          header: 'Short Name',
+          accessorFn: (c) => (c.payload as CompanyDetails).company_short_name,
         },
       ];
     case 'company.location.details':
@@ -87,28 +104,13 @@ const getComponentColumns = (
         {
           header: 'Name',
           id: 'LABEL',
-          accessorFn: (c) => (c.payload as CompanyLocationDetails).LocationName,
+          accessorFn: (c) =>
+            (c.payload as CompanyLocationDetails).location_name,
         },
         {
           header: 'Alias',
           accessorFn: (c) =>
-            (c.payload as CompanyLocationDetails).LocationAlias,
-        },
-      ];
-    case 'service.details':
-      return [
-        {
-          header: 'Name',
-          id: 'LABEL',
-          accessorFn: (c) => (c.payload as ServiceDetails).ServiceName,
-        },
-        {
-          header: 'Acronym',
-          accessorFn: (c) => (c.payload as ServiceDetails).ServiceAcronym,
-        },
-        {
-          header: 'URL',
-          accessorFn: (c) => (c.payload as ServiceDetails).BaseURL,
+            (c.payload as CompanyLocationDetails).location_short_name,
         },
       ];
 
@@ -117,23 +119,66 @@ const getComponentColumns = (
         {
           header: 'Group',
           id: 'LABEL',
-          accessorFn: (c) => (c.payload as ProjectGroup).GroupName,
+          accessorFn: (c) => (c.payload as ProjectGroup).group_name,
         },
       ];
     case 'person.details':
       return [
         {
           header: 'First',
-          accessorFn: (c) => (c.payload as PersonDetails).FirstName,
+          accessorFn: (c) => (c.payload as PersonDetails).first_name,
         },
         {
           header: 'Last',
-          accessorFn: (c) => (c.payload as PersonDetails).LastName,
+          accessorFn: (c) => (c.payload as PersonDetails).last_name,
         },
         {
           header: 'Email',
           id: 'LABEL',
-          accessorFn: (c) => (c.payload as PersonDetails).EmailAddress,
+          accessorFn: (c) => (c.payload as PersonDetails).email_address,
+        },
+      ];
+    case 'classification.details':
+      return [
+        {
+          header: 'Name',
+          id: 'LABEL',
+          accessorFn: (c) =>
+            (c.payload as ClassificationDetails).classification_name,
+        },
+        {
+          header: 'Number',
+          accessorFn: (c) =>
+            (c.payload as ClassificationDetails).classification_number,
+        },
+      ];
+    case 'jurisdiction.details':
+      return [
+        {
+          header: 'Name',
+          id: 'LABEL',
+          accessorFn: (c) =>
+            (c.payload as JurisdictionDetails).jurisdiction_name,
+        },
+      ];
+    case 'scopeofwork.details':
+      // return [
+      //   {
+      //     header: 'GUID',
+      //     id: 'LABEL',
+      //     accessorKey: 'entityGuid'
+      //   }
+      // ]
+      return [
+        {
+          header: 'Name',
+          id: 'LABEL',
+          accessorFn: (c) => (c.payload as ScopeOfWorkDetails).scope_name,
+        },
+        {
+          header: 'Description',
+          accessorFn: (c) =>
+            (c.payload as ScopeOfWorkDetails).scope_description,
         },
       ];
     default:
