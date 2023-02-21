@@ -1,163 +1,98 @@
 import { z } from 'zod';
-
-const specificationMasterDetails = z.object({
-  specification_master_name: z.string().optional(),
-  master_specialization: z.string().optional(),
-  master_owner: z.string().optional(),
-});
-
-const scopeOfWorkDetailsSchema = z.object({
-  scope_name: z.string().optional(),
-  scope_description: z.string().optional(),
-  'Scope Criteria': z.array(z.string()).optional(),
-});
-const jurisdictionDetailsSchema = z.object({
-  jurisdiction_name: z.string().optional(),
-});
-
-const classificationDetailsSchema = z.object({
-  classification_name: z.string().optional(),
-  classification_number: z.string().optional(),
-  classification_parent_number: z.string().optional(),
-  classification_description: z.string().optional(),
-});
-
-const personDetailsSchema = z.object({
-  first_name: z.string(),
-  last_name: z.string(),
-  email_address: z.string(),
-  unique_id: z.string(),
-});
-
-const projectGroupSchema = z.object({
-  group_name: z.string().optional(),
-  group_description: z.string().optional(),
-  // FIXME: bad data, should be boolean but is a string in sample data
-  close_automatically: z.string().optional(),
-  close_date: z.string().optional(),
-});
-
-const companyLocationDetailsSchema = z.object({
-  location_name: z.string(),
-  location_short_name: z.string().optional(),
-  address1: z.string().optional(),
-  address2: z.string().optional(),
-  city: z.string().optional(),
-  state_province: z.string().optional(),
-  country: z.string().optional(),
-  postal_code: z.string().optional(),
-  telephone: z.string().optional(),
-  fax: z.string().optional(),
-  unique_id: z.string(),
-});
-
-const companyDetailsSchema = z.object({
-  company_name: z.string(),
-  company_short_name: z.string().optional(),
-  unique_id: z.string(),
-});
-
-const projectDetailsSchema = z.object({
-  project_name: z.string(),
-  project_name_alias: z.string(),
-  project_number: z.string(),
-  unique_id: z.string(),
-  admin_location: z.string(),
-});
+import classificationDetails from './schemas/classificationDetails';
+import companyDetails from './schemas/companyDetails';
+import companyLocationDetails from './schemas/companyLocationDetails';
+import jurisdictionCode from './schemas/jurisdictionCode';
+import jurisdictionDetails from './schemas/jurisdictionDetails';
+import personDetails from './schemas/personDetails';
+import projectCodeAnalysisConstructionType from './schemas/projectCodeAnalysisConstructionType';
+import projectCodeAnalysisDetails from './schemas/projectCodeAnalysisDetails';
+import projectDetails from './schemas/projectDetails';
+import projectDiscipline from './schemas/projectDiscipline';
+import projectGroup from './schemas/projectGroup';
+import projectLocationDetails from './schemas/projectLocationDetails';
+import projectLocationPolygon from './schemas/projectLocationPolygon';
+import projectPhase from './schemas/projectPhase';
+import qcChecklist from './schemas/qcChecklist';
+import qcChecklistItem from './schemas/qcChecklistItem';
+import scopeofworkDetails from './schemas/scopeofworkDetails';
+import specificationMasterDetails from './schemas/specificationMasterDetails';
+import specificationMasterSection from './schemas/specificationMasterSection';
 
 const payloadSchema = z.union([
-  scopeOfWorkDetailsSchema,
-  jurisdictionDetailsSchema,
-  classificationDetailsSchema,
-  personDetailsSchema,
-  projectGroupSchema,
-  companyLocationDetailsSchema,
-  companyDetailsSchema,
-  projectDetailsSchema,
+  classificationDetails,
+  companyDetails,
+  companyLocationDetails,
+  jurisdictionCode,
+  jurisdictionDetails,
+  personDetails,
+  projectCodeAnalysisConstructionType,
+  projectCodeAnalysisDetails,
+  projectDetails,
+  projectDiscipline,
+  projectGroup,
+  projectLocationDetails,
+  projectLocationPolygon,
+  projectPhase,
+  qcChecklist,
+  qcChecklistItem,
+  scopeofworkDetails,
+  specificationMasterDetails,
+  specificationMasterSection,
 ]);
-
-export type SpecificationMasterDetails = z.infer<
-  typeof specificationMasterDetails
->;
-export type ScopeOfWorkDetails = z.infer<typeof scopeOfWorkDetailsSchema>;
-export type JurisdictionDetails = z.infer<typeof jurisdictionDetailsSchema>;
-export type ClassificationDetails = z.infer<typeof classificationDetailsSchema>;
-export type ProjectGroup = z.infer<typeof projectGroupSchema>;
-export type CompanyLocationDetails = z.infer<
-  typeof companyLocationDetailsSchema
->;
-export type CompanyDetails = z.infer<typeof companyDetailsSchema>;
-export type ProjectDetails = z.infer<typeof projectDetailsSchema>;
-export type PersonDetails = z.infer<typeof personDetailsSchema>;
 
 export type Payload = z.infer<typeof payloadSchema>;
 
-//export type Payload<T extends PayloadType> = PayloadMap[T];
+const parsePayload = (type: string, payload: string): Payload => {
+  try {
+    const parsedJson: unknown = JSON.parse(payload);
 
-export type PayloadType =
-  | 'classification.details'
-  | 'company.details'
-  | 'company.location.details'
-  | 'jurisdiction.details'
-  | 'person.details'
-  | 'project.details'
-  | 'project.group'
-  | 'specification.master.details'
-  | 'service.details';
-
-export interface PayloadMap {
-  'classification.details': ClassificationDetails;
-  'company.details': CompanyDetails;
-  'company.location.details': CompanyLocationDetails;
-  'jurisdiction.details': JurisdictionDetails;
-  'person.details': PersonDetails;
-  'project.details': ProjectDetails;
-  'project.group': ProjectGroup;
-  'specification.master.details': SpecificationMasterDetails;
-  'scopeofwork.details': ScopeOfWorkDetails;
-}
-
-// const parsePayload = (payload: string) => {
-//   console.log("PAYLOAD: ", payload);
-//   // FIXME: use safeParse and handle result union
-//   try {
-//     const parsed = payloadSchema.parse(JSON.parse(payload));
-//     console.log("PARSED: ", parsed);
-//     return parsed;
-//   } catch (_err) {
-//     return {};
-//   }
-// };
-
-const parsePayload = <T extends keyof PayloadMap>(
-  type: T,
-  payload: string,
-): PayloadMap[T] => {
-  const parsedJson: unknown = JSON.parse(payload);
-
-  switch (type) {
-    case 'classification.details':
-      return classificationDetailsSchema.parse(parsedJson) as PayloadMap[T];
-    case 'jurisdiction.details':
-      return jurisdictionDetailsSchema.parse(parsedJson) as PayloadMap[T];
-    case 'scopeofwork.details':
-      return scopeOfWorkDetailsSchema.parse(parsedJson) as PayloadMap[T];
-    case 'project.details':
-      return projectDetailsSchema.parse(parsedJson) as PayloadMap[T];
-    case 'company.details':
-      return companyDetailsSchema.parse(parsedJson) as PayloadMap[T];
-    case 'company.location.details':
-      return companyLocationDetailsSchema.parse(parsedJson) as PayloadMap[T];
-    case 'project.group':
-      return projectGroupSchema.parse(parsedJson) as PayloadMap[T];
-    case 'person.details':
-      return personDetailsSchema.parse(parsedJson) as PayloadMap[T];
-    case 'specification.master.details':
-      return specificationMasterDetails.parse(parsedJson) as PayloadMap[T];
-    default:
-      // throw new Error("Unknown payload type");
-      console.warn('Unknown payload type: ', type);
-      return {} as PayloadMap[T];
+    switch (type) {
+      case 'classification.details':
+        return classificationDetails.parse(parsedJson);
+      case 'company.details':
+        return companyDetails.parse(parsedJson);
+      case 'company.location.details':
+        return companyLocationDetails.parse(parsedJson);
+      case 'jurisdiction.code':
+        return jurisdictionCode.parse(parsedJson);
+      case 'jurisdiction.details':
+        return jurisdictionDetails.parse(parsedJson);
+      case 'person.details':
+        return personDetails.parse(parsedJson);
+      case 'project.code.analysis.construction.type':
+        return projectCodeAnalysisConstructionType.parse(parsedJson);
+      case 'project.code.analysis.details':
+        return projectCodeAnalysisDetails.parse(parsedJson);
+      case 'project.details':
+        return projectDetails.parse(parsedJson);
+      case 'project.discipline':
+        return projectDiscipline.parse(parsedJson);
+      case 'project.group':
+        return projectGroup.parse(parsedJson);
+      case 'project.location.details':
+        return projectLocationDetails.parse(parsedJson);
+      case 'project.location.polygon':
+        return projectLocationPolygon.parse(parsedJson);
+      case 'project.phase':
+        return projectPhase.parse(parsedJson);
+      case 'qc.checklist':
+        return qcChecklist.parse(parsedJson);
+      case 'qc.checklist.item':
+        return qcChecklistItem.parse(parsedJson);
+      case 'scopeofwork.details':
+        return scopeofworkDetails.parse(parsedJson);
+      case 'specification.master.details':
+        return specificationMasterDetails.parse(parsedJson);
+      case 'specification.master.section':
+        return specificationMasterSection.parse(parsedJson);
+      default:
+        console.warn('Unknown payload type: ', type);
+        return {} as Payload;
+    }
+  } catch (err) {
+    console.error(`Error parsing payload of type ${type}: `, err);
+    return {} as Payload;
   }
 };
 

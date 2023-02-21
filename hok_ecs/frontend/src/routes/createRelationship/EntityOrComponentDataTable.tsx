@@ -5,18 +5,17 @@ import {
   EntityOrComponentValue,
 } from '../CreateRelationship';
 import DataTable from '../../components/DataTable';
-import {
-  ClassificationDetails,
-  CompanyDetails,
-  CompanyLocationDetails,
-  JurisdictionDetails,
-  Payload,
-  PersonDetails,
-  ProjectDetails,
-  ProjectGroup,
-  ScopeOfWorkDetails,
-  SpecificationMasterDetails,
-} from '../../parsePayload';
+
+import { SpecificationMasterDetails } from '../../schemas/specificationMasterDetails';
+import { ProjectDetails } from '../../schemas/projectDetails';
+import { CompanyDetails } from '../../schemas/companyDetails';
+import { CompanyLocationDetails } from '../../schemas/companyLocationDetails';
+import { ProjectGroup } from '../../schemas/projectGroup';
+import { PersonDetails } from '../../schemas/personDetails';
+import { ClassificationDetails } from '../../schemas/classificationDetails';
+import { ScopeofworkDetails } from '../../schemas/scopeofworkDetails';
+import { JurisdictionDetails } from '../../schemas/jurisdictionDetails';
+import { Payload } from '../../parsePayload';
 
 interface ComponentData {
   componentGuid: string;
@@ -38,6 +37,7 @@ interface Props {
   singleColumn?: boolean;
 }
 
+// #region(collapsed) columns
 const getColumns = (entityOrComponentType: EntityOrComponentType) => {
   if (entityOrComponentType.type === 'entity') {
     return getEntityColumns();
@@ -186,24 +186,25 @@ const getComponentColumns = (
         {
           header: 'Name',
           id: 'LABEL',
-          accessorFn: (c) => (c.payload as ScopeOfWorkDetails).scope_name,
+          accessorFn: (c) => (c.payload as ScopeofworkDetails).scope_name,
         },
         {
           header: 'Description',
           accessorFn: (c) =>
-            (c.payload as ScopeOfWorkDetails).scope_description,
+            (c.payload as ScopeofworkDetails).scope_description,
         },
       ];
     default:
       return columns;
   }
 };
+// #endregion
 
 const EntityOrComponentDataTable: React.FC<Props> = ({
   onClick,
   entityOrComponentType,
-  data: destinationData,
-  value: destinationValue,
+  data,
+  value,
   singleColumn: propsSingleColumn,
 }) => {
   const singleColumn = propsSingleColumn ?? false;
@@ -217,27 +218,23 @@ const EntityOrComponentDataTable: React.FC<Props> = ({
 
   const isRowActive = useCallback(
     (row: Row<Data>) => {
-      if (!destinationValue) return false;
+      if (!value) return false;
 
-      if (destinationValue.type === 'entity') {
-        return (
-          destinationValue.entityGuid ===
-          (row.original as EntityData).entityGuid
-        );
+      if (value.type === 'entity') {
+        return value.entityGuid === (row.original as EntityData).entityGuid;
       }
 
       return (
-        destinationValue.componentGuid ===
-        (row.original as ComponentData).componentGuid
+        value.componentGuid === (row.original as ComponentData).componentGuid
       );
     },
-    [destinationValue],
+    [value],
   );
 
   return (
     <DataTable
       columns={columns}
-      data={destinationData}
+      data={data}
       isRowActive={isRowActive}
       onClickRow={(row) => {
         const { type } = entityOrComponentType;

@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import { hasPresentKey } from 'ts-is-present';
 import { useQuery } from 'urql';
-import parsePayload, { PayloadMap } from '../../parsePayload';
+import parsePayload from '../../parsePayload';
 import { graphql } from '../../gql';
 import Loader from '../../components/Loader';
 import LoadingBar from '../../components/LoadingBar';
@@ -212,7 +212,7 @@ const DataPanel: React.FC<Props> = ({
       ...el,
       payload:
         el.payload && el.componentType
-          ? parsePayload(el.componentType as keyof PayloadMap, el.payload)
+          ? parsePayload(el.componentType, el.payload)
           : undefined,
     }))
     .filter(hasPresentKey('payload'));
@@ -258,7 +258,7 @@ const DataPanel: React.FC<Props> = ({
       ...el,
       payload:
         el.payload && el.componentType
-          ? parsePayload(el.componentType as keyof PayloadMap, el.payload)
+          ? parsePayload(el.componentType, el.payload)
           : undefined,
     }))
     .filter(hasPresentKey('payload'));
