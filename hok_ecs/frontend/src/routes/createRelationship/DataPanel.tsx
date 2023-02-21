@@ -141,15 +141,11 @@ interface ComponentValue {
 }
 
 const EntitiesQuery = graphql(`
-  query EntitiesQuery($entityClassification: String!, $componentType: String!) {
-    components(
-      entityClassification: $entityClassification
-      componentType: $componentType
-    ) {
+  query EntitiesQuery($entityClassification: String!) {
+    entities(entityClassification: $entityClassification) {
       entityGuid
-      entityClassification
-      componentType
-      payload
+      classification
+      context
     }
   }
 `);
@@ -183,7 +179,7 @@ const DataPanel: React.FC<Props> = ({
 }) => {
   const [
     {
-      data: entitiesDataRaw,
+      data: entitiesData,
       fetching: entitiesFetching,
       error: entitiesError,
       stale: entitiesStale,
@@ -192,20 +188,9 @@ const DataPanel: React.FC<Props> = ({
     query: EntitiesQuery,
     variables: type1 && {
       entityClassification: (type1 as EntityType).entityClassification,
-      componentType: (type1 as EntityType).componentType,
     },
     pause: !type1 || type1.type !== 'entity',
   });
-
-  const entitiesData = entitiesDataRaw?.components
-    .map((el) => ({
-      ...el,
-      payload:
-        el.payload && el.componentType
-          ? parsePayload(el.componentType as keyof PayloadMap, el.payload)
-          : undefined,
-    }))
-    .filter(hasPresentKey('payload'));
 
   const [
     {
@@ -235,7 +220,7 @@ const DataPanel: React.FC<Props> = ({
   const data1 = !type1
     ? undefined
     : type1.type === 'entity'
-    ? entitiesData
+    ? entitiesData?.entities
     : componentsData1;
 
   const fetching1 = entitiesFetching || componentsFetching1;

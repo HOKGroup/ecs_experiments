@@ -239,9 +239,9 @@ const CreateRelationship: React.FC = () => {
           <InvertRelationshipButton
             onClick={invertRelationship}
             canInvert={Boolean(
-              sourceType1 ||
-                sourceType2 ||
-                destinationType1 ||
+              sourceType1 ??
+                sourceType2 ??
+                destinationType1 ??
                 destinationType2,
             )}
           />

@@ -39,9 +39,22 @@ interface Props {
 }
 
 const getColumns = (entityOrComponentType: EntityOrComponentType) => {
+  if (entityOrComponentType.type === 'entity') {
+    return getEntityColumns();
+  }
   return getComponentColumns(
     entityOrComponentType.componentType,
   ) as ColumnDef<Data>[];
+};
+
+const getEntityColumns = (): ColumnDef<EntityData>[] => {
+  return [
+    {
+      header: 'Context',
+      id: 'LABEL',
+      accessorKey: 'context',
+    },
+  ];
 };
 
 const getComponentColumns = (
@@ -232,7 +245,7 @@ const EntityOrComponentDataTable: React.FC<Props> = ({
         if (type === 'entity') {
           onClick({
             type: 'entity',
-            entityGuid: (row.original as EntityData).entityGuid,
+            entityGuid: row.original.entityGuid,
             label: row.getValue('LABEL'),
           });
         } else {

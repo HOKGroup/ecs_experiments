@@ -133,7 +133,8 @@ const parsePayload = <T extends keyof PayloadMap>(
   type: T,
   payload: string,
 ): PayloadMap[T] => {
-  const parsedJson = JSON.parse(payload);
+  const parsedJson: unknown = JSON.parse(payload);
+
   switch (type) {
     case 'classification.details':
       return classificationDetailsSchema.parse(parsedJson) as PayloadMap[T];

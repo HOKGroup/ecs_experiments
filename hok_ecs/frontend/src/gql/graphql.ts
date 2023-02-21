@@ -223,17 +223,15 @@ export type GraphQuery = {
 
 export type EntitiesQueryQueryVariables = Exact<{
   entityClassification: Scalars['String'];
-  componentType: Scalars['String'];
 }>;
 
 export type EntitiesQueryQuery = {
   __typename?: 'RootQueryType';
-  components: Array<{
-    __typename?: 'Component';
+  entities: Array<{
+    __typename?: 'Entity';
     entityGuid: string;
-    entityClassification?: string | null;
-    componentType?: string | null;
-    payload?: string | null;
+    classification?: string | null;
+    context?: string | null;
   }>;
 };
 
@@ -489,27 +487,13 @@ export const EntitiesQueryDocument = {
             },
           },
         },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'componentType' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
-        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'components' },
+            name: { kind: 'Name', value: 'entities' },
             arguments: [
               {
                 kind: 'Argument',
@@ -519,14 +503,6 @@ export const EntitiesQueryDocument = {
                   name: { kind: 'Name', value: 'entityClassification' },
                 },
               },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'componentType' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'componentType' },
-                },
-              },
             ],
             selectionSet: {
               kind: 'SelectionSet',
@@ -534,13 +510,9 @@ export const EntitiesQueryDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'entityClassification' },
+                  name: { kind: 'Name', value: 'classification' },
                 },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'componentType' },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'payload' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'context' } },
               ],
             },
           },

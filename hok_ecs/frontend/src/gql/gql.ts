@@ -17,7 +17,7 @@ const documents = {
     types.CreateRelationshipDocument,
   '\n  query Graph {\n    graph {\n      nodes {\n        id\n        label\n        title: type\n        group: type\n      }\n      edges {\n        from\n        to\n      }\n    }\n  }\n':
     types.GraphDocument,
-  '\n  query EntitiesQuery($entityClassification: String!, $componentType: String!) {\n    components(\n      entityClassification: $entityClassification\n      componentType: $componentType\n    ) {\n      entityGuid\n      entityClassification\n      componentType\n      payload\n    }\n  }\n':
+  '\n  query EntitiesQuery($entityClassification: String!) {\n    entities(entityClassification: $entityClassification) {\n      entityGuid\n      classification\n      context\n    }\n  }\n':
     types.EntitiesQueryDocument,
   '\n  query ComponentsByComponentType($componentType: String!, $entityGuid: ID) {\n    components(componentType: $componentType, entityGuid: $entityGuid) {\n      componentGuid\n      entityGuid\n      componentType\n      payload\n    }\n  }\n':
     types.ComponentsByComponentTypeDocument,
@@ -55,8 +55,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query EntitiesQuery($entityClassification: String!, $componentType: String!) {\n    components(\n      entityClassification: $entityClassification\n      componentType: $componentType\n    ) {\n      entityGuid\n      entityClassification\n      componentType\n      payload\n    }\n  }\n',
-): (typeof documents)['\n  query EntitiesQuery($entityClassification: String!, $componentType: String!) {\n    components(\n      entityClassification: $entityClassification\n      componentType: $componentType\n    ) {\n      entityGuid\n      entityClassification\n      componentType\n      payload\n    }\n  }\n'];
+  source: '\n  query EntitiesQuery($entityClassification: String!) {\n    entities(entityClassification: $entityClassification) {\n      entityGuid\n      classification\n      context\n    }\n  }\n',
+): (typeof documents)['\n  query EntitiesQuery($entityClassification: String!) {\n    entities(entityClassification: $entityClassification) {\n      entityGuid\n      classification\n      context\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
