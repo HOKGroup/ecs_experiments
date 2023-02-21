@@ -7,10 +7,10 @@
     "entity_guid": "d4c6aa98-2ec6-4261-aa53-913c72f548b7",
     "component_type": "person.details",
     "component_type_payload": "json",
-    "owner": "SomeCompnay",
+    "owner": "SomeCompany",
     "version": "V.00002",
     "status": "",
-    "active": "",
+    "active": true,
     "creation_date": "2023-02-17 14:34:43.180156",
     "authoring_application": "other"
 }

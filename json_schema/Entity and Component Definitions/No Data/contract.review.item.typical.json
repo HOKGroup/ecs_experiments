@@ -23,7 +23,7 @@
       },
       "contract_related_requirements": {
         "type": "string",
-        "description": "Calucation Criteria"
+        "description": "Calculation Criteria"
       }
 }
 }

@@ -10,7 +10,7 @@
     "owner": "HOK",
     "version": "V.00001",
     "status": "",
-    "active": "",
+    "active": true,
     "creation_date": "2023-02-19 07:12:18.871161",
     "authoring_application": "other"
 }

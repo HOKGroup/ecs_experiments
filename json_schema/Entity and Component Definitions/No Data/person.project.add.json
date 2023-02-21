@@ -18,7 +18,7 @@
         "description": "persons email address"
       },
       "unique_id": {
-        "description": "Entity Specific Identifer",
+        "description": "Entity Specific Identifier",
         "type": "string"
       }
     },

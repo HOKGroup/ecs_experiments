@@ -20,9 +20,9 @@
         "description": "Unique Identifier of a context that this data belongs, a project, enterprise, ect. ",
         "hidden": "true"
       },
-      "entity_classifcation": {
+      "entity_classification": {
         "type": "string",
-        "description": "Classifcation of the object",
+        "description": "Classification of the object",
         "title" : "My Title",
         "enum": [
           "person",
@@ -35,7 +35,7 @@
           "skill"
       ]
     },
-    "entity_classifcation_reference": {
+    "entity_classification_reference": {
         "type": "string",
         "description": "reference to the version and location of the defintion of the entity; Can be local or URI etc",
         "hidden": "true",
@@ -49,7 +49,7 @@
   },
   "required": [
       "entity_guid",
-      "entity_classifcation",
+      "entity_classification",
       "context",
       "context_id",
       "creation_date"

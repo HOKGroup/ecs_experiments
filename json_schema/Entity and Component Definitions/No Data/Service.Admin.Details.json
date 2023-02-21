@@ -9,9 +9,9 @@
         "type": "string",
         "description": "The Project Name"
       },
-      "ServiceAllias": {
+      "ServiceAlias": {
         "type": "string",
-        "description": "Location of the Project from a managmeent perspective "
+        "description": "Location of the Project from a management perspective "
       },
       "ServiceURL": {
         "type": "string",
@@ -23,7 +23,7 @@
       },
       "ServiceOpenAPI_URL": {
         "type": "string",
-        "description": "Location of the Project from a managmeent perspective "
+        "description": "Location of the Project from a management perspective "
       }
 
     }

@@ -23,7 +23,7 @@
       },
       "admin_location": {
         "type": "string",
-        "description": "Location of the Project from a managmeent perspective "
+        "description": "Location of the Project from a management perspective "
       }
 
     },

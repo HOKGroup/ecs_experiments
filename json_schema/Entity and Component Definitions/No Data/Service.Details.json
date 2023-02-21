@@ -10,19 +10,19 @@
         "type": "string",
         "description": "The Project Name"
       },
-      "ServiceAllias": {
+      "ServiceAlias": {
         "type": "string",
-        "description": "Location of the Project from a managmeent perspective "
+        "description": "Location of the Project from a management perspective "
       },
       "ServiceID": {
         "type": "string",
-        "description": "Location of the Project from a managmeent perspective "
+        "description": "Location of the Project from a management perspective "
       },
       "ServiceURL": {
-        "type": "Number",
+        "type": "string",
         "description": "The Project Number"
       },
-      "ProjecteURL": {
+      "ProjectURL": {
         "type": "string",
         "description": "URL to this service on the a Project"
       },
@@ -32,7 +32,7 @@
       },
       "ServiceOpenAPI_URL": {
         "type": "string",
-        "description": "Location of the Project from a managmeent perspective "
+        "description": "Location of the Project from a management perspective "
       }
 
     }

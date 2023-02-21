@@ -8,17 +8,17 @@
         "type": "string",
         "description": "Group Name"
       },
-      "group_desrciption": {
+      "group_description": {
         "type": "string",
-        "description": "Group Desciption"
+        "description": "Group Description"
       },
-      "close_utomatically": {
+      "close_automatically": {
         "type": "boolean",
         "description": "Should this group be closed Automatically"
      },
       "close_date": {
       "type": "string",
-      "description": "Date that this group will deative itself",
+      "description": "Date that this group will deactivate itself",
       "format": "date-time"
     }
    }

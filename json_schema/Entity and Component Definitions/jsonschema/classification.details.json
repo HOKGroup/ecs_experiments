@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "classification.details",
+    "data_format": "json",
+    "version": "V0.01",
+    "type": "object",
+    "properties": {
+      "classification_name": {
+        "type": "string",
+        "description": "Classification Name"
+      },
+      "classification_number": {
+        "type": "string",
+        "description": "Classification Number"
+      },
+      "classification_parent_number":{
+        "type": "string",
+        "description": "Classification Parent Number"
+      },
+      "classification_description": {
+        "type": "string",
+        "description": "Classification Description"
+     }
+   }
+}

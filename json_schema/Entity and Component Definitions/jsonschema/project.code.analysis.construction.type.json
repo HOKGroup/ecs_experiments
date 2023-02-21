@@ -25,7 +25,7 @@
         "type": "string",
         "description": "Calucation Criteria"
       },
-      "construction_criteria_descirption": {
+      "construction_criteria_description": {
         "type": "string",
         "description": "Details"
       }

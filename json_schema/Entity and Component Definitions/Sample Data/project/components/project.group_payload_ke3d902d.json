@@ -1,6 +1,6 @@
 {
     "group_name": "External Consultants",
-    "group_desrciption": "External Project Team Consultants",
-    "close_utomatically": "1",
+    "group_description": "External Project Team Consultants",
+    "close_automatically": true,
     "close_date": "2024-02-17 16:13:27.652962"
 }

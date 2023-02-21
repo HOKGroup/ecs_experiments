@@ -5,12 +5,12 @@
     "component_name": "SUBSTRUCTURE",
     "component_id": "A ",
     "entity_guid": "6f0465b1-3180-438f-8b10-62bb4ff09c86",
-    "component_type": "classification.detail",
+    "component_type": "classification.details",
     "component_type_payload": "json",
-    "owner": "SomeCompnay",
+    "owner": "SomeCompany",
     "version": "V.00002",
     "status": "",
-    "active": "",
+    "active": true,
     "creation_date": "2023-02-19 08:18:07.803862",
     "authoring_application": "other"
 }

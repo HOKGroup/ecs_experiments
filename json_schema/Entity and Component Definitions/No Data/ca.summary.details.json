@@ -9,9 +9,9 @@
         "type": "string",
         "description": "Project Count"
     },
-    "Average_By_Dicipline": {
+    "Average_By_Discipline": {
       "type": "array",
-      "description": "List of Projects by Dicipline",
+      "description": "List of Projects by Discipline",
       "items":{
           "type":"string"
       }
@@ -25,7 +25,7 @@
     },
     "Average_by_Region": {
             "type": "array",
-            "description": "List of Projects by Dicipline",
+            "description": "List of Projects by Discipline",
             "items":{
                 "type":"string"
             }

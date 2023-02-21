@@ -8,9 +8,9 @@
         "type": "string",
         "description": "Group Name"
       },
-      "group_desrciption": {
+      "group_description": {
         "type": "string",
-        "description": "Group Desciption"
+        "description": "Group Description"
       },
       "close_automatically": {
         "type": "boolean",
@@ -18,7 +18,7 @@
      },
       "close_date": {
       "type": "string",
-      "description": "Date that this group will deative itself",
+      "description": "Date that this group will deactivate itself",
       "format": "date-time"
     }
    }
