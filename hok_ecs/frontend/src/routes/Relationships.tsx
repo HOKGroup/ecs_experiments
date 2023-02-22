@@ -161,6 +161,7 @@ const Relationships: React.FC = () => {
             style={{
               height: '750px',
               overflowWrap: 'anywhere',
+              overflowY: 'scroll'
             }}
             className="p-3 bg-gradient border border-2 border-primary rounded"
           >
