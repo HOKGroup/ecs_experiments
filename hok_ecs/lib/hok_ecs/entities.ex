@@ -36,6 +36,14 @@ defmodule HokEcs.Entities do
   @doc """
   Gets a single entity.
 
+  Returns `nil` if the Entity does not exist.
+  """
+  @spec get_entity(String.t()) :: Entity.t() | nil
+  def get_entity(entity_guid), do: Repo.get(Entity, entity_guid)
+
+  @doc """
+  Gets a single entity.
+
   Raises `Ecto.NoResultsError` if the Entity does not exist.
 
   ## Examples

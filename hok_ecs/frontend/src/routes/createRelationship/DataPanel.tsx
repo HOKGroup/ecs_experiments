@@ -13,6 +13,7 @@ import EntityOrComponentTypeSelector from './EntityOrComponentTypeSelector';
 import { EntityOrComponentValue } from '../CreateRelationship';
 import EntityOrComponentDataTable from './EntityOrComponentDataTable';
 
+// #region selectorTypes
 const ENTITY_TYPES = [
   {
     label: 'Specification',
@@ -88,6 +89,7 @@ const COMPONENT_TYPES = [
     value: 'scopeofwork.details',
   },
 ].sort();
+// #endregion
 
 interface Props {
   type1: EntityOrComponentType | undefined;
@@ -114,11 +116,6 @@ interface ComponentType {
 
 export type EntityOrComponentType = EntityType | ComponentType;
 
-// export interface EntityOrComponentType {
-//   type: 'entity' | 'component';
-//   value: string;
-// }
-
 interface EntityValue {
   type: 'entity';
   entityGuid: string;
@@ -136,7 +133,7 @@ const EntitiesQuery = graphql(`
   query EntitiesQuery($entityClassification: String!) {
     entities(entityClassification: $entityClassification) {
       entityGuid
-      classification
+      entityClassification
       context
     }
   }
@@ -352,12 +349,11 @@ const DataPanel: React.FC<Props> = ({
       <Row className="mh-100 p-4">
         <Col className="p-0">
           <div className="overflow-auto pe-1" style={{ height: '60vh' }}>
-            <Loader loading={fetching1} loadingComponent={<LoadingSpinner />}>
-              {error1 && (
-                <div className="h-100 w-100">
-                  <Alert variant="danger">Error fetching data</Alert>
-                </div>
-              )}
+            <Loader
+              loading={fetching1}
+              error={error1}
+              loadingComponent={<LoadingSpinner />}
+            >
               {type1 && data1 && (
                 <EntityOrComponentDataTable
                   singleColumn={Boolean(type2 ?? false)}
@@ -376,13 +372,9 @@ const DataPanel: React.FC<Props> = ({
             <div className="overflow-auto-pe-1" style={{ height: '60vh' }}>
               <Loader
                 loading={fetching2}
+                error={error2}
                 loadingComponent={<LoadingSpinner size={100} />}
               >
-                {error2 && (
-                  <div className="h-100 w-100">
-                    <Alert variant="danger">Error fetching data</Alert>
-                  </div>
-                )}
                 {data2 && (
                   <EntityOrComponentDataTable
                     singleColumn={true}

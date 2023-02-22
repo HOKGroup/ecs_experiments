@@ -27,25 +27,26 @@ defmodule HokEcsWeb.AbsintheSchema do
   object :entity do
     field :entity_guid, non_null(:id)
     field :classification_reference, :string
-    field :classification, :string
-    field :context, :string
-    field :creation_date, :string
+    field :entity_classification, non_null(:string)
+    field :context, non_null(:string)
+    field :context_id, non_null(:string)
+    field :creation_date, non_null(:string)
   end
 
   object :component do
     field :component_guid, non_null(:id)
     field :entity_guid, non_null(:id)
     field :entity_classification, :string
-    field :context, :string
+    field :context, non_null(:string)
     field :component_name, :string
     field :component_id, :string
-    field :component_type, :string
-    field :component_type_reference, :string
-    field :component_payload_type, :string
-    field :owner, :string
-    field :version, :integer
-    field :status, :boolean
-    field :payload, :json
+    field :component_type, non_null(:string)
+    field :component_type_reference, non_null(:string)
+    field :component_type_payload, non_null(:string)
+    field :owner, non_null(:string)
+    field :version, non_null(:string)
+    field :status, :string
+    field :payload, non_null(:json)
   end
 
   object :relationship do
@@ -92,12 +93,32 @@ defmodule HokEcsWeb.AbsintheSchema do
       resolve_constant(%{})
     end
 
+    field :entity, :entity do
+      arg(:entity_guid, non_null(:id))
+
+      resolve(fn %{entity_guid: entity_guid}, _ ->
+        entity_guid
+        |> Entities.get_entity()
+        |> Helpers.ok()
+      end)
+    end
+
     field :entities, non_null_list(:entity) do
       arg(:entity_classification, :string)
 
       resolve(fn args, _ ->
         args
         |> Entities.list_entities()
+        |> Helpers.ok()
+      end)
+    end
+
+    field :component, :component do
+      arg(:component_guid, non_null(:id))
+
+      resolve(fn %{component_guid: component_guid}, _ ->
+        component_guid
+        |> Components.get_component()
         |> Helpers.ok()
       end)
     end
@@ -120,6 +141,16 @@ defmodule HokEcsWeb.AbsintheSchema do
       resolve(fn %{entity_guid: entity_guid}, _ ->
         entity_guid
         |> Components.get_entity_component_types()
+        |> Helpers.ok()
+      end)
+    end
+
+    field :relationship, :relationship do
+      arg(:relationship_guid, non_null(:id))
+
+      resolve(fn %{relationship_guid: relationship_guid}, _ ->
+        relationship_guid
+        |> Relationships.get_relationship()
         |> Helpers.ok()
       end)
     end

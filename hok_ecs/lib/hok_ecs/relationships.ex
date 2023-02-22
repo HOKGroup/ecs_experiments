@@ -21,6 +21,9 @@ defmodule HokEcs.Relationships do
     Repo.all(Relationship)
   end
 
+  @spec get_relationship(String.t()) :: Relationship.t() | nil
+  def get_relationship(relationship_guid), do: Repo.get(Relationship, relationship_guid)
+
   @doc """
   Gets a single relationship.
 

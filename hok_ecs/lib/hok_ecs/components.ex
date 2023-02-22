@@ -44,6 +44,14 @@ defmodule HokEcs.Components do
   @doc """
   Gets a single component.
 
+  Returns `nil` if the Component does not exist.
+  """
+  @spec get_component(String.t()) :: Component.t() | nil
+  def get_component(component_guid), do: Repo.get(Component, component_guid)
+
+  @doc """
+  Gets a single component.
+
   Raises `Ecto.NoResultsError` if the Component does not exist.
 
   ## Examples

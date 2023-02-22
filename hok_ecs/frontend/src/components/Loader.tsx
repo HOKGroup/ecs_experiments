@@ -4,17 +4,22 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import ErrorMessage from './ErrorMessage';
 
-const DELAY = 500;
+const DELAY = 250;
 
 interface Props {
   loading: boolean;
+  error?: Error;
+  errorComponent?: React.ReactNode;
   loadingComponent: React.ReactNode;
 }
 
 const Loader: React.FC<PropsWithChildren<Props>> = ({
   loading,
   loadingComponent,
+  error,
+  errorComponent,
   children,
 }) => {
   const [isExpired, setIsExpired] = useState(true);
@@ -42,6 +47,14 @@ const Loader: React.FC<PropsWithChildren<Props>> = ({
 
   if (loading || !isExpired) {
     return <>{loadingComponent}</>;
+  }
+
+  if (error) {
+    return errorComponent ? (
+      <>{errorComponent}</>
+    ) : (
+      <ErrorMessage error={error} />
+    );
   }
 
   return <>{children}</>;
