@@ -5,6 +5,9 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    modulePreload: false
+  },
   plugins: [eslint({ cache: false }), react(), visualizer()],
   // using the `webapp` base path for production builds
   // So we can leverage Phoenix static assets plug to deliver

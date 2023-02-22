@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import CreateRelationship from './routes/CreateRelationship';
 import NoMatch from './routes/NoMatch';
 import Home from './routes/Home';
 import Relationship from './routes/Relationship';
