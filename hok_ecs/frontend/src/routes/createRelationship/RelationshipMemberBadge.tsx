@@ -12,9 +12,7 @@ const RelationshipMemberBadge: React.FC<Props> = ({ value, defaultValue }) => {
 
   return (
     <div className="px-4">
-      <div
-        className={`relationship__member__badge p-4 rounded ${bgClass} ${textClass} w-100 `}
-      >
+      <div className={`relationship__member__badge p-4 rounded ${bgClass} ${textClass} w-100 `}>
         {!value && defaultValue}
         {value ?? null}
       </div>

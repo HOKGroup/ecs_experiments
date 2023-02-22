@@ -6,6 +6,4 @@ const specificationMasterSection = z.object({
 
 export default specificationMasterSection;
 
-export type SpecificationMasterSection = z.infer<
-  typeof specificationMasterSection
->;
+export type SpecificationMasterSection = z.infer<typeof specificationMasterSection>;

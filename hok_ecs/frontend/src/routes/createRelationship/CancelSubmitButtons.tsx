@@ -11,12 +11,7 @@ interface Props {
   loading: boolean;
 }
 
-const CancelSubmitButtons: React.FC<Props> = ({
-  onCancel,
-  onSubmit,
-  canSubmit,
-  loading,
-}) => {
+const CancelSubmitButtons: React.FC<Props> = ({ onCancel, onSubmit, canSubmit, loading }) => {
   return (
     <Row className="p-2">
       <Col xl="4" />

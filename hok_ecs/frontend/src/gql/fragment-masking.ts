@@ -1,7 +1,4 @@
-import {
-  ResultOf,
-  TypedDocumentNode as DocumentNode,
-} from '@graphql-typed-document-node/core';
+import { ResultOf, TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 export type FragmentType<TDocumentType extends DocumentNode<any, any>> =
   TDocumentType extends DocumentNode<infer TType, any>
@@ -30,10 +27,7 @@ export function useFragment<TType>(
 // return array of nullable if `fragmentType` is array of nullable
 export function useFragment<TType>(
   _documentNode: DocumentNode<TType, any>,
-  fragmentType:
-    | ReadonlyArray<FragmentType<DocumentNode<TType, any>>>
-    | null
-    | undefined,
+  fragmentType: ReadonlyArray<FragmentType<DocumentNode<TType, any>>> | null | undefined,
 ): ReadonlyArray<TType> | null | undefined;
 export function useFragment<TType>(
   _documentNode: DocumentNode<TType, any>,
@@ -46,9 +40,9 @@ export function useFragment<TType>(
   return fragmentType as any;
 }
 
-export function makeFragmentData<
-  F extends DocumentNode,
-  FT extends ResultOf<F>,
->(data: FT, _fragment: F): FragmentType<F> {
+export function makeFragmentData<F extends DocumentNode, FT extends ResultOf<F>>(
+  data: FT,
+  _fragment: F,
+): FragmentType<F> {
   return data as FragmentType<F>;
 }

@@ -1,13 +1,7 @@
 import { refocusExchange } from '@urql/exchange-refocus';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  cacheExchange,
-  createClient,
-  dedupExchange,
-  fetchExchange,
-  Provider,
-} from 'urql';
+import { cacheExchange, createClient, dedupExchange, fetchExchange, Provider } from 'urql';
 import App from './App';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.scss';

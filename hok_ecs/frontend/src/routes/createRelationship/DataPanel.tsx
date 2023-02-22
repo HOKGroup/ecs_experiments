@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Alert from 'react-bootstrap/Alert';
 import { hasPresentKey } from 'ts-is-present';
 import { useQuery } from 'urql';
 import parsePayload from '../../parsePayload';
@@ -167,12 +166,7 @@ const DataPanel: React.FC<Props> = ({
   setValue2,
 }) => {
   const [
-    {
-      data: entitiesData,
-      fetching: entitiesFetching,
-      error: entitiesError,
-      stale: entitiesStale,
-    },
+    { data: entitiesData, fetching: entitiesFetching, error: entitiesError, stale: entitiesStale },
   ] = useQuery({
     query: EntitiesQuery,
     variables: type1 && {
@@ -200,9 +194,7 @@ const DataPanel: React.FC<Props> = ({
     .map((el) => ({
       ...el,
       payload:
-        el.payload && el.componentType
-          ? parsePayload(el.componentType, el.payload)
-          : undefined,
+        el.payload && el.componentType ? parsePayload(el.componentType, el.payload) : undefined,
     }))
     .filter(hasPresentKey('payload'));
 
@@ -214,17 +206,9 @@ const DataPanel: React.FC<Props> = ({
 
   const fetching1 = entitiesFetching || componentsFetching1;
 
-  const stale1 = !type1
-    ? false
-    : type1.type === 'entity'
-    ? entitiesStale
-    : componentsStale1;
+  const stale1 = !type1 ? false : type1.type === 'entity' ? entitiesStale : componentsStale1;
 
-  const error1 = !type1
-    ? undefined
-    : type1.type == 'entity'
-    ? entitiesError
-    : componentsError1;
+  const error1 = !type1 ? undefined : type1.type == 'entity' ? entitiesError : componentsError1;
 
   const [
     {
@@ -246,9 +230,7 @@ const DataPanel: React.FC<Props> = ({
     .map((el) => ({
       ...el,
       payload:
-        el.payload && el.componentType
-          ? parsePayload(el.componentType, el.payload)
-          : undefined,
+        el.payload && el.componentType ? parsePayload(el.componentType, el.payload) : undefined,
     }))
     .filter(hasPresentKey('payload'));
 
@@ -275,38 +257,33 @@ const DataPanel: React.FC<Props> = ({
     pause: value1 && value1.type !== 'entity',
   });
 
-  const componentTypes = (
-    componentTypesRaw?.entityComponentTypes ?? ([] as string[])
-  ).map((t) => ({
+  const componentTypes = (componentTypesRaw?.entityComponentTypes ?? ([] as string[])).map((t) => ({
     label: t,
     value: t,
     componentType: t,
   }));
 
   const updateSelectedValue = useCallback(
-    (selectedValue: EntityOrComponentValue) =>
-      (v: EntityOrComponentValue | undefined) => {
-        if (!v) {
-          return selectedValue;
-        } else if (v.type === 'entity') {
-          if (v.entityGuid === (selectedValue as EntityValue).entityGuid) {
-            return undefined;
-          } else {
-            return selectedValue;
-          }
+    (selectedValue: EntityOrComponentValue) => (v: EntityOrComponentValue | undefined) => {
+      if (!v) {
+        return selectedValue;
+      } else if (v.type === 'entity') {
+        if (v.entityGuid === (selectedValue as EntityValue).entityGuid) {
+          return undefined;
         } else {
-          if (
-            v.componentGuid === (selectedValue as ComponentValue).componentGuid
-          ) {
-            return undefined;
-          } else {
-            return selectedValue;
-          }
+          return selectedValue;
         }
+      } else {
+        if (v.componentGuid === (selectedValue as ComponentValue).componentGuid) {
+          return undefined;
+        } else {
+          return selectedValue;
+        }
+      }
 
-        // fallback
-        return undefined;
-      },
+      // fallback
+      return undefined;
+    },
     [],
   );
 
@@ -340,20 +317,13 @@ const DataPanel: React.FC<Props> = ({
       <Loader
         loading={stale1 || stale2}
         loadingComponent={
-          <LoadingBar
-            className="position-absolute w-100 rounded-0"
-            loading={true}
-          />
+          <LoadingBar className="position-absolute w-100 rounded-0" loading={true} />
         }
       />
       <Row className="mh-100 p-4">
         <Col className="p-0">
           <div className="overflow-auto pe-1" style={{ height: '60vh' }}>
-            <Loader
-              loading={fetching1}
-              error={error1}
-              loadingComponent={<LoadingSpinner />}
-            >
+            <Loader loading={fetching1} error={error1} loadingComponent={<LoadingSpinner />}>
               {type1 && data1 && (
                 <EntityOrComponentDataTable
                   singleColumn={Boolean(type2 ?? false)}

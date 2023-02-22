@@ -29,9 +29,7 @@ const Layout: React.FC = () => {
                 <Nav.Link active={false}>Create Relationship</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/relationships">
-                <Nav.Link active={Boolean(relationshipsMatch)}>
-                  Relationships
-                </Nav.Link>
+                <Nav.Link active={Boolean(relationshipsMatch)}>Relationships</Nav.Link>
               </LinkContainer>
             </Nav>
           </Container>

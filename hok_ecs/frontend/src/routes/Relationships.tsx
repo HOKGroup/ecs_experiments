@@ -1,10 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import VisGraph, {
-  Node,
-  GraphEvents,
-  Network,
-  Options,
-} from 'react-vis-graph-wrapper';
+import VisGraph, { Node, GraphEvents, Network, Options } from 'react-vis-graph-wrapper';
 import { useQuery } from 'urql';
 import { graphql } from '../gql';
 import Row from 'react-bootstrap/Row';
@@ -48,13 +43,9 @@ interface SelectedRelationship {
 type SelectedNode = SelectedEntity | SelectedComponent | SelectedRelationship;
 
 const Relationships: React.FC = () => {
-  const [network, setNetwork] = useState(
-    undefined as Network | null | undefined,
-  );
+  const [network, setNetwork] = useState(undefined as Network | null | undefined);
 
-  const [selectedNode, setSelectedNode] = useState(
-    undefined as SelectedNode | undefined,
-  );
+  const [selectedNode, setSelectedNode] = useState(undefined as SelectedNode | undefined);
 
   const [{ data, fetching, error }] = useQuery({
     query: GraphQuery,
@@ -76,6 +67,7 @@ const Relationships: React.FC = () => {
     return map;
   }, [data?.graph.nodes]);
 
+  // FIXME: use Loader component
   if (fetching) return <div>LOADING</div>;
   if (error || !data) return <div>ERROR</div>;
 
@@ -84,6 +76,7 @@ const Relationships: React.FC = () => {
     edges: data.graph.edges,
   };
 
+  // #region networkOptions
   const options: Options = {
     height: '750',
     physics: {
@@ -128,6 +121,7 @@ const Relationships: React.FC = () => {
       },
     },
   };
+  // #endregion
 
   const events: GraphEvents = {
     select: (event: { nodes: string[] }) => {
@@ -138,10 +132,7 @@ const Relationships: React.FC = () => {
 
         if (node) {
           const selected = {
-            type: node.group?.toLowerCase() as
-              | 'entity'
-              | 'component'
-              | 'relationship',
+            type: node.group?.toLowerCase() as 'entity' | 'component' | 'relationship',
             value: node.id as string,
           };
 
@@ -161,12 +152,7 @@ const Relationships: React.FC = () => {
     <Row>
       <Col>
         <div className="bg-gradient border border-2 border-primary rounded">
-          <VisGraph
-            graph={graph}
-            events={events}
-            options={options}
-            ref={setNetwork}
-          />
+          <VisGraph graph={graph} events={events} options={options} ref={setNetwork} />
         </div>
       </Col>
       {selectedNode && (
@@ -179,9 +165,7 @@ const Relationships: React.FC = () => {
             className="p-3 bg-gradient border border-2 border-primary rounded"
           >
             <h2>{selectedNode.type}</h2>
-            {selectedNode.type === 'entity' && (
-              <EntityDataLoader entityGuid={selectedNode.value} />
-            )}
+            {selectedNode.type === 'entity' && <EntityDataLoader entityGuid={selectedNode.value} />}
             {selectedNode.type === 'component' && (
               <ComponentDataLoader componentGuid={selectedNode.value} />
             )}

@@ -1,12 +1,6 @@
 import React, { ReactElement } from 'react';
 import Table from 'react-bootstrap/Table';
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  Row,
-  useReactTable,
-} from '@tanstack/react-table';
+import { ColumnDef, flexRender, getCoreRowModel, Row, useReactTable } from '@tanstack/react-table';
 import './dataTable.css';
 
 interface Props<T> {
@@ -37,10 +31,7 @@ const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
               <th key={header.id}>
                 {header.isPlaceholder
                   ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
+                  : flexRender(header.column.columnDef.header, header.getContext())}
               </th>
             ))}
           </tr>
@@ -49,19 +40,11 @@ const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
       <tbody>
         {table.getRowModel().rows.map((row) => {
           const isActive = isRowActive?.(row);
-          const className = isActive
-            ? 'table-active table-primary border-dark'
-            : '';
+          const className = isActive ? 'table-active table-primary border-dark' : '';
           return (
-            <tr
-              key={row.id}
-              className={className}
-              onClick={() => onClickRow?.(row)}
-            >
+            <tr key={row.id} className={className} onClick={() => onClickRow?.(row)}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
               ))}
             </tr>
           );

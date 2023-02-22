@@ -508,10 +508,7 @@ export const RelationshipQueryDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  RelationshipQueryQuery,
-  RelationshipQueryQueryVariables
->;
+} as unknown as DocumentNode<RelationshipQueryQuery, RelationshipQueryQueryVariables>;
 export const CreateRelationshipDocument = {
   kind: 'Document',
   definitions: [
@@ -657,10 +654,7 @@ export const CreateRelationshipDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  CreateRelationshipMutation,
-  CreateRelationshipMutationVariables
->;
+} as unknown as DocumentNode<CreateRelationshipMutation, CreateRelationshipMutationVariables>;
 export const GraphDocument = {
   kind: 'Document',
   definitions: [
@@ -893,7 +887,4 @@ export const EntityComponentTypesDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  EntityComponentTypesQuery,
-  EntityComponentTypesQueryVariables
->;
+} as unknown as DocumentNode<EntityComponentTypesQuery, EntityComponentTypesQueryVariables>;

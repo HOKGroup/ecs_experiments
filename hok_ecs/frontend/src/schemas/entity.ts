@@ -9,16 +9,7 @@ const entity = z.object({
       'Unique Identifier of a context that this data belongs, a project, enterprise, ect. ',
     ),
   entity_classification: z
-    .enum([
-      'person',
-      'project',
-      'company',
-      'service',
-      'submital',
-      'rfi',
-      'issue',
-      'skill',
-    ])
+    .enum(['person', 'project', 'company', 'service', 'submital', 'rfi', 'issue', 'skill'])
     .describe('Classification of the object'),
   entity_classification_reference: z
     .string()
@@ -26,9 +17,7 @@ const entity = z.object({
       'reference to the version and location of the defintion of the entity; Can be local or URI etc',
     )
     .optional(),
-  creation_date: z
-    .string()
-    .describe('Date that this version of the entity was created'),
+  creation_date: z.string().describe('Date that this version of the entity was created'),
 });
 
 export default entity;

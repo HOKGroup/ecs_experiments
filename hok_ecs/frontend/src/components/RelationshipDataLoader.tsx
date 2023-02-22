@@ -37,9 +37,7 @@ const RelationshipDataLoader: React.FC<Props> = ({ relationshipGuid }) => {
         </div>
       }
     >
-      {data?.relationship && (
-        <RelationshipData relationship={data.relationship} />
-      )}
+      {data?.relationship && <RelationshipData relationship={data.relationship} />}
     </Loader>
   );
 };

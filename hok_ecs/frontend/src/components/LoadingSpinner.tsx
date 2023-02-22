@@ -11,9 +11,7 @@ const LoadingSpinner: React.FC<Props> = (props) => {
 
   const style = { width: styleSize, height: styleSize };
 
-  let className = `${
-    props.className ?? ''
-  } w-100 d-flex justify-content-center align-items-center`;
+  let className = `${props.className ?? ''} w-100 d-flex justify-content-center align-items-center`;
 
   if (!props.style?.height) {
     className += ' h-100';

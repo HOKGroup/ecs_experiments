@@ -42,26 +42,17 @@ const EntityOrComponentTypeSelector: React.FC<Props> = ({
 }) => {
   const enabled = isEnabled === undefined || isEnabled;
 
-  const entityOptions = entityTypes.map(
-    (t) => ({ type: 'entity', ...t } as Option),
-  );
-  const componentOptions = componentTypes.map(
-    (t) => ({ type: 'component', ...t } as Option),
-  );
+  const entityOptions = entityTypes.map((t) => ({ type: 'entity', ...t } as Option));
+  const componentOptions = componentTypes.map((t) => ({ type: 'component', ...t } as Option));
 
   // Replaces default react-select filter function
   // with case-sensitive version
-  const filterOption = useCallback(
-    (option: FilterOptionOption<Option>, inputValue: string) => {
-      return option.label.includes(inputValue);
-    },
-    [],
-  );
+  const filterOption = useCallback((option: FilterOptionOption<Option>, inputValue: string) => {
+    return option.label.includes(inputValue);
+  }, []);
 
   const label =
-    entityTypes.length > 0
-      ? 'Select Entity Or Component Type'
-      : 'Select Component Type';
+    entityTypes.length > 0 ? 'Select Entity Or Component Type' : 'Select Component Type';
 
   return (
     <div>

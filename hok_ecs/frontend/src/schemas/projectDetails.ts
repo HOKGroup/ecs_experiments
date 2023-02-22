@@ -5,9 +5,7 @@ const projectDetails = z.object({
   project_name_alias: z.string().describe('Short name for the project '),
   project_number: z.string().describe('The Project Number'),
   unique_id: z.string().describe('Entity Specific Identifer'),
-  admin_location: z
-    .string()
-    .describe('Location of the Project from a management perspective '),
+  admin_location: z.string().describe('Location of the Project from a management perspective '),
 });
 
 export default projectDetails;

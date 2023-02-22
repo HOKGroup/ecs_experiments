@@ -12,9 +12,7 @@ const MAX = 90;
 
 const LoadingBar: React.FC<Props> = ({ loading, ...props }) => {
   const [now, setNow] = useState(0);
-  const [intervalInstance, setIntervalInstance] = useState(
-    undefined as number | undefined,
-  );
+  const [intervalInstance, setIntervalInstance] = useState(undefined as number | undefined);
 
   const clearIntervalInstance = useCallback(() => {
     if (intervalInstance) {

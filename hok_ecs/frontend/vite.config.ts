@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import eslint from 'vite-plugin-eslint';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [eslint({ cache: false }), react()],
+  plugins: [eslint({ cache: false }), react(), visualizer()],
   // using the `webapp` base path for production builds
   // So we can leverage Phoenix static assets plug to deliver
   // our React app directly from our final Elixir app,

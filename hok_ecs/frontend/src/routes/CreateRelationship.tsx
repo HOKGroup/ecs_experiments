@@ -75,13 +75,9 @@ const CreateRelationshipMutation = graphql(`
 const CreateRelationship: React.FC = () => {
   const navigate = useNavigate();
 
-  const [sourceType1, setSourceType1] = useState(
-    undefined as EntityOrComponentType | undefined,
-  );
+  const [sourceType1, setSourceType1] = useState(undefined as EntityOrComponentType | undefined);
 
-  const [sourceType2, setSourceType2] = useState(
-    undefined as EntityOrComponentType | undefined,
-  );
+  const [sourceType2, setSourceType2] = useState(undefined as EntityOrComponentType | undefined);
 
   const [destinationType1, setDestinationType1] = useState(
     undefined as EntityOrComponentType | undefined,
@@ -95,13 +91,9 @@ const CreateRelationship: React.FC = () => {
     undefined as RelationshipType | undefined,
   );
 
-  const [sourceValue1, setSourceValue1] = useState(
-    undefined as EntityOrComponentValue | undefined,
-  );
+  const [sourceValue1, setSourceValue1] = useState(undefined as EntityOrComponentValue | undefined);
 
-  const [sourceValue2, setSourceValue2] = useState(
-    undefined as EntityOrComponentValue | undefined,
-  );
+  const [sourceValue2, setSourceValue2] = useState(undefined as EntityOrComponentValue | undefined);
 
   const [destinationValue1, setDestinationValue1] = useState(
     undefined as EntityOrComponentValue | undefined,
@@ -124,31 +116,17 @@ const CreateRelationship: React.FC = () => {
 
     void createRelationship({
       relationshipType: relationshipType.value,
-      sourceEntityGuids:
-        sourceValue.type === 'entity' ? [sourceValue.entityGuid] : [],
-      sourceComponentGuids:
-        sourceValue.type === 'component' ? [sourceValue.componentGuid] : [],
+      sourceEntityGuids: sourceValue.type === 'entity' ? [sourceValue.entityGuid] : [],
+      sourceComponentGuids: sourceValue.type === 'component' ? [sourceValue.componentGuid] : [],
       destinationEntityGuids:
         destinationValue.type === 'entity' ? [destinationValue.entityGuid] : [],
       destinationComponentGuids:
-        destinationValue.type === 'component'
-          ? [destinationValue.componentGuid]
-          : [],
+        destinationValue.type === 'component' ? [destinationValue.componentGuid] : [],
     });
-  }, [
-    relationshipType,
-    sourceValue1,
-    sourceValue2,
-    destinationValue1,
-    destinationValue2,
-  ]);
+  }, [relationshipType, sourceValue1, sourceValue2, destinationValue1, destinationValue2]);
 
   const [
-    {
-      data: relationshipData,
-      error: relationshipError,
-      fetching: relationshipFetching,
-    },
+    { data: relationshipData, error: relationshipError, fetching: relationshipFetching },
     createRelationship,
   ] = useMutation(CreateRelationshipMutation);
 
@@ -200,21 +178,11 @@ const CreateRelationship: React.FC = () => {
     setDestinationType2(st2);
     setDestinationValue1(sv1);
     setDestinationValue2(sv2);
-  }, [
-    sourceType1,
-    sourceType2,
-    sourceValue1,
-    sourceValue2,
-    destinationValue1,
-    destinationValue2,
-  ]);
+  }, [sourceType1, sourceType2, sourceValue1, sourceValue2, destinationValue1, destinationValue2]);
 
-  const onSelectRelationshipType = useCallback(
-    (relationshipType: RelationshipType | null) => {
-      setRelationshipType(relationshipType ?? undefined);
-    },
-    [],
-  );
+  const onSelectRelationshipType = useCallback((relationshipType: RelationshipType | null) => {
+    setRelationshipType(relationshipType ?? undefined);
+  }, []);
 
   return (
     <div className="d-flex flex-column justify-content-between">
@@ -237,12 +205,7 @@ const CreateRelationship: React.FC = () => {
         >
           <InvertRelationshipButton
             onClick={invertRelationship}
-            canInvert={Boolean(
-              sourceType1 ??
-                sourceType2 ??
-                destinationType1 ??
-                destinationType2,
-            )}
+            canInvert={Boolean(sourceType1 ?? sourceType2 ?? destinationType1 ?? destinationType2)}
           />
           <Relationship
             relationshipType={relationshipType}
@@ -267,9 +230,7 @@ const CreateRelationship: React.FC = () => {
         onCancel={onClickCancel}
         onSubmit={onSubmit}
         loading={relationshipFetching}
-        canSubmit={Boolean(
-          sourceValue1 && destinationValue1 && relationshipType,
-        )}
+        canSubmit={Boolean(sourceValue1 && destinationValue1 && relationshipType)}
       />
     </div>
   );

@@ -1,9 +1,6 @@
 import { ColumnDef, Row } from '@tanstack/react-table';
 import React, { useCallback, useMemo } from 'react';
-import {
-  EntityOrComponentType,
-  EntityOrComponentValue,
-} from '../CreateRelationship';
+import { EntityOrComponentType, EntityOrComponentValue } from '../CreateRelationship';
 import DataTable from '../../components/DataTable';
 
 import { SpecificationMasterDetails } from '../../schemas/specificationMasterDetails';
@@ -42,9 +39,7 @@ const getColumns = (entityOrComponentType: EntityOrComponentType) => {
   if (entityOrComponentType.type === 'entity') {
     return getEntityColumns();
   }
-  return getComponentColumns(
-    entityOrComponentType.componentType,
-  ) as ColumnDef<Data>[];
+  return getComponentColumns(entityOrComponentType.componentType) as ColumnDef<Data>[];
 };
 
 const getEntityColumns = (): ColumnDef<EntityData>[] => {
@@ -57,9 +52,7 @@ const getEntityColumns = (): ColumnDef<EntityData>[] => {
   ];
 };
 
-const getComponentColumns = (
-  componentType: string,
-): ColumnDef<ComponentData>[] => {
+const getComponentColumns = (componentType: string): ColumnDef<ComponentData>[] => {
   const columns: ColumnDef<ComponentData>[] = [
     {
       header: 'GUID',
@@ -74,13 +67,11 @@ const getComponentColumns = (
         {
           header: 'Name',
           id: 'LABEL',
-          accessorFn: (c) =>
-            (c.payload as SpecificationMasterDetails).specification_master_name,
+          accessorFn: (c) => (c.payload as SpecificationMasterDetails).specification_master_name,
         },
         {
           header: 'Specialization',
-          accessorFn: (c) =>
-            (c.payload as SpecificationMasterDetails).master_specialization,
+          accessorFn: (c) => (c.payload as SpecificationMasterDetails).master_specialization,
         },
       ];
     case 'project.details': {
@@ -117,13 +108,11 @@ const getComponentColumns = (
         {
           header: 'Name',
           id: 'LABEL',
-          accessorFn: (c) =>
-            (c.payload as CompanyLocationDetails).location_name,
+          accessorFn: (c) => (c.payload as CompanyLocationDetails).location_name,
         },
         {
           header: 'Alias',
-          accessorFn: (c) =>
-            (c.payload as CompanyLocationDetails).location_short_name,
+          accessorFn: (c) => (c.payload as CompanyLocationDetails).location_short_name,
         },
       ];
 
@@ -156,13 +145,11 @@ const getComponentColumns = (
         {
           header: 'Name',
           id: 'LABEL',
-          accessorFn: (c) =>
-            (c.payload as ClassificationDetails).classification_name,
+          accessorFn: (c) => (c.payload as ClassificationDetails).classification_name,
         },
         {
           header: 'Number',
-          accessorFn: (c) =>
-            (c.payload as ClassificationDetails).classification_number,
+          accessorFn: (c) => (c.payload as ClassificationDetails).classification_number,
         },
       ];
     case 'jurisdiction.details':
@@ -170,8 +157,7 @@ const getComponentColumns = (
         {
           header: 'Name',
           id: 'LABEL',
-          accessorFn: (c) =>
-            (c.payload as JurisdictionDetails).jurisdiction_name,
+          accessorFn: (c) => (c.payload as JurisdictionDetails).jurisdiction_name,
         },
       ];
     case 'scopeofwork.details':
@@ -190,8 +176,7 @@ const getComponentColumns = (
         },
         {
           header: 'Description',
-          accessorFn: (c) =>
-            (c.payload as ScopeofworkDetails).scope_description,
+          accessorFn: (c) => (c.payload as ScopeofworkDetails).scope_description,
         },
       ];
     default:
@@ -211,9 +196,7 @@ const EntityOrComponentDataTable: React.FC<Props> = ({
 
   const columns = useMemo(() => {
     const allColumns = getColumns(entityOrComponentType);
-    return singleColumn
-      ? allColumns.filter((c) => c.id === 'LABEL')
-      : allColumns;
+    return singleColumn ? allColumns.filter((c) => c.id === 'LABEL') : allColumns;
   }, [entityOrComponentType, singleColumn]);
 
   const isRowActive = useCallback(
@@ -224,9 +207,7 @@ const EntityOrComponentDataTable: React.FC<Props> = ({
         return value.entityGuid === (row.original as EntityData).entityGuid;
       }
 
-      return (
-        value.componentGuid === (row.original as ComponentData).componentGuid
-      );
+      return value.componentGuid === (row.original as ComponentData).componentGuid;
     },
     [value],
   );

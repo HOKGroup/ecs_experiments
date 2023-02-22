@@ -13,6 +13,4 @@ const projectCodeAnalysisDetails = z.object({
 
 export default projectCodeAnalysisDetails;
 
-export type ProjectCodeAnalysisDetails = z.infer<
-  typeof projectCodeAnalysisDetails
->;
+export type ProjectCodeAnalysisDetails = z.infer<typeof projectCodeAnalysisDetails>;

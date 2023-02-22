@@ -1,9 +1,4 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import ErrorMessage from './ErrorMessage';
 
 const DELAY = 250;
@@ -23,9 +18,7 @@ const Loader: React.FC<PropsWithChildren<Props>> = ({
   children,
 }) => {
   const [isExpired, setIsExpired] = useState(true);
-  const [timeoutInstance, setTimeoutInstance] = useState(
-    undefined as number | undefined,
-  );
+  const [timeoutInstance, setTimeoutInstance] = useState(undefined as number | undefined);
 
   const clearTimeoutInstance = useCallback(() => {
     if (timeoutInstance) window.clearTimeout(timeoutInstance);
@@ -50,11 +43,7 @@ const Loader: React.FC<PropsWithChildren<Props>> = ({
   }
 
   if (error) {
-    return errorComponent ? (
-      <>{errorComponent}</>
-    ) : (
-      <ErrorMessage error={error} />
-    );
+    return errorComponent ? <>{errorComponent}</> : <ErrorMessage error={error} />;
   }
 
   return <>{children}</>;

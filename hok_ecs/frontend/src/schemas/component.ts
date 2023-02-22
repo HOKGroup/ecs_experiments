@@ -20,19 +20,10 @@ const component = z.object({
     .describe(
       'Unique Identifier of a context that this data belongs, a project, enterprise, ect. ',
     ),
-  component_name: z
-    .string()
-    .describe('User Name for the component ')
-    .optional(),
-  component_id: z
-    .string()
-    .describe('User number for the component ')
-    .optional(),
+  component_name: z.string().describe('User Name for the component ').optional(),
+  component_id: z.string().describe('User number for the component ').optional(),
   entity_guid: z.string().describe('GUID of parent entity'),
-  entity_classification: z
-    .string()
-    .describe('Classification of parent entity')
-    .optional(),
+  entity_classification: z.string().describe('Classification of parent entity').optional(),
   component_type: z
     .enum([
       'person.details',
@@ -98,17 +89,13 @@ const component = z.object({
   owner: z
     .enum(['HOK', 'SomeCompany'])
     .describe('The user or entity that is the owner of this component'),
-  version: z
-    .enum(['V.00001', 'V.00002', 'V.00003'])
-    .describe('The version of this component'),
+  version: z.enum(['V.00001', 'V.00002', 'V.00003']).describe('The version of this component'),
   status: z
     .enum(['For Client Review', 'For Internal Review', 'Option 2'])
     .describe('User define value for nature of component')
     .optional(),
   active: z.boolean().describe('Is the component a valid, active component'),
-  creation_date: z
-    .string()
-    .describe('Date that this version of the component was created'),
+  creation_date: z.string().describe('Date that this version of the component was created'),
   authoring_application: z
     .enum(['Trajecotory', 'Spec Tool', 'Simple BIM App', 'other'])
     .describe('Application that generated the component')

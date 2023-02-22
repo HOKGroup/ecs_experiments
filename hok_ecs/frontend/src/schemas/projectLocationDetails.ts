@@ -2,10 +2,7 @@ import { z } from 'zod';
 
 const projectLocationDetails = z.object({
   location_name: z.string().describe('Formal Site Name'),
-  legal_description: z
-    .string()
-    .describe('Legal Description of Property')
-    .optional(),
+  legal_description: z.string().describe('Legal Description of Property').optional(),
   address1: z.string().describe('First Address Line').optional(),
   address2: z.string().describe('Second Address Line').optional(),
   city: z.string().describe('City').optional(),

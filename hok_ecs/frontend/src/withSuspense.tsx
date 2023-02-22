@@ -8,11 +8,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 export default function withSuspense<P>(Component: React.ComponentType<P>) {
   return function WithSuspense(props: React.PropsWithChildren<P>) {
     return (
-      <Suspense
-        fallback={
-          <LoadingSpinner className="pt-5" style={{ height: '66vh' }} />
-        }
-      >
+      <Suspense fallback={<LoadingSpinner className="pt-5" style={{ height: '66vh' }} />}>
         <Component {...props} />
       </Suspense>
     );
