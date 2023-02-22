@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import { RelationshipType } from '../CreateRelationship';
 
 interface Props {
@@ -21,7 +21,7 @@ const RelationshipTypeSelector: React.FC<Props> = ({ onSelect }) => {
   return (
     <div>
       <div className="pb-2">Select Relationship Type</div>
-      <Select
+      <CreatableSelect
         backspaceRemovesValue={false}
         styles={{
           control: (base, _props) => ({
