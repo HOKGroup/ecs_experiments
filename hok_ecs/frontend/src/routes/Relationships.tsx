@@ -143,7 +143,6 @@ const Relationships: React.FC = () => {
       } else {
         setSelectedNode(undefined);
         network?.releaseNode();
-        network?.fit();
       }
     },
   };
@@ -161,7 +160,7 @@ const Relationships: React.FC = () => {
             style={{
               height: '750px',
               overflowWrap: 'anywhere',
-              overflowY: 'scroll'
+              overflowY: 'scroll',
             }}
             className="p-3 bg-gradient border border-2 border-primary rounded"
           >
