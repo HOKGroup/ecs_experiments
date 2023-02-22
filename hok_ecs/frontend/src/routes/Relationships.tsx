@@ -37,18 +37,16 @@ const Relationships: React.FC = () => {
     edges: data.graph.edges,
   };
 
-  console.log(graph)
-
   const options: Options = {
     height: '750',
     physics: {
       barnesHut: {
         gravitationalConstant: -3_000,
-        avoidOverlap: 0.05
+        avoidOverlap: 0.05,
       },
       stabilization: {
-        fit: true
-      }
+        fit: true,
+      },
     },
     edges: {
       color: 'white',
