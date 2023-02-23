@@ -11,7 +11,7 @@ const ErrorMessage: React.FC<Props> = ({ error }) => {
   }, [error]);
 
   return (
-    <div className="h-100 w-100">
+    <div className="h-100 w-100 p-4">
       <Alert variant="danger">Something went wrong.</Alert>
     </div>
   );
