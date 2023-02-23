@@ -263,23 +263,6 @@ export type CreateRelationshipMutation = {
   };
 };
 
-export type GraphQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GraphQuery = {
-  __typename?: 'RootQueryType';
-  graph: {
-    __typename?: 'Graph';
-    nodes: Array<{
-      __typename?: 'Node';
-      id: string;
-      label: string;
-      title: NodeType;
-      group: NodeType;
-    }>;
-    edges: Array<{ __typename?: 'Edge'; from: string; to: string }>;
-  };
-};
-
 export type EntitiesQueryQueryVariables = Exact<{
   entityClassification: Scalars['String'];
 }>;
@@ -317,6 +300,23 @@ export type EntityComponentTypesQueryVariables = Exact<{
 export type EntityComponentTypesQuery = {
   __typename?: 'RootQueryType';
   entityComponentTypes: Array<string>;
+};
+
+export type GraphQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GraphQuery = {
+  __typename?: 'RootQueryType';
+  graph: {
+    __typename?: 'Graph';
+    nodes: Array<{
+      __typename?: 'Node';
+      id: string;
+      label: string;
+      title: NodeType;
+      group: NodeType;
+    }>;
+    edges: Array<{ __typename?: 'Edge'; from: string; to: string }>;
+  };
 };
 
 export const ComponentQueryDocument = {
@@ -580,62 +580,6 @@ export const CreateRelationshipDocument = {
     },
   ],
 } as unknown as DocumentNode<CreateRelationshipMutation, CreateRelationshipMutationVariables>;
-export const GraphDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Graph' },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'graph' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'nodes' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'title' },
-                        name: { kind: 'Name', value: 'type' },
-                      },
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'group' },
-                        name: { kind: 'Name', value: 'type' },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'edges' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'from' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'to' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GraphQuery, GraphQueryVariables>;
 export const EntitiesQueryDocument = {
   kind: 'Document',
   definitions: [
@@ -774,3 +718,59 @@ export const EntityComponentTypesDocument = {
     },
   ],
 } as unknown as DocumentNode<EntityComponentTypesQuery, EntityComponentTypesQueryVariables>;
+export const GraphDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Graph' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'graph' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'title' },
+                        name: { kind: 'Name', value: 'type' },
+                      },
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'group' },
+                        name: { kind: 'Name', value: 'type' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'from' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'to' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GraphQuery, GraphQueryVariables>;
