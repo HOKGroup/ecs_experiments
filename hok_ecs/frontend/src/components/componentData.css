@@ -1,5 +1,6 @@
 .component-data__payload {
   pointer-events: none;
+  border-style: inset !important;
 }
 
 .component-data__payload h6 {
