@@ -38,8 +38,7 @@ const Relationships: React.FC = () => {
           <div
             style={{
               height: '750px',
-              overflowWrap: 'anywhere',
-              overflowY: 'scroll',
+              overflowY: 'auto',
             }}
             className="p-3 bg-gradient border border-2 border-primary rounded"
           >
