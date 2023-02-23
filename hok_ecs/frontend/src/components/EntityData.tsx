@@ -14,9 +14,9 @@ interface Props {
 const EntityData: React.FC<Props> = ({ entity }) => {
   return (
     <div>
-      <h4>
-        <Badge>{entity.entityClassification}</Badge>
-      </h4>
+      <h5>
+        <Badge bg="primary">{entity.entityClassification}</Badge>
+      </h5>
       <div>
         <span>
           <strong>Context: </strong>

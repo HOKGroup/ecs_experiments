@@ -23,9 +23,9 @@ const ComponentData: React.FC<Props> = ({ component }) => {
 
   return (
     <div>
-      <h4>
-        <Badge>{component.componentType}</Badge>
-      </h4>
+      <h5>
+        <Badge bg="success">{component.componentType}</Badge>
+      </h5>
       <div>
         <span>
           <strong>Component GUID: </strong>

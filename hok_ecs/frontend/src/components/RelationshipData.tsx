@@ -12,9 +12,9 @@ interface Props {
 const RelationshipData: React.FC<Props> = ({ relationship }) => {
   return (
     <div>
-      <h4>
-        <Badge>{relationship.relationshipType}</Badge>
-      </h4>
+      <h5>
+        <Badge bg="warning">{relationship.relationshipType}</Badge>
+      </h5>
       <div>
         <span>
           <strong>Relationship GUID: </strong>
