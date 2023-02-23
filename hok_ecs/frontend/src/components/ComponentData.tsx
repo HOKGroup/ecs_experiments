@@ -1,9 +1,11 @@
 import { JsonForms } from '@jsonforms/react';
 import { materialRenderers, materialCells } from '@jsonforms/material-renderers';
-import React from 'react';
+import React, { useDeferredValue, useEffect, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import { getJsonSchema } from '../schemas';
 import './componentData.css';
+import LoadingSpinner from './LoadingSpinner';
+import Loader from './Loader';
 
 interface Props {
   component: {
@@ -20,6 +22,17 @@ interface Props {
 
 const ComponentData: React.FC<Props> = ({ component }) => {
   const schema = getJsonSchema(component.componentType);
+
+  /* Defer payload data for JsonForms to ensure ComponentData initially renders without waiting
+     for JsonForms to finish rendering */
+  const [data, setData] = useState(undefined as unknown);
+  const deferredData = useDeferredValue(data);
+
+  useEffect(() => {
+    setData(undefined);
+    const parsedData = JSON.parse(component.payload) as unknown;
+    setData(parsedData);
+  }, [component.payload]);
 
   return (
     <div>
@@ -67,13 +80,15 @@ const ComponentData: React.FC<Props> = ({ component }) => {
           <strong>Payload: </strong>
         </span>
         <div className="bg-light p-2 rounded border border-2 component-data__payload">
-          <JsonForms
-            schema={schema}
-            data={JSON.parse(component.payload) as unknown}
-            renderers={materialRenderers}
-            cells={materialCells}
-            readonly={true}
-          />
+          <Loader loading={deferredData === undefined}>
+            <JsonForms
+              schema={schema}
+              data={deferredData}
+              renderers={materialRenderers}
+              cells={materialCells}
+              readonly={true}
+            />
+          </Loader>
         </div>
       </div>
     </div>

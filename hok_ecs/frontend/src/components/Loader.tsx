@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import ErrorMessage from './ErrorMessage';
+import LoadingSpinner from './LoadingSpinner';
 
 const DELAY = 250;
 
@@ -7,16 +8,17 @@ interface Props {
   loading: boolean;
   error?: Error;
   errorComponent?: React.ReactNode;
-  loadingComponent: React.ReactNode;
+  loadingComponent?: React.ReactNode;
 }
 
 const Loader: React.FC<PropsWithChildren<Props>> = ({
   loading,
-  loadingComponent,
+  loadingComponent: propsLoadingComponent,
   error,
   errorComponent,
   children,
 }) => {
+  const loadingComponent = propsLoadingComponent ?? <LoadingSpinner size={100} />;
   const [isExpired, setIsExpired] = useState(true);
   const [timeoutInstance, setTimeoutInstance] = useState(undefined as number | undefined);
 
