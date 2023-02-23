@@ -2,15 +2,9 @@
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -335,10 +329,7 @@ export const ComponentQueryDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'componentGuid' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'componentGuid' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
@@ -355,33 +346,18 @@ export const ComponentQueryDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'componentGuid' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'componentGuid' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'componentGuid' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'componentGuid' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'componentGuid' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'componentName' },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'componentType' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'componentName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'componentType' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'context' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'entityClassification' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'entityClassification' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'status' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'payload' } },
               ],
@@ -402,10 +378,7 @@ export const EntityQueryDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'entityGuid' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'entityGuid' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
@@ -422,26 +395,17 @@ export const EntityQueryDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'entityGuid' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'entityGuid' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'entityGuid' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'entityClassification' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'entityClassification' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'context' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'contextId' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'classificationReference' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'classificationReference' } },
               ],
             },
           },
@@ -460,10 +424,7 @@ export const RelationshipQueryDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'relationshipGuid' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'relationshipGuid' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
@@ -480,27 +441,15 @@ export const RelationshipQueryDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'relationshipGuid' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'relationshipGuid' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'relationshipGuid' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'relationshipGuid' },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'relationshipName' },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'relationshipType' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'relationshipGuid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'relationshipName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'relationshipType' } },
               ],
             },
           },
@@ -519,18 +468,12 @@ export const CreateRelationshipDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'relationshipType' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'relationshipType' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'sourceEntityGuids' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sourceEntityGuids' } },
           type: {
             kind: 'ListType',
             type: {
@@ -541,10 +484,7 @@ export const CreateRelationshipDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'sourceComponentGuids' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sourceComponentGuids' } },
           type: {
             kind: 'ListType',
             type: {
@@ -555,10 +495,7 @@ export const CreateRelationshipDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'destinationEntityGuids' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'destinationEntityGuids' } },
           type: {
             kind: 'ListType',
             type: {
@@ -592,26 +529,17 @@ export const CreateRelationshipDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'relationshipType' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'relationshipType' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'relationshipType' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sourceEntityGuids' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sourceEntityGuids' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sourceEntityGuids' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'sourceComponentGuids' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'sourceComponentGuids' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sourceComponentGuids' } },
               },
               {
                 kind: 'Argument',
@@ -640,10 +568,7 @@ export const CreateRelationshipDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'relationshipGuid' },
-                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'relationshipGuid' } },
                     ],
                   },
                 },
@@ -721,16 +646,10 @@ export const EntitiesQueryDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'entityClassification' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'entityClassification' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
       ],
@@ -744,20 +663,14 @@ export const EntitiesQueryDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'entityClassification' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'entityClassification' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'entityClassification' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'entityClassification' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'entityClassification' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'context' } },
               ],
             },
@@ -777,24 +690,15 @@ export const ComponentsByComponentTypeDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'componentType' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'componentType' } },
           type: {
             kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
           },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'entityGuid' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'entityGuid' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
         },
       ],
@@ -808,32 +712,20 @@ export const ComponentsByComponentTypeDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'componentType' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'componentType' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'componentType' } },
               },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'entityGuid' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'entityGuid' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'entityGuid' } },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'componentGuid' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'componentGuid' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'componentType' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'componentType' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'payload' } },
               ],
             },
@@ -856,10 +748,7 @@ export const EntityComponentTypesDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'entityGuid' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'entityGuid' } },
           type: {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
@@ -876,10 +765,7 @@ export const EntityComponentTypesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'entityGuid' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'entityGuid' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'entityGuid' } },
               },
             ],
           },
