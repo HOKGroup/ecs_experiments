@@ -25,20 +25,21 @@ export type SelectedNode = SelectedEntity | SelectedComponent | SelectedRelation
 
 const Relationships: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState(undefined as SelectedNode | undefined);
+  const [graphHeight, setGraphHeight] = useState(0);
 
   return (
-    <Row>
+    <Row className="h-100">
       <Col>
-        <div className="bg-gradient border border-2 border-primary rounded">
-          <RelationshipsGraph setSelectedNode={setSelectedNode} />
+        <div className="bg-gradient border border-2 border-primary rounded h-100">
+          <RelationshipsGraph setSelectedNode={setSelectedNode} setGraphHeight={setGraphHeight} />
         </div>
       </Col>
       {selectedNode && (
         <Col xl="4">
           <div
             style={{
-              height: '750px',
               overflowY: 'auto',
+              height: graphHeight,
             }}
             className="p-3 bg-gradient border border-2 border-primary rounded"
           >

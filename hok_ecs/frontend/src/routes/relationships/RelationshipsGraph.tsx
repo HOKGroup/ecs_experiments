@@ -5,6 +5,7 @@ import { type SelectedNode } from '../Relationships';
 import { graphql } from '../../gql';
 import VisGraph, { Node, GraphEvents, Network, Options } from 'react-vis-graph-wrapper';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { useElementSize } from 'usehooks-ts';
 
 const GraphQuery = graphql(`
   query Graph {
@@ -25,9 +26,14 @@ const GraphQuery = graphql(`
 
 interface Props {
   setSelectedNode: (node: SelectedNode | undefined) => void;
+  setGraphHeight: (height: number) => void;
 }
 
-const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode }) => {
+const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode, setGraphHeight }) => {
+  const [ref, { height }] = useElementSize();
+
+  useEffect(() => setGraphHeight(height), [setGraphHeight, height]);
+
   const [network, setNetwork] = useState(undefined as Network | null | undefined);
 
   const [{ data, fetching, error }] = useQuery({
@@ -52,7 +58,7 @@ const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode }) => {
 
   // #region networkOptions
   const options: Options = {
-    height: '750',
+    height: height.toString(),
     physics: {
       solver: 'forceAtlas2Based',
       forceAtlas2Based: {
@@ -122,17 +128,19 @@ const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode }) => {
   };
 
   return (
-    <Loader
-      loading={fetching}
-      error={error}
-      loadingComponent={
-        <div className="w-100" style={{ height: '750px' }}>
-          <LoadingSpinner size={100} />
-        </div>
-      }
-    >
-      {data && <VisGraph graph={data.graph} events={events} options={options} ref={setNetwork} />}
-    </Loader>
+    <div ref={ref} className="h-100">
+      <Loader
+        loading={fetching}
+        error={error}
+        loadingComponent={
+          <div className="w-100" style={{ height: '750px' }}>
+            <LoadingSpinner size={100} />
+          </div>
+        }
+      >
+        {data && <VisGraph graph={data.graph} events={events} options={options} ref={setNetwork} />}
+      </Loader>
+    </div>
   );
 };
 

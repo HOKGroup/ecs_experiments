@@ -11,7 +11,7 @@ const Layout: React.FC = () => {
 
   return (
     <div className="d-flex flex-column h-100">
-      <div className="flex-grow-1">
+      <div className="d-flex flex-column flex-grow-1">
         <Navbar className="border-bottom">
           <Container fluid={true} className="px-5">
             <LinkContainer to="/">
@@ -34,7 +34,7 @@ const Layout: React.FC = () => {
             </Nav>
           </Container>
         </Navbar>
-        <div className="px-5 py-3">
+        <div className="px-5 py-3 h-100">
           <Outlet />
         </div>
       </div>
