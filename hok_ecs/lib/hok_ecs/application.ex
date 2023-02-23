@@ -14,6 +14,7 @@ defmodule HokEcs.Application do
       HokEcsWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: HokEcs.PubSub},
+      {Cachex, name: :webapp_cache},
       # Start the Endpoint (http/https)
       HokEcsWeb.Endpoint
       # Start a worker by calling: HokEcs.Worker.start_link(arg)

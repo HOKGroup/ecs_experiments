@@ -77,7 +77,8 @@ defmodule HokEcs.MixProject do
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:absinthe, "~> 1.7"},
       {:absinthe_plug, "~> 1.5"},
-      {:absinthe_error_payload, "~> 1.0"}
+      {:absinthe_error_payload, "~> 1.0"},
+      {:cachex, "~> 3.6"}
     ]
   end
 
