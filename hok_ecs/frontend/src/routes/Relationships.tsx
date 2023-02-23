@@ -81,8 +81,11 @@ const Relationships: React.FC = () => {
     height: '750',
     physics: {
       barnesHut: {
-        gravitationalConstant: -3_000,
-        avoidOverlap: 0.05,
+        gravitationalConstant: -4_500,
+        avoidOverlap: 0.6,
+        springConstant: 0.4,
+        springLength: 150,
+        damping: 0.4,
       },
       stabilization: {
         fit: true,
