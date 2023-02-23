@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useCallback, useEffect, useState } from 'reac
 import ErrorMessage from './ErrorMessage';
 import LoadingSpinner from './LoadingSpinner';
 
-const DELAY = 250;
+const DELAY = 50;
 
 interface Props {
   loading: boolean;
