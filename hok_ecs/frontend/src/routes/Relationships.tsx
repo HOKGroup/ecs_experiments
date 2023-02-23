@@ -164,7 +164,6 @@ const Relationships: React.FC = () => {
             }}
             className="p-3 bg-gradient border border-2 border-primary rounded"
           >
-            <h2>{selectedNode.type}</h2>
             {selectedNode.type === 'entity' && <EntityDataLoader entityGuid={selectedNode.value} />}
             {selectedNode.type === 'component' && (
               <ComponentDataLoader componentGuid={selectedNode.value} />

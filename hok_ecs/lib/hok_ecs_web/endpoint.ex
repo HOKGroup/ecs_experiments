@@ -19,7 +19,7 @@ defmodule HokEcsWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :hok_ecs,
-    gzip: Mix.env == :prod,
+    gzip: Mix.env() == :prod,
     only: ~w(assets fonts images webapp favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the

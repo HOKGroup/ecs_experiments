@@ -30,18 +30,21 @@ const EntityDataLoader: React.FC<Props> = ({ entityGuid }) => {
   });
 
   return (
-    <Loader
-      loading={fetching}
-      error={error}
-      loadingComponent={
-        <div>
-          <LoadingSpinner size={100} />
-        </div>
-      }
-    >
-      {error && <div>ERROR</div>}
-      {data?.entity && <EntityData entity={data.entity} />}
-    </Loader>
+    <>
+      <h2>Entity: {data?.entity?.context}</h2>
+      <Loader
+        loading={fetching}
+        error={error}
+        loadingComponent={
+          <div>
+            <LoadingSpinner size={100} />
+          </div>
+        }
+      >
+        {error && <div>ERROR</div>}
+        {data?.entity && <EntityData entity={data.entity} />}
+      </Loader>
+    </>
   );
 };
 

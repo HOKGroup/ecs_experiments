@@ -33,17 +33,20 @@ const ComponentDataLoader: React.FC<Props> = ({ componentGuid }) => {
   });
 
   return (
-    <Loader
-      loading={fetching}
-      error={error}
-      loadingComponent={
-        <div>
-          <LoadingSpinner size={100} />
-        </div>
-      }
-    >
-      {data?.component && <ComponentData component={data.component} />}
-    </Loader>
+    <>
+      <h2>Component: {data?.component?.componentName}</h2>
+      <Loader
+        loading={fetching}
+        error={error}
+        loadingComponent={
+          <div>
+            <LoadingSpinner size={100} />
+          </div>
+        }
+      >
+        {data?.component && <ComponentData component={data.component} />}
+      </Loader>
+    </>
   );
 };
 

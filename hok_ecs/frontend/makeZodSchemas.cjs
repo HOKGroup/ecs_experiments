@@ -10,6 +10,10 @@ const schemaPath = path.resolve(
 
 const outputDir = path.resolve(__dirname, 'src/schemas');
 
+let indexContents = '';
+
+const indexImportPath = path.relative(outputDir, schemaPath);
+
 async function main() {
   const { default: camelCase } = await import('camelcase');
 
@@ -21,6 +25,9 @@ async function main() {
 
     const camelized = camelCase(parsedJson.title);
     const pascalized = camelCase(parsedJson.title, { pascalCase: true });
+
+    indexContents += `import ${camelized} from '${indexImportPath}/${schemaFilename}';\n`;
+
     const outputFilename = camelized + '.ts';
     const outputPath = path.join(outputDir, outputFilename);
 
@@ -33,7 +40,30 @@ async function main() {
     fs.writeFileSync(outputPath, module);
   }
 
-  fs.readdirSync(schemaPath).forEach(handleJsonFile);
+  const jsonFiles = fs.readdirSync(schemaPath);
+
+  jsonFiles.forEach(handleJsonFile);
+
+  indexContents += '\n';
+
+  indexContents += 'export const getJsonSchema = (componentType: string) => {\n';
+  indexContents += '  switch(componentType) {\n';
+
+  jsonFiles.forEach((schemaFilename) => {
+    const schemaName = schemaFilename.split('.json')[0];
+    const camelized = camelCase(schemaName);
+
+    indexContents += `    case '${schemaName}':\n`;
+    indexContents += `      return ${camelized};\n`;
+  });
+
+  indexContents += '  }\n';
+  indexContents += '};\n';
+
+  const indexPath = path.join(outputDir, 'index.ts');
+  fs.writeFileSync(indexPath, indexContents);
+
+  console.log('INDEX: \n', indexContents);
 }
 
 main();

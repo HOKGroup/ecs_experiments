@@ -1,4 +1,5 @@
 import React from 'react';
+import Badge from 'react-bootstrap/Badge';
 
 interface Props {
   relationship: {
@@ -11,6 +12,9 @@ interface Props {
 const RelationshipData: React.FC<Props> = ({ relationship }) => {
   return (
     <div>
+      <h4>
+        <Badge>{relationship.relationshipType}</Badge>
+      </h4>
       <div>
         <span>
           <strong>Relationship GUID: </strong>
@@ -22,12 +26,6 @@ const RelationshipData: React.FC<Props> = ({ relationship }) => {
           <strong>Relationship Name: </strong>
         </span>
         <span>{relationship.relationshipName}</span>
-      </div>
-      <div>
-        <span>
-          <strong>Relationship Type: </strong>
-        </span>
-        <span>{relationship.relationshipType}</span>
       </div>
     </div>
   );

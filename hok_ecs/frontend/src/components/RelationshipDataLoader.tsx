@@ -28,17 +28,20 @@ const RelationshipDataLoader: React.FC<Props> = ({ relationshipGuid }) => {
   });
 
   return (
-    <Loader
-      loading={fetching}
-      error={error}
-      loadingComponent={
-        <div>
-          <LoadingSpinner size={100} />
-        </div>
-      }
-    >
-      {data?.relationship && <RelationshipData relationship={data.relationship} />}
-    </Loader>
+    <>
+      <h2>Relationship: {data?.relationship?.relationshipName}</h2>
+      <Loader
+        loading={fetching}
+        error={error}
+        loadingComponent={
+          <div>
+            <LoadingSpinner size={100} />
+          </div>
+        }
+      >
+        {data?.relationship && <RelationshipData relationship={data.relationship} />}
+      </Loader>
+    </>
   );
 };
 

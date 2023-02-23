@@ -1,4 +1,5 @@
 import React from 'react';
+import Badge from 'react-bootstrap/Badge';
 
 interface Props {
   entity: {
@@ -13,6 +14,9 @@ interface Props {
 const EntityData: React.FC<Props> = ({ entity }) => {
   return (
     <div>
+      <h4>
+        <Badge>{entity.entityClassification}</Badge>
+      </h4>
       <div>
         <span>
           <strong>Context: </strong>
@@ -24,12 +28,6 @@ const EntityData: React.FC<Props> = ({ entity }) => {
           <strong>Entity GUID: </strong>
         </span>
         <span>{entity.entityGuid}</span>
-      </div>
-      <div>
-        <span>
-          <strong>Entity Classification: </strong>
-        </span>
-        <span>{entity.entityClassification}</span>
       </div>
       <div>
         <span>

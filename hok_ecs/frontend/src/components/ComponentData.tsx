@@ -1,4 +1,9 @@
+import { JsonForms } from '@jsonforms/react';
+import { materialRenderers, materialCells } from '@jsonforms/material-renderers';
 import React from 'react';
+import Badge from 'react-bootstrap/Badge';
+import { getJsonSchema } from '../schemas';
+import './componentData.css';
 
 interface Props {
   component: {
@@ -14,8 +19,13 @@ interface Props {
 }
 
 const ComponentData: React.FC<Props> = ({ component }) => {
+  const schema = getJsonSchema(component.componentType);
+
   return (
     <div>
+      <h4>
+        <Badge>{component.componentType}</Badge>
+      </h4>
       <div>
         <span>
           <strong>Component GUID: </strong>
@@ -33,12 +43,6 @@ const ComponentData: React.FC<Props> = ({ component }) => {
           <strong>Component Name: </strong>
         </span>
         <span>{component.componentName}</span>
-      </div>
-      <div>
-        <span>
-          <strong>Component Type: </strong>
-        </span>
-        <span>{component.componentType}</span>
       </div>
       <div>
         <span>
@@ -62,7 +66,15 @@ const ComponentData: React.FC<Props> = ({ component }) => {
         <span>
           <strong>Payload: </strong>
         </span>
-        <span>{component.payload}</span>
+        <div className="bg-light p-2 rounded border border-2 component-data__payload">
+          <JsonForms
+            schema={schema}
+            data={JSON.parse(component.payload) as unknown}
+            renderers={materialRenderers}
+            cells={materialCells}
+            readonly={true}
+          />
+        </div>
       </div>
     </div>
   );
