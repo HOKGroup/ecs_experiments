@@ -1,7 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import VisGraph, { Node, GraphEvents, Network, Options } from 'react-vis-graph-wrapper';
-import { useQuery } from 'urql';
-import { graphql } from '../gql';
+import React, { useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import EntityDataLoader from '../components/EntityDataLoader';
@@ -27,19 +24,13 @@ export interface SelectedRelationship {
 export type SelectedNode = SelectedEntity | SelectedComponent | SelectedRelationship;
 
 const Relationships: React.FC = () => {
-  const [network, setNetwork] = useState(undefined as Network | null | undefined);
-
   const [selectedNode, setSelectedNode] = useState(undefined as SelectedNode | undefined);
 
   return (
     <Row>
       <Col>
         <div className="bg-gradient border border-2 border-primary rounded">
-          <RelationshipsGraph
-            setSelectedNode={setSelectedNode}
-            network={network}
-            setNetwork={setNetwork}
-          />
+          <RelationshipsGraph setSelectedNode={setSelectedNode} />
         </div>
       </Col>
       {selectedNode && (

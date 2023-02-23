@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'urql';
 import Loader from '../../components/Loader';
 import { type SelectedNode } from '../Relationships';
@@ -25,11 +25,11 @@ const GraphQuery = graphql(`
 
 interface Props {
   setSelectedNode: (node: SelectedNode | undefined) => void;
-  network: Network | null | undefined;
-  setNetwork: (network: Network | null | undefined) => void;
 }
 
-const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode, network, setNetwork }) => {
+const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode }) => {
+  const [network, setNetwork] = useState(undefined as Network | null | undefined);
+
   const [{ data, fetching, error }] = useQuery({
     query: GraphQuery,
   });
@@ -54,12 +54,9 @@ const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode, network, setNetw
   const options: Options = {
     height: '750',
     physics: {
-      barnesHut: {
-        gravitationalConstant: -4_500,
-        avoidOverlap: 0.6,
-        springConstant: 0.4,
-        springLength: 150,
-        damping: 0.4,
+      solver: 'forceAtlas2Based',
+      forceAtlas2Based: {
+        gravitationalConstant: -150,
       },
       stabilization: {
         fit: true,
