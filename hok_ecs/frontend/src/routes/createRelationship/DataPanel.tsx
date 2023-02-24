@@ -7,7 +7,6 @@ import parsePayload from '../../parsePayload';
 import { graphql } from '../../gql';
 import Loader from '../../components/Loader';
 import LoadingBar from '../../components/LoadingBar';
-import LoadingSpinner from '../../components/LoadingSpinner';
 import EntityOrComponentTypeSelector from './EntityOrComponentTypeSelector';
 import { EntityOrComponentValue } from '../CreateRelationship';
 import EntityOrComponentDataTable from './EntityOrComponentDataTable';
@@ -87,7 +86,62 @@ const COMPONENT_TYPES = [
     componentType: 'scopeofwork.details',
     value: 'scopeofwork.details',
   },
-].sort();
+  {
+    label: 'classification.details',
+    componentType: 'classification.details',
+    value: 'classification.details',
+  },
+  {
+    label: 'jurisdiction.code',
+    componentType: 'jurisdiction.code',
+    value: 'jurisdiction.code',
+  },
+  {
+    label: 'jurisdiction.details',
+    componentType: 'jurisdiction.details',
+    value: 'jurisdiction.details',
+  },
+  {
+    label: 'project.code.analysis.construction.type',
+    componentType: 'project.code.analysis.construction.type',
+    value: 'project.code.analysis.construction.type',
+  },
+  {
+    label: 'project.code.analysis.details',
+    componentType: 'project.code.analysis.details',
+    value: 'project.code.analysis.details',
+  },
+  {
+    label: 'project.discipline',
+    componentType: 'project.discipline',
+    value: 'project.discipline',
+  },
+  {
+    label: 'project.location.details',
+    componentType: 'project.location.details',
+    value: 'project.location.details',
+  },
+  {
+    label: 'project.phase',
+    componentType: 'project.phase',
+    value: 'project.phase',
+  },
+  {
+    label: 'qc.checklist',
+    componentType: 'qc.checklist',
+    value: 'qc.checklist',
+  },
+  {
+    label: 'qc.checklist.item',
+    componentType: 'qc.checklist.item',
+    value: 'qc.checklist.item',
+  },
+  {
+    label: 'specification.master.details',
+    componentType: 'specification.master.details',
+    value: 'specification.master.details',
+  },
+].sort((a, b) => a.label.localeCompare(b.label));
 // #endregion
 
 interface Props {
@@ -142,6 +196,7 @@ const ComponentsByComponentTypeQuery = graphql(`
   query ComponentsByComponentType($componentType: String!, $entityGuid: ID) {
     components(componentType: $componentType, entityGuid: $entityGuid) {
       componentGuid
+      componentName
       entityGuid
       componentType
       payload

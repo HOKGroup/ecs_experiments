@@ -4,7 +4,6 @@ import React, { useDeferredValue, useEffect, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import { getJsonSchema } from '../schemas';
 import './componentData.css';
-import LoadingSpinner from './LoadingSpinner';
 import Loader from './Loader';
 
 interface Props {

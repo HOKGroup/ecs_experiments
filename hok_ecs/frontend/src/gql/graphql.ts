@@ -287,6 +287,7 @@ export type ComponentsByComponentTypeQuery = {
   components: Array<{
     __typename?: 'Component';
     componentGuid: string;
+    componentName?: string | null;
     entityGuid: string;
     componentType: string;
     payload: string;
@@ -668,6 +669,7 @@ export const ComponentsByComponentTypeDocument = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'componentGuid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'componentName' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'entityGuid' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'componentType' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'payload' } },

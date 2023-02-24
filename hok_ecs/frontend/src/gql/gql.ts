@@ -23,7 +23,7 @@ const documents = {
     types.CreateRelationshipDocument,
   '\n  query EntitiesQuery($entityClassification: String!) {\n    entities(entityClassification: $entityClassification) {\n      entityGuid\n      entityClassification\n      context\n    }\n  }\n':
     types.EntitiesQueryDocument,
-  '\n  query ComponentsByComponentType($componentType: String!, $entityGuid: ID) {\n    components(componentType: $componentType, entityGuid: $entityGuid) {\n      componentGuid\n      entityGuid\n      componentType\n      payload\n    }\n  }\n':
+  '\n  query ComponentsByComponentType($componentType: String!, $entityGuid: ID) {\n    components(componentType: $componentType, entityGuid: $entityGuid) {\n      componentGuid\n      componentName\n      entityGuid\n      componentType\n      payload\n    }\n  }\n':
     types.ComponentsByComponentTypeDocument,
   '\n  query EntityComponentTypes($entityGuid: ID!) {\n    entityComponentTypes(entityGuid: $entityGuid)\n  }\n':
     types.EntityComponentTypesDocument,
@@ -79,8 +79,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query ComponentsByComponentType($componentType: String!, $entityGuid: ID) {\n    components(componentType: $componentType, entityGuid: $entityGuid) {\n      componentGuid\n      entityGuid\n      componentType\n      payload\n    }\n  }\n',
-): (typeof documents)['\n  query ComponentsByComponentType($componentType: String!, $entityGuid: ID) {\n    components(componentType: $componentType, entityGuid: $entityGuid) {\n      componentGuid\n      entityGuid\n      componentType\n      payload\n    }\n  }\n'];
+  source: '\n  query ComponentsByComponentType($componentType: String!, $entityGuid: ID) {\n    components(componentType: $componentType, entityGuid: $entityGuid) {\n      componentGuid\n      componentName\n      entityGuid\n      componentType\n      payload\n    }\n  }\n',
+): (typeof documents)['\n  query ComponentsByComponentType($componentType: String!, $entityGuid: ID) {\n    components(componentType: $componentType, entityGuid: $entityGuid) {\n      componentGuid\n      componentName\n      entityGuid\n      componentType\n      payload\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
