@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useMutation } from 'urql';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,7 +7,7 @@ import { graphql } from '../gql';
 import RelationshipTypeSelector from './createRelationship/RelationshipTypeSelector';
 import Relationship from './createRelationship/Relationship';
 import CancelSubmitButtons from './createRelationship/CancelSubmitButtons';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import DataPanel from './createRelationship/DataPanel';
 import InvertRelationshipButton from './createRelationship/InvertRelationshipButton';
 
@@ -73,7 +74,7 @@ const CreateRelationshipMutation = graphql(`
 `);
 
 const CreateRelationship: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [sourceType1, setSourceType1] = useState(undefined as EntityOrComponentType | undefined);
 
@@ -130,19 +131,7 @@ const CreateRelationship: React.FC = () => {
     createRelationship,
   ] = useMutation(CreateRelationshipMutation);
 
-  useEffect(() => {
-    // TODO: Error handling
-
-    if (
-      relationshipData?.createRelationship.successful &&
-      relationshipData.createRelationship.result
-    ) {
-      const relationship = relationshipData.createRelationship.result;
-      navigate(`/relationships/${relationship.relationshipGuid}`);
-    }
-  }, [relationshipData, relationshipError]);
-
-  const onClickCancel = useCallback(() => {
+  const clearState = useCallback(() => {
     setSourceType1(undefined);
     setSourceType2(undefined);
 
@@ -157,6 +146,26 @@ const CreateRelationship: React.FC = () => {
     setDestinationValue1(undefined);
     setDestinationValue2(undefined);
   }, []);
+
+  useEffect(() => {
+    if (
+      relationshipData?.createRelationship.successful &&
+      relationshipData.createRelationship.result
+    ) {
+      const toastMessage = relationshipType
+        ? `"${relationshipType.label}" relationship created.`
+        : 'Relationship created.';
+      toast.success(toastMessage);
+
+      clearState();
+
+      // TODO: navigate to relationship view?
+      // const relationship = relationshipData.createRelationship.result;
+      // navigate(`/relationships/${relationship.relationshipGuid}`);
+    } else if (relationshipError || relationshipData?.createRelationship.successful === false) {
+      toast.error('Error creating relationship.');
+    }
+  }, [relationshipData, relationshipError]);
 
   const invertRelationship = useCallback(() => {
     const st1 = sourceType1;
@@ -227,7 +236,7 @@ const CreateRelationship: React.FC = () => {
         />
       </Row>
       <CancelSubmitButtons
-        onCancel={onClickCancel}
+        onCancel={clearState}
         onSubmit={onSubmit}
         loading={relationshipFetching}
         canSubmit={Boolean(sourceValue1 && destinationValue1 && relationshipType)}

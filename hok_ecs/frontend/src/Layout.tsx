@@ -1,4 +1,5 @@
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 import { LinkContainer } from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -35,6 +36,7 @@ const Layout: React.FC = () => {
           </Container>
         </Navbar>
         <div className="px-5 py-3 h-100">
+          <Toaster position="top-right" />
           <Outlet />
         </div>
       </div>
