@@ -2,10 +2,12 @@ schema: http://localhost:4000/api/graphql
 documents:
   - src/**/*.{ts,tsx}
 ignoreNoDocuments: true
+config:
+  scalars:
+    Json: unknown
 generates:
   ./src/gql/:
     preset: client
     plugins: []
-config:
-  scalars:
-    Json: string
+  './src/gql/introspection.json':
+    plugins: ['introspection']

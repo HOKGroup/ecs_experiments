@@ -15,7 +15,7 @@ interface Props {
     context: string;
     entityClassification?: string | null | undefined;
     status?: string | null | undefined;
-    payload: string;
+    payload: unknown;
   };
 }
 
@@ -29,8 +29,7 @@ const ComponentData: React.FC<Props> = ({ component }) => {
 
   useEffect(() => {
     setData(undefined);
-    const parsedData = JSON.parse(component.payload) as unknown;
-    setData(parsedData);
+    setData(component.payload);
   }, [component.payload]);
 
   return (

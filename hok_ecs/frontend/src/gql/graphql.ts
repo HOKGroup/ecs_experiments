@@ -12,7 +12,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  Json: string;
+  Json: unknown;
 };
 
 export type Component = {
@@ -212,7 +212,7 @@ export type ComponentQueryQuery = {
     context: string;
     entityClassification?: string | null;
     status?: string | null;
-    payload: string;
+    payload: unknown;
   } | null;
 };
 
@@ -290,7 +290,7 @@ export type ComponentsByComponentTypeQuery = {
     componentName?: string | null;
     entityGuid: string;
     componentType: string;
-    payload: string;
+    payload: unknown;
   }>;
 };
 

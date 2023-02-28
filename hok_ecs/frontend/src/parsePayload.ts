@@ -43,49 +43,47 @@ const payloadSchema = z.union([
 
 export type Payload = z.infer<typeof payloadSchema>;
 
-const parsePayload = (type: string, payload: string): Payload => {
+const parsePayload = (type: string, payload: unknown): Payload => {
   try {
-    const parsedJson: unknown = JSON.parse(payload);
-
     switch (type) {
       case 'classification.details':
-        return classificationDetails.parse(parsedJson);
+        return classificationDetails.parse(payload);
       case 'company.details':
-        return companyDetails.parse(parsedJson);
+        return companyDetails.parse(payload);
       case 'company.location.details':
-        return companyLocationDetails.parse(parsedJson);
+        return companyLocationDetails.parse(payload);
       case 'jurisdiction.code':
-        return jurisdictionCode.parse(parsedJson);
+        return jurisdictionCode.parse(payload);
       case 'jurisdiction.details':
-        return jurisdictionDetails.parse(parsedJson);
+        return jurisdictionDetails.parse(payload);
       case 'person.details':
-        return personDetails.parse(parsedJson);
+        return personDetails.parse(payload);
       case 'project.code.analysis.construction.type':
-        return projectCodeAnalysisConstructionType.parse(parsedJson);
+        return projectCodeAnalysisConstructionType.parse(payload);
       case 'project.code.analysis.details':
-        return projectCodeAnalysisDetails.parse(parsedJson);
+        return projectCodeAnalysisDetails.parse(payload);
       case 'project.details':
-        return projectDetails.parse(parsedJson);
+        return projectDetails.parse(payload);
       case 'project.discipline':
-        return projectDiscipline.parse(parsedJson);
+        return projectDiscipline.parse(payload);
       case 'project.group':
-        return projectGroup.parse(parsedJson);
+        return projectGroup.parse(payload);
       case 'project.location.details':
-        return projectLocationDetails.parse(parsedJson);
+        return projectLocationDetails.parse(payload);
       case 'project.location.polygon':
-        return projectLocationPolygon.parse(parsedJson);
+        return projectLocationPolygon.parse(payload);
       case 'project.phase':
-        return projectPhase.parse(parsedJson);
+        return projectPhase.parse(payload);
       case 'qc.checklist':
-        return qcChecklist.parse(parsedJson);
+        return qcChecklist.parse(payload);
       case 'qc.checklist.item':
-        return qcChecklistItem.parse(parsedJson);
+        return qcChecklistItem.parse(payload);
       case 'scopeofwork.details':
-        return scopeofworkDetails.parse(parsedJson);
+        return scopeofworkDetails.parse(payload);
       case 'specification.master.details':
-        return specificationMasterDetails.parse(parsedJson);
+        return specificationMasterDetails.parse(payload);
       case 'specification.master.section':
-        return specificationMasterSection.parse(parsedJson);
+        return specificationMasterSection.parse(payload);
       default:
         console.warn('Unknown payload type: ', type);
         return {} as Payload;

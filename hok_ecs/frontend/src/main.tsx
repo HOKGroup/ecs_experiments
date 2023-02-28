@@ -3,13 +3,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { cacheExchange, createClient, dedupExchange, fetchExchange, Provider } from 'urql';
 import App from './App';
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import schema from './gql/introspection.json';
+import customScalarsExchange from 'urql-custom-scalars-exchange';
 import './index.scss';
+import { IntrospectionQuery } from 'graphql';
+
+const scalarsExchange = customScalarsExchange({
+  schema: schema as unknown as IntrospectionQuery,
+  scalars: {
+    Json(value: unknown) {
+      const parsed = JSON.parse(value as string);
+      return parsed as unknown;
+    },
+  },
+});
 
 const client = createClient({
   url: '/api/graphql',
   requestPolicy: 'cache-and-network',
-  exchanges: [dedupExchange, refocusExchange(), cacheExchange, fetchExchange],
+  exchanges: [dedupExchange, refocusExchange(), scalarsExchange, cacheExchange, fetchExchange],
 });
 
 const root = document.getElementById('root');
