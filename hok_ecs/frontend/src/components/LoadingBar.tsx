@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ProgressBar, { ProgressBarProps } from 'react-bootstrap/ProgressBar';
+import classNames from 'classnames';
 import './loadingBar.css';
 
 type Props = {
@@ -40,14 +41,8 @@ const LoadingBar: React.FC<Props> = ({ loading, ...props }) => {
   }, [loading]);
 
   if (loading) {
-    return (
-      <ProgressBar
-        {...props}
-        className={`${props.className ?? ''} loading-bar__progress-bar`}
-        variant="info"
-        now={now}
-      />
-    );
+    const className = classNames(props.className, 'loading-bar__progress-bar');
+    return <ProgressBar {...props} className={className} variant="info" now={now} />;
   }
 
   return null;

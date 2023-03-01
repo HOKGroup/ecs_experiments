@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import Table from 'react-bootstrap/Table';
 import { ColumnDef, flexRender, getCoreRowModel, Row, useReactTable } from '@tanstack/react-table';
+import classNames from 'classnames';
 import './dataTable.css';
 
 interface Props<T> {
@@ -39,8 +40,10 @@ const DataTable: <T>(props: Props<T>) => ReactElement<Props<T>> = ({
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => {
-          const isActive = isRowActive?.(row);
-          const className = isActive ? 'table-active table-primary border-dark' : '';
+          const className = classNames({
+            'table-active table-primary border-dark': isRowActive?.(row),
+          });
+
           return (
             <tr key={row.id} className={className} onClick={() => onClickRow?.(row)}>
               {row.getVisibleCells().map((cell) => (

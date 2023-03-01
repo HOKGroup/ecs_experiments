@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import classNames from 'classnames';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   size?: number;
@@ -11,11 +12,13 @@ const LoadingSpinner: React.FC<Props> = (props) => {
 
   const style = { width: styleSize, height: styleSize };
 
-  let className = `${props.className ?? ''} w-100 d-flex justify-content-center align-items-center`;
-
-  if (!props.style?.height) {
-    className += ' h-100';
-  }
+  const className = classNames(
+    props.className,
+    'w-100 d-flex justify-content-center align-items-center',
+    {
+      'h-100': !props.style?.height,
+    },
+  );
 
   return (
     <div {...props} className={className}>
