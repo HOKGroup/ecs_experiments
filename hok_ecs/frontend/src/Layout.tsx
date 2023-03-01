@@ -1,40 +1,14 @@
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
-import { LinkContainer } from 'react-router-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import { Outlet, useMatch } from 'react-router-dom';
+import Navbar from './Navbar';
+import { Outlet } from 'react-router-dom';
 import './layout.css';
 
 const Layout: React.FC = () => {
-  const relationshipsMatch = useMatch('/relationships/*');
-
   return (
     <div className="d-flex flex-column h-100">
       <div className="d-flex flex-column flex-grow-1">
-        <Navbar className="border-bottom">
-          <Container fluid={true} className="px-5">
-            <LinkContainer to="/">
-              <Navbar.Brand>
-                <img
-                  className="pe-2"
-                  src="https://www.hok.com/wp-content/themes/HOK/assets/img/favicon/favicon-32x32.png"
-                  alt="HOK Logo"
-                />
-                <span>HOK ECS</span>
-              </Navbar.Brand>
-            </LinkContainer>
-            <Nav fill={true} className="flex-grow-1">
-              <LinkContainer to="/createRelationship">
-                <Nav.Link active={false}>Create Relationship</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/relationships">
-                <Nav.Link active={Boolean(relationshipsMatch)}>Relationships</Nav.Link>
-              </LinkContainer>
-            </Nav>
-          </Container>
-        </Navbar>
+        <Navbar />
         <div className="px-5 py-3 h-100">
           <Toaster position="top-right" />
           <Outlet />

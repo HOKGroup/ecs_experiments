@@ -1,7 +1,5 @@
 import React from 'react';
-import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import CursorToggle from '../../components/CursorToggle';
 
 interface Props {
@@ -13,14 +11,22 @@ interface Props {
 
 const CancelSubmitButtons: React.FC<Props> = ({ onCancel, onSubmit, canSubmit, loading }) => {
   return (
-    <Row className="p-2">
-      <Col xl="4" />
-      <Col xl="4" lg="4" className="text-center d-flex justify-content-around">
-        <Button size="lg" variant="warning" onClick={onCancel}>
-          Cancel
-        </Button>
+    <div className="p-2">
+      <div className="text-center d-flex justify-content-center">
+        <CursorToggle enabled={!loading}>
+          <Button
+            className="mx-5"
+            size="lg"
+            variant="warning"
+            onClick={onCancel}
+            disabled={loading}
+          >
+            Cancel
+          </Button>
+        </CursorToggle>
         <CursorToggle enabled={canSubmit}>
           <Button
+            className="mx-5"
             size="lg"
             variant={canSubmit ? 'primary' : 'outline-primary'}
             disabled={loading || !canSubmit}
@@ -29,9 +35,8 @@ const CancelSubmitButtons: React.FC<Props> = ({ onCancel, onSubmit, canSubmit, l
             {loading ? 'Loading...' : 'Submit'}
           </Button>
         </CursorToggle>
-      </Col>
-      <Col xl="4" />
-    </Row>
+      </div>
+    </div>
   );
 };
 
