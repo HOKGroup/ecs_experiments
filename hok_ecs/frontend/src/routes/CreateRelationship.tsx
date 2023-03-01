@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'urql';
 import Row from 'react-bootstrap/Row';
@@ -7,7 +7,6 @@ import { graphql } from '../gql';
 import RelationshipTypeSelector from './createRelationship/RelationshipTypeSelector';
 import Relationship from './createRelationship/Relationship';
 import CancelSubmitButtons from './createRelationship/CancelSubmitButtons';
-// import { useNavigate } from 'react-router-dom';
 import DataPanel from './createRelationship/DataPanel';
 import InvertRelationshipButton from './createRelationship/InvertRelationshipButton';
 
@@ -24,11 +23,6 @@ interface ComponentType {
 }
 
 export type EntityOrComponentType = EntityType | ComponentType;
-
-// export interface EntityOrComponentType {
-//   type: 'entity' | 'component';
-//   value: string;
-// }
 
 interface EntityValue {
   type: 'entity';
@@ -74,8 +68,6 @@ const CreateRelationshipMutation = graphql(`
 `);
 
 const CreateRelationship: React.FC = () => {
-  // const navigate = useNavigate();
-
   const [sourceType1, setSourceType1] = useState(undefined as EntityOrComponentType | undefined);
 
   const [sourceType2, setSourceType2] = useState(undefined as EntityOrComponentType | undefined);
@@ -104,6 +96,10 @@ const CreateRelationship: React.FC = () => {
     undefined as EntityOrComponentValue | undefined,
   );
 
+  const [{ fetching: relationshipFetching }, createRelationship] = useMutation(
+    CreateRelationshipMutation,
+  );
+
   const onSubmit = useCallback(() => {
     if (!relationshipType) return;
     if (!sourceValue1 && !sourceValue2) return;
@@ -123,49 +119,42 @@ const CreateRelationship: React.FC = () => {
         destinationValue.type === 'entity' ? [destinationValue.entityGuid] : [],
       destinationComponentGuids:
         destinationValue.type === 'component' ? [destinationValue.componentGuid] : [],
-    });
+    })
+      .then((mutationResult) => {
+        if (mutationResult.error) throw mutationResult.error;
+        if (!mutationResult.data) throw new Error();
+        if (!mutationResult.data.createRelationship.successful) throw new Error();
+        if (!mutationResult.data.createRelationship.result) throw new Error();
+
+        const toastMessage = `"${relationshipType.value}" relationship created.`;
+        toast.success(toastMessage);
+
+        clearSelectedValues();
+      })
+      .catch((_err) => {
+        toast.error('Error creating relationship.');
+      });
   }, [relationshipType, sourceValue1, sourceValue2, destinationValue1, destinationValue2]);
 
-  const [
-    { data: relationshipData, error: relationshipError, fetching: relationshipFetching },
-    createRelationship,
-  ] = useMutation(CreateRelationshipMutation);
-
-  const clearState = useCallback(() => {
-    setSourceType1(undefined);
-    setSourceType2(undefined);
-
+  const clearSelectedValues = useCallback(() => {
     setSourceValue1(undefined);
     setSourceValue2(undefined);
-
-    setRelationshipType(undefined);
-
-    setDestinationType1(undefined);
-    setDestinationType2(undefined);
 
     setDestinationValue1(undefined);
     setDestinationValue2(undefined);
   }, []);
 
-  useEffect(() => {
-    if (
-      relationshipData?.createRelationship.successful &&
-      relationshipData.createRelationship.result
-    ) {
-      const toastMessage = relationshipType
-        ? `"${relationshipType.label}" relationship created.`
-        : 'Relationship created.';
-      toast.success(toastMessage);
+  const clearState = useCallback(() => {
+    clearSelectedValues();
 
-      clearState();
+    setSourceType1(undefined);
+    setSourceType2(undefined);
 
-      // TODO: navigate to relationship view?
-      // const relationship = relationshipData.createRelationship.result;
-      // navigate(`/relationships/${relationship.relationshipGuid}`);
-    } else if (relationshipError || relationshipData?.createRelationship.successful === false) {
-      toast.error('Error creating relationship.');
-    }
-  }, [relationshipData, relationshipError]);
+    setRelationshipType(undefined);
+
+    setDestinationType1(undefined);
+    setDestinationType2(undefined);
+  }, []);
 
   const invertRelationship = useCallback(() => {
     const st1 = sourceType1;
