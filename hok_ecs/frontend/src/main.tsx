@@ -12,8 +12,8 @@ const scalarsExchange = customScalarsExchange({
   schema: schema as unknown as IntrospectionQuery,
   scalars: {
     Json(value: unknown) {
-      const parsed = JSON.parse(value as string);
-      return parsed as unknown;
+      const parsed = JSON.parse(value as string) as unknown;
+      return parsed;
     },
   },
 });
