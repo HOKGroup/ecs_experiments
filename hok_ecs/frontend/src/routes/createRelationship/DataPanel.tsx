@@ -375,9 +375,9 @@ const DataPanel: React.FC<Props> = ({
           <LoadingBar className="position-absolute w-100 rounded-0" loading={true} />
         }
       />
-      <Row className="mh-100 p-4">
+      <Row className="p-4">
         <Col className="p-0">
-          <div className="overflow-auto pe-1" style={{ height: '60vh' }}>
+          <div className="overflow-auto pe-1">
             <Loader loading={fetching1} error={error1}>
               {type1 && data1 && (
                 <EntityOrComponentDataTable
@@ -394,7 +394,7 @@ const DataPanel: React.FC<Props> = ({
 
         {value1?.type === 'entity' && type2 && (
           <Col xs="6" className="p-0">
-            <div className="overflow-auto-pe-1" style={{ height: '60vh' }}>
+            <div className="overflow-auto-pe-1">
               <Loader loading={fetching2} error={error2}>
                 {data2 && (
                   <EntityOrComponentDataTable
@@ -409,8 +409,8 @@ const DataPanel: React.FC<Props> = ({
             </div>
           </Col>
         )}
-
-        <Col xs="12" style={{ height: '2rem' }} />
+      </Row>
+      <Row className="p-4">
         <Col>
           <EntityOrComponentTypeSelector
             value={type1 ?? null}

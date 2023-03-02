@@ -26,13 +26,10 @@ const GraphQuery = graphql(`
 
 interface Props {
   setSelectedNode: (node: SelectedNode | undefined) => void;
-  setGraphHeight: (height: number) => void;
 }
 
-const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode, setGraphHeight }) => {
+const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode }) => {
   const [ref, { height }] = useElementSize();
-
-  useEffect(() => setGraphHeight(height), [setGraphHeight, height]);
 
   const [network, setNetwork] = useState(undefined as Network | null | undefined);
 

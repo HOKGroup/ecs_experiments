@@ -1,6 +1,4 @@
-import React, { ComponentType } from 'react';
 import CancelSubmitButtons from '../../routes/createRelationship/CancelSubmitButtons';
-import Row from 'react-bootstrap/Row';
 
 export default {
   title: 'CreateRelationship/CancelSubmitButtons',
@@ -9,13 +7,6 @@ export default {
     onCancel: { action: 'cancel' },
     onSubmit: { action: 'submit' },
   },
-  decorators: [
-    (Story: ComponentType) => (
-      <Row className="d-flex flex-column justify-content-between" style={{ width: '500px' }}>
-        <Story />
-      </Row>
-    ),
-  ],
 };
 
 export const Default = {

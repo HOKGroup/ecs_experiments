@@ -1,4 +1,4 @@
-import { Decorator, Preview } from '@storybook/react';
+import { Preview } from '@storybook/react';
 
 import '../src/index.scss';
 

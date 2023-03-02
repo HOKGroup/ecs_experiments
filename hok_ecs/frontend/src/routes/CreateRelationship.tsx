@@ -183,8 +183,8 @@ const CreateRelationship: React.FC = () => {
   }, []);
 
   return (
-    <div className="d-flex flex-column justify-content-between">
-      <Row>
+    <div className="h-100 flex-grow-1 d-flex flex-column justify-content-between">
+      <Row className="flex-grow-1">
         <DataPanel
           type1={sourceType1}
           type2={sourceType2}

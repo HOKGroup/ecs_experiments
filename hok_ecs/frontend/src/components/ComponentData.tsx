@@ -77,7 +77,7 @@ const ComponentData: React.FC<Props> = ({ component }) => {
         <span>
           <strong>Payload: </strong>
         </span>
-        <div className="bg-light p-2 rounded border border-5 component-data__payload">
+        <div className="bg-light p-2 rounded border border-3 component-data__payload">
           <Loader loading={deferredData === undefined}>
             <JsonForms
               schema={schema}
