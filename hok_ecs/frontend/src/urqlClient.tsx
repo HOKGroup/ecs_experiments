@@ -13,12 +13,10 @@ const scalarsExchange = customScalarsExchange({
       if (typeof value === 'string') {
         const parsed = JSON.parse(value) as unknown;
         return parsed;
-      } else if (typeof value === 'object') {
+      } else {
         // Value from cache, don't re-parse
         return value;
       }
-
-      throw new Error('Invalid Json value');
     },
   },
 });
