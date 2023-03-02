@@ -5,6 +5,7 @@ import EntityDataLoader from '../components/EntityDataLoader';
 import ComponentDataLoader from '../components/ComponentDataLoader';
 import RelationshipDataLoader from '../components/RelationshipDataLoader';
 import RelationshipsGraph from './relationships/RelationshipsGraph';
+import DataPanel from './relationships/DataPanel';
 
 export interface SelectedEntity {
   type: 'entity';
@@ -27,31 +28,18 @@ const Relationships: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState(undefined as SelectedNode | undefined);
 
   return (
-    <Row className="h-100">
-      <Col>
-        <div className="bg-gradient border border-2 border-primary rounded h-100">
+    <div className="d-flex flex-column justify-content-between h-100">
+      <Row className="h-100 flex-grow-1">
+        <Col>
           <RelationshipsGraph setSelectedNode={setSelectedNode} />
-        </div>
-      </Col>
-      {selectedNode && (
-        <Col xl="4" className="align-items-start align-self-stretch">
-          <div
-            style={{
-              overflowY: 'auto',
-            }}
-            className="h-100 p-3 bg-gradient border border-2 border-primary rounded"
-          >
-            {selectedNode.type === 'entity' && <EntityDataLoader entityGuid={selectedNode.value} />}
-            {selectedNode.type === 'component' && (
-              <ComponentDataLoader componentGuid={selectedNode.value} />
-            )}
-            {selectedNode.type === 'relationship' && (
-              <RelationshipDataLoader relationshipGuid={selectedNode.value} />
-            )}
-          </div>
         </Col>
-      )}
-    </Row>
+        {selectedNode && (
+          <Col xl="4" className="align-items-start align-self-stretch">
+            <DataPanel type={selectedNode.type} guid={selectedNode.value} />
+          </Col>
+        )}
+      </Row>
+    </div>
   );
 };
 

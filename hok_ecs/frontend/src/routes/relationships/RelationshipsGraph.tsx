@@ -125,18 +125,22 @@ const RelationshipsGraph: React.FC<Props> = ({ setSelectedNode }) => {
   };
 
   return (
-    <div ref={ref} className="h-100">
-      <Loader
-        loading={fetching}
-        error={error}
-        loadingComponent={
-          <div className="w-100" style={{ height: '750px' }}>
-            <LoadingSpinner size={100} />
-          </div>
-        }
-      >
-        {data && <VisGraph graph={data.graph} events={events} options={options} ref={setNetwork} />}
-      </Loader>
+    <div className="bg-gradient border border-2 border-primary rounded h-100">
+      <div ref={ref} className="h-100">
+        <Loader
+          loading={fetching}
+          error={error}
+          loadingComponent={
+            <div className="w-100" style={{ height: '750px' }}>
+              <LoadingSpinner size={100} />
+            </div>
+          }
+        >
+          {data && (
+            <VisGraph graph={data.graph} events={events} options={options} ref={setNetwork} />
+          )}
+        </Loader>
+      </div>
     </div>
   );
 };

@@ -8,12 +8,12 @@ const Layout: React.FC = () => {
   return (
     <div className="d-flex flex-column h-100">
       <Navbar />
-      <div className="flex-grow-1 my-4 px-5 h-100">
+      <div className="flex-grow-1 my-4 px-5">
         <Toaster position="top-right" />
         <Outlet />
       </div>
-      <footer className="px-5 pt-3 border-top">
-        <p className="text-muted">Copyright &copy; HOK Group 2023</p>
+      <footer className="px-5 py-2 border-top">
+        <span className="fs-6 text-muted">Copyright &copy; HOK Group 2023</span>
       </footer>
     </div>
   );
