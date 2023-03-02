@@ -1,3 +1,4 @@
+import { StoryObj } from '@storybook/react';
 import NoMatch from '../routes/NoMatch';
 
 export default {
@@ -7,6 +8,8 @@ export default {
   },
 };
 
-export const Default = {
+type Story = StoryObj<typeof NoMatch>;
+
+export const Default: Story = {
   args: {},
 };

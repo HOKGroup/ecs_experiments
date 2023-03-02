@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import EntityDataLoader from '../components/EntityDataLoader';
-import ComponentDataLoader from '../components/ComponentDataLoader';
-import RelationshipDataLoader from '../components/RelationshipDataLoader';
 import RelationshipsGraph from './relationships/RelationshipsGraph';
 import DataPanel from './relationships/DataPanel';
 

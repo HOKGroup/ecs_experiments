@@ -1,3 +1,4 @@
+import { StoryObj } from '@storybook/react';
 import CancelSubmitButtons from '../../routes/createRelationship/CancelSubmitButtons';
 
 export default {
@@ -9,21 +10,23 @@ export default {
   },
 };
 
-export const Default = {
+type Story = StoryObj<typeof CancelSubmitButtons>;
+
+export const Default: Story = {
   args: {
     canSubmit: false,
     loading: false,
   },
 };
 
-export const Loading = {
+export const Loading: Story = {
   args: {
     ...Default.args,
     loading: true,
   },
 };
 
-export const Enabled = {
+export const Enabled: Story = {
   args: {
     ...Default.args,
     canSubmit: true,

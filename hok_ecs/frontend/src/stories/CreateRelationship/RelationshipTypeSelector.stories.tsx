@@ -1,3 +1,4 @@
+import { StoryObj } from '@storybook/react';
 import RelationshipTypeSelector from '../../routes/createRelationship/RelationshipTypeSelector';
 
 export default {
@@ -8,6 +9,8 @@ export default {
   },
 };
 
-export const Default = {
+type Story = StoryObj<typeof RelationshipTypeSelector>;
+
+export const Default: Story = {
   args: {},
 };

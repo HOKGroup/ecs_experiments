@@ -1,3 +1,4 @@
+import { StoryObj } from '@storybook/react';
 import React, { ComponentType } from 'react';
 import DataPanel from '../../routes/createRelationship/DataPanel';
 import { UrqlProvider } from '../../urqlClient';
@@ -20,7 +21,9 @@ export default {
   },
 };
 
-export const Default = {
+type Story = StoryObj<typeof DataPanel>;
+
+export const Default: Story = {
   args: {
     type1: undefined,
     type2: undefined,
@@ -29,7 +32,7 @@ export const Default = {
   },
 };
 
-export const EntityTypeSelected = {
+export const EntityTypeSelected: Story = {
   args: {
     ...Default.args,
     type1: {
@@ -40,7 +43,7 @@ export const EntityTypeSelected = {
   },
 };
 
-export const ComponentTypeSelected = {
+export const ComponentTypeSelected: Story = {
   args: {
     ...Default.args,
     type1: {
@@ -51,7 +54,7 @@ export const ComponentTypeSelected = {
   },
 };
 
-export const EntityAndComponentTypeSelected = {
+export const EntityAndComponentTypeSelected: Story = {
   args: {
     ...Default.args,
     type1: {

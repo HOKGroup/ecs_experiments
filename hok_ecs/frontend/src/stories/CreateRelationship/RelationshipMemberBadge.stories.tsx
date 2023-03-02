@@ -1,3 +1,4 @@
+import { StoryObj } from '@storybook/react';
 import RelationshipMemberBadge from '../../routes/createRelationship/RelationshipMemberBadge';
 
 export default {
@@ -16,14 +17,16 @@ export default {
   },
 };
 
-export const Default = {
+type Story = StoryObj<typeof RelationshipMemberBadge>;
+
+export const Default: Story = {
   args: {
     value: undefined,
     defaultValue: 'Default Value',
   },
 };
 
-export const WithValue = {
+export const WithValue: Story = {
   args: {
     value: 'My Value',
     defaultValue: 'Default Value',

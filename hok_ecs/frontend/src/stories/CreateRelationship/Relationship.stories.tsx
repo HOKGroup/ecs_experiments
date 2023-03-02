@@ -1,3 +1,4 @@
+import { StoryObj } from '@storybook/react';
 import React, { ComponentType } from 'react';
 import Relationship from '../../routes/createRelationship/Relationship';
 import { UrqlProvider } from '../../urqlClient';
@@ -14,11 +15,13 @@ export default {
   ],
 };
 
-export const Default = {
+type Story = StoryObj<typeof Relationship>;
+
+export const Default: Story = {
   args: {},
 };
 
-export const WithValues = {
+export const WithValues: Story = {
   args: {
     sourceValue: {
       type: 'entity',

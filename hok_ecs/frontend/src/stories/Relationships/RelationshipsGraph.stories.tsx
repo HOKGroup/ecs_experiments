@@ -1,5 +1,5 @@
+import { StoryObj } from '@storybook/react';
 import React, { ComponentType } from 'react';
-import { SelectedNode } from '../../routes/Relationships';
 import RelationshipsGraph from '../../routes/relationships/RelationshipsGraph';
 import { UrqlProvider } from '../../urqlClient';
 
@@ -18,6 +18,8 @@ export default {
   },
 };
 
-export const Default = {
+type Story = StoryObj<typeof RelationshipsGraph>;
+
+export const Default: Story = {
   args: {},
 };
