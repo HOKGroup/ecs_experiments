@@ -62,8 +62,6 @@ async function main() {
 
   const indexPath = path.join(outputDir, 'index.ts');
   fs.writeFileSync(indexPath, indexContents);
-
-  console.log('INDEX: \n', indexContents);
 }
 
 main();

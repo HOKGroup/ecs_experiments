@@ -185,16 +185,18 @@ const CreateRelationship: React.FC = () => {
   return (
     <div className="h-100 flex-grow-1 d-flex flex-column justify-content-between">
       <Row className="flex-grow-1">
-        <DataPanel
-          type1={sourceType1}
-          type2={sourceType2}
-          setType1={setSourceType1}
-          setType2={setSourceType2}
-          value1={sourceValue1}
-          value2={sourceValue2}
-          setValue1={setSourceValue1}
-          setValue2={setSourceValue2}
-        />
+        <Col xl="4" lg="12">
+          <DataPanel
+            type1={sourceType1}
+            type2={sourceType2}
+            setType1={setSourceType1}
+            setType2={setSourceType2}
+            value1={sourceValue1}
+            value2={sourceValue2}
+            setValue1={setSourceValue1}
+            setValue2={setSourceValue2}
+          />
+        </Col>
 
         <Col
           xl="4"
@@ -213,16 +215,19 @@ const CreateRelationship: React.FC = () => {
           <RelationshipTypeSelector onSelect={onSelectRelationshipType} />
         </Col>
 
-        <DataPanel
-          type1={destinationType1}
-          type2={destinationType2}
-          setType1={setDestinationType1}
-          setType2={setDestinationType2}
-          value1={destinationValue1}
-          value2={destinationValue2}
-          setValue1={setDestinationValue1}
-          setValue2={setDestinationValue2}
-        />
+        <Col xl="4" lg="12">
+          {' '}
+          <DataPanel
+            type1={destinationType1}
+            type2={destinationType2}
+            setType1={setDestinationType1}
+            setType2={setDestinationType2}
+            value1={destinationValue1}
+            value2={destinationValue2}
+            setValue1={setDestinationValue1}
+            setValue2={setDestinationValue2}
+          />
+        </Col>
       </Row>
       <CancelSubmitButtons
         onCancel={clearState}

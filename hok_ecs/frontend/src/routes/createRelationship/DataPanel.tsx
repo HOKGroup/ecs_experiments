@@ -309,7 +309,7 @@ const DataPanel: React.FC<Props> = ({
     variables: value1 && {
       entityGuid: (value1 as EntityValue).entityGuid,
     },
-    pause: value1 && value1.type !== 'entity',
+    pause: !value1 || value1.type !== 'entity',
   });
 
   const componentTypes = (componentTypesRaw?.entityComponentTypes ?? ([] as string[])).map((t) => ({
@@ -364,18 +364,14 @@ const DataPanel: React.FC<Props> = ({
   }, []);
 
   return (
-    <Col
-      xl="4"
-      lg="12"
-      className="bg-gradient position-relative p-0 border border-2 rounded border-primary d-flex flex-column justify-content-between"
-    >
+    <div className="h-100 bg-gradient position-relative p-0 border border-2 rounded border-primary d-flex flex-column justify-content-between">
       <Loader
         loading={stale1 || stale2}
         loadingComponent={
           <LoadingBar className="position-absolute w-100 rounded-0" loading={true} />
         }
       />
-      <Row className="p-4">
+      <Row className="p-4 flex-grow-1">
         <Col className="p-0">
           <div className="overflow-auto pe-1">
             <Loader loading={fetching1} error={error1}>
@@ -410,7 +406,7 @@ const DataPanel: React.FC<Props> = ({
           </Col>
         )}
       </Row>
-      <Row className="p-4">
+      <Row className="p-4 align-items-end">
         <Col>
           <EntityOrComponentTypeSelector
             value={type1 ?? null}
@@ -431,7 +427,7 @@ const DataPanel: React.FC<Props> = ({
           </Col>
         )}
       </Row>
-    </Col>
+    </div>
   );
 };
 

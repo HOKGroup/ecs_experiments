@@ -5,9 +5,6 @@ import { UrqlProvider } from '../../urqlClient';
 export default {
   title: 'CreateRelationship/DataPanel',
   component: DataPanel,
-  parameters: {
-    layout: 'fullscreen',
-  },
   decorators: [
     (Story: ComponentType) => (
       <UrqlProvider>

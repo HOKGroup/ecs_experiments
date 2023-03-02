@@ -4,13 +4,21 @@ import schema from './gql/introspection.json';
 import { IntrospectionQuery } from 'graphql';
 import { cacheExchange, createClient, dedupExchange, fetchExchange, Provider } from 'urql';
 import { refocusExchange } from '@urql/exchange-refocus';
+import { devtoolsExchange } from '@urql/devtools';
 
 const scalarsExchange = customScalarsExchange({
   schema: schema as unknown as IntrospectionQuery,
   scalars: {
     Json(value: unknown) {
-      const parsed = JSON.parse(value as string) as unknown;
-      return parsed;
+      if (typeof value === 'string') {
+        const parsed = JSON.parse(value) as unknown;
+        return parsed;
+      } else if (typeof value === 'object') {
+        // Value from cache, don't re-parse
+        return value;
+      }
+
+      throw new Error('Invalid Json value');
     },
   },
 });
@@ -18,7 +26,14 @@ const scalarsExchange = customScalarsExchange({
 const client = createClient({
   url: '/api/graphql',
   requestPolicy: 'cache-and-network',
-  exchanges: [dedupExchange, refocusExchange(), scalarsExchange, cacheExchange, fetchExchange],
+  exchanges: [
+    devtoolsExchange,
+    dedupExchange,
+    refocusExchange(),
+    scalarsExchange,
+    cacheExchange,
+    fetchExchange,
+  ],
 });
 
 export default client;

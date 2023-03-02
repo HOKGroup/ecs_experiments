@@ -23,6 +23,7 @@
     "@jsonforms/material-renderers": "^3.0.0",
     "@jsonforms/react": "^3.0.0",
     "@tanstack/react-table": "^8.7.9",
+    "@urql/devtools": "^2.0.3",
     "@urql/exchange-refocus": "^1.0.0",
     "bootstrap": "^5.3.0-alpha1",
     "classnames": "^2.3.2",
