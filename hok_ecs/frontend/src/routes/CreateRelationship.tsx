@@ -183,8 +183,8 @@ const CreateRelationship: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-100 flex-grow-1 d-flex flex-column justify-content-between">
-      <Row className="flex-grow-1">
+    <div className="h-100 d-flex flex-column justify-content-between">
+      <Row className="flex-grow-1 pb-4">
         <Col xl="4" lg="12">
           <DataPanel
             type1={sourceType1}
@@ -216,7 +216,6 @@ const CreateRelationship: React.FC = () => {
         </Col>
 
         <Col xl="4" lg="12">
-          {' '}
           <DataPanel
             type1={destinationType1}
             type2={destinationType2}
@@ -229,12 +228,18 @@ const CreateRelationship: React.FC = () => {
           />
         </Col>
       </Row>
-      <CancelSubmitButtons
-        onCancel={clearState}
-        onSubmit={onSubmit}
-        loading={relationshipFetching}
-        canSubmit={Boolean(sourceValue1 && destinationValue1 && relationshipType)}
-      />
+      <Row>
+        <Col />
+        <Col xl="4" lg="12" className="text-center">
+          <CancelSubmitButtons
+            onCancel={clearState}
+            onSubmit={onSubmit}
+            loading={relationshipFetching}
+            canSubmit={Boolean(sourceValue1 && destinationValue1 && relationshipType)}
+          />
+        </Col>
+        <Col />
+      </Row>
     </div>
   );
 };

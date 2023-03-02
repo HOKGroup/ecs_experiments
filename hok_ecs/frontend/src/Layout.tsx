@@ -8,7 +8,7 @@ const Layout: React.FC = () => {
   return (
     <div className="d-flex flex-column h-100">
       <Navbar />
-      <div className="flex-grow-1 px-5 py-3 h-100">
+      <div className="flex-grow-1 my-4 px-5 h-100">
         <Toaster position="top-right" />
         <Outlet />
       </div>

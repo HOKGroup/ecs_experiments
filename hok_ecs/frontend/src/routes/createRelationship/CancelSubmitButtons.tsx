@@ -11,9 +11,9 @@ interface Props {
 
 const CancelSubmitButtons: React.FC<Props> = ({ onCancel, onSubmit, canSubmit, loading }) => {
   return (
-    <div className="text-center d-flex justify-content-center">
+    <>
       <CursorToggle enabled={!loading}>
-        <Button className="mx-5" size="lg" variant="warning" onClick={onCancel} disabled={loading}>
+        <Button className="mx-4" size="lg" variant="warning" onClick={onCancel} disabled={loading}>
           Cancel
         </Button>
       </CursorToggle>
@@ -28,7 +28,7 @@ const CancelSubmitButtons: React.FC<Props> = ({ onCancel, onSubmit, canSubmit, l
           {loading ? 'Loading...' : 'Submit'}
         </Button>
       </CursorToggle>
-    </div>
+    </>
   );
 };
 
