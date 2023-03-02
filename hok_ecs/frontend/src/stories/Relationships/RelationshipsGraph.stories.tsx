@@ -13,15 +13,11 @@ export default {
       </UrqlProvider>
     ),
   ],
+  argTypes: {
+    setSelectedNode: { action: 'selectNode' },
+  },
 };
 
 export const Default = {
-  args: {
-    setGraphHeight: (_height: number) => {
-      return;
-    },
-    setSelectedNode: (_node: SelectedNode | undefined) => {
-      return;
-    },
-  },
+  args: {},
 };
