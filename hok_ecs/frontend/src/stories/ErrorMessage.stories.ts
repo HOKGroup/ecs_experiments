@@ -1,9 +1,11 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import ErrorMessage from '../components/ErrorMessage';
 
-export default {
+const meta: Meta<typeof ErrorMessage> = {
   component: ErrorMessage,
 };
+
+export default meta;
 
 type Story = StoryObj<typeof ErrorMessage>;
 

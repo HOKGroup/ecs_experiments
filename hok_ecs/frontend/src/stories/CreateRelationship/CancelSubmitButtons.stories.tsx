@@ -1,7 +1,7 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import CancelSubmitButtons from '../../routes/createRelationship/CancelSubmitButtons';
 
-export default {
+const meta: Meta<typeof CancelSubmitButtons> = {
   title: 'CreateRelationship/CancelSubmitButtons',
   component: CancelSubmitButtons,
   argTypes: {
@@ -9,6 +9,8 @@ export default {
     onSubmit: { action: 'submit' },
   },
 };
+
+export default meta;
 
 type Story = StoryObj<typeof CancelSubmitButtons>;
 

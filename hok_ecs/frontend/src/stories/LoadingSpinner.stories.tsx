@@ -1,7 +1,9 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-export default { component: LoadingSpinner };
+const meta: Meta<typeof LoadingSpinner> = { component: LoadingSpinner };
+
+export default meta;
 
 export const Default = {
   args: {},

@@ -1,9 +1,9 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React, { ComponentType } from 'react';
 import DataPanel from '../../routes/createRelationship/DataPanel';
 import { UrqlProvider } from '../../urqlClient';
 
-export default {
+const meta: Meta<typeof DataPanel> = {
   title: 'CreateRelationship/DataPanel',
   component: DataPanel,
   decorators: [
@@ -20,6 +20,8 @@ export default {
     setValue2: { action: 'setValue2' },
   },
 };
+
+export default meta;
 
 type Story = StoryObj<typeof DataPanel>;
 

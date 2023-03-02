@@ -1,7 +1,7 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import RelationshipMemberBadge from '../../routes/createRelationship/RelationshipMemberBadge';
 
-export default {
+const meta: Meta<typeof RelationshipMemberBadge> = {
   title: 'CreateRelationship/RelationshipMemberBadge',
   component: RelationshipMemberBadge,
   parameters: {
@@ -16,6 +16,8 @@ export default {
     },
   },
 };
+
+export default meta;
 
 type Story = StoryObj<typeof RelationshipMemberBadge>;
 

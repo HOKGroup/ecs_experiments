@@ -1,9 +1,9 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React, { ComponentType } from 'react';
 import Relationship from '../../routes/createRelationship/Relationship';
 import { UrqlProvider } from '../../urqlClient';
 
-export default {
+const meta: Meta<typeof Relationship> = {
   title: 'CreateRelationship/Relationship',
   component: Relationship,
   decorators: [
@@ -14,6 +14,8 @@ export default {
     ),
   ],
 };
+
+export default meta;
 
 type Story = StoryObj<typeof Relationship>;
 

@@ -1,9 +1,9 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React, { ComponentType } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from '../Navbar';
 
-export default {
+const meta: Meta<typeof Navbar> = {
   component: Navbar,
   decorators: [
     (Story: ComponentType) => (
@@ -16,6 +16,8 @@ export default {
     layout: 'fullscreen',
   },
 };
+
+export default meta;
 
 type Story = StoryObj<typeof Navbar>;
 

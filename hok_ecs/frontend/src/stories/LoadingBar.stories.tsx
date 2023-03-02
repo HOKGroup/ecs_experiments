@@ -1,8 +1,8 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React, { ComponentType } from 'react';
 import LoadingBar from '../components/LoadingBar';
 
-export default {
+const meta: Meta<typeof LoadingBar> = {
   component: LoadingBar,
   decorators: [
     (Story: ComponentType) => (
@@ -12,6 +12,8 @@ export default {
     ),
   ],
 };
+
+export default meta;
 
 type Story = StoryObj<typeof LoadingBar>;
 

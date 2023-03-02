@@ -1,13 +1,15 @@
-import { StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import InvertRelationshipButton from '../../routes/createRelationship/InvertRelationshipButton';
 
-export default {
+const meta: Meta<typeof InvertRelationshipButton> = {
   title: 'CreateRelationship/InvertRelationshipButton',
   component: InvertRelationshipButton,
   argTypes: {
     onClick: { action: 'click' },
   },
 };
+
+export default meta;
 
 type Story = StoryObj<typeof InvertRelationshipButton>;
 
