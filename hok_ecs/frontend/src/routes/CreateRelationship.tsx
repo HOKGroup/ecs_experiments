@@ -9,6 +9,7 @@ import Relationship from './createRelationship/Relationship';
 import CancelSubmitButtons from './createRelationship/CancelSubmitButtons';
 import DataPanel from './createRelationship/DataPanel';
 import InvertRelationshipButton from './createRelationship/InvertRelationshipButton';
+import ExistingRelationships from './createRelationship/ExistingRelationships';
 
 interface EntityType {
   type: 'entity';
@@ -100,13 +101,13 @@ const CreateRelationship: React.FC = () => {
     CreateRelationshipMutation,
   );
 
+  const sourceValue = sourceValue2 ?? sourceValue1;
+  const destinationValue = destinationValue2 ?? destinationValue1;
+
   const onSubmit = useCallback(() => {
     if (!relationshipType) return;
     if (!sourceValue1 && !sourceValue2) return;
     if (!destinationValue1 && !destinationValue2) return;
-
-    const sourceValue = sourceValue2 ?? sourceValue1;
-    const destinationValue = destinationValue2 ?? destinationValue1;
 
     if (!sourceValue) return;
     if (!destinationValue) return;
@@ -203,6 +204,24 @@ const CreateRelationship: React.FC = () => {
           lg="12"
           className="p-4 d-flex flex-column align-items-center justify-content-center"
         >
+          {sourceValue && destinationValue && (
+            <ExistingRelationships
+              sourceEntityGuids={
+                sourceValue?.type === 'entity' ? [sourceValue.entityGuid] : undefined
+              }
+              sourceComponentGuids={
+                sourceValue?.type === 'component' ? [sourceValue.componentGuid] : undefined
+              }
+              destinationEntityGuids={
+                destinationValue?.type === 'entity' ? [destinationValue.entityGuid] : undefined
+              }
+              destinationComponentGuids={
+                destinationValue?.type === 'component'
+                  ? [destinationValue.componentGuid]
+                  : undefined
+              }
+            />
+          )}
           <InvertRelationshipButton
             onClick={invertRelationship}
             canInvert={Boolean(sourceType1 ?? sourceType2 ?? destinationType1 ?? destinationType2)}

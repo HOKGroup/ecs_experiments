@@ -106,6 +106,7 @@ export type RootQueryType = {
   entityComponentTypes: Array<Scalars['String']>;
   graph: Graph;
   relationship?: Maybe<Relationship>;
+  relationships: Array<Relationship>;
 };
 
 export type RootQueryTypeComponentArgs = {
@@ -132,6 +133,13 @@ export type RootQueryTypeEntityComponentTypesArgs = {
 
 export type RootQueryTypeRelationshipArgs = {
   relationshipGuid: Scalars['ID'];
+};
+
+export type RootQueryTypeRelationshipsArgs = {
+  destinationComponentGuids?: InputMaybe<Array<Scalars['ID']>>;
+  destinationEntityGuids?: InputMaybe<Array<Scalars['ID']>>;
+  sourceComponentGuids?: InputMaybe<Array<Scalars['ID']>>;
+  sourceEntityGuids?: InputMaybe<Array<Scalars['ID']>>;
 };
 
 /**
@@ -301,6 +309,22 @@ export type EntityComponentTypesQueryVariables = Exact<{
 export type EntityComponentTypesQuery = {
   __typename?: 'RootQueryType';
   entityComponentTypes: Array<string>;
+};
+
+export type ExistingRelationshipsQueryQueryVariables = Exact<{
+  sourceEntityGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  sourceComponentGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  destinationEntityGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  destinationComponentGuids?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+export type ExistingRelationshipsQueryQuery = {
+  __typename?: 'RootQueryType';
+  relationships: Array<{
+    __typename?: 'Relationship';
+    relationshipGuid: string;
+    relationshipType?: string | null;
+  }>;
 };
 
 export type GraphQueryVariables = Exact<{ [key: string]: never }>;
@@ -720,6 +744,112 @@ export const EntityComponentTypesDocument = {
     },
   ],
 } as unknown as DocumentNode<EntityComponentTypesQuery, EntityComponentTypesQueryVariables>;
+export const ExistingRelationshipsQueryDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExistingRelationshipsQuery' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sourceEntityGuids' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sourceComponentGuids' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'destinationEntityGuids' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'destinationComponentGuids' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'relationships' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sourceEntityGuids' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sourceEntityGuids' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sourceComponentGuids' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sourceComponentGuids' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'destinationEntityGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'destinationEntityGuids' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'destinationComponentGuids' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'destinationComponentGuids' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'relationshipGuid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'relationshipType' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  ExistingRelationshipsQueryQuery,
+  ExistingRelationshipsQueryQueryVariables
+>;
 export const GraphDocument = {
   kind: 'Document',
   definitions: [

@@ -154,6 +154,28 @@ defmodule HokEcsWeb.AbsintheSchema do
         |> Helpers.ok()
       end)
     end
+
+    field :relationships, non_null_list(:relationship) do
+      arg(:source_entity_guids, list_of(non_null(:id)))
+      arg(:source_component_guids, list_of(non_null(:id)))
+      arg(:destination_entity_guids, list_of(non_null(:id)))
+      arg(:destination_component_guids, list_of(non_null(:id)))
+
+      resolve(fn args, _ ->
+        source_entity_guids = Map.get(args, :source_entity_guids, [])
+        source_component_guids = Map.get(args, :source_component_guids, [])
+        destination_entity_guids = Map.get(args, :destination_entity_guids, [])
+        destination_component_guids = Map.get(args, :destination_component_guids, [])
+
+        Relationships.get_relationships_by_member_ids(
+          source_entity_guids,
+          source_component_guids,
+          destination_entity_guids,
+          destination_component_guids
+        )
+        |> Helpers.ok()
+      end)
+    end
   end
 
   mutation do

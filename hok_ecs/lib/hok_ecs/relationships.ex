@@ -4,8 +4,91 @@ defmodule HokEcs.Relationships do
 
   alias HokEcs.Relationships.{
     Operations,
-    Relationship
+    Relationship,
+    RelationshipSourceEntity,
+    RelationshipSourceComponent,
+    RelationshipDestinationEntity,
+    RelationshipDestinationComponent
   }
+
+  import Ecto.Query, only: [from: 1, from: 2]
+
+  @spec get_relationships_by_member_ids(
+          list(String.t()),
+          list(String.t()),
+          list(String.t()),
+          list(String.t())
+        ) :: list(Relationship.t())
+  def get_relationships_by_member_ids(
+        source_entity_guids,
+        source_component_guids,
+        destination_entity_guids,
+        destination_component_guids
+      ) do
+    query = from(r in Relationship)
+
+    query
+    |> get_relationships_by_member_ids_source_entities_join(source_entity_guids)
+    |> get_relationships_by_member_ids_source_components_join(source_component_guids)
+    |> get_relationships_by_member_ids_destination_entities_join(destination_entity_guids)
+    |> get_relationships_by_member_ids_destination_components_join(destination_component_guids)
+    |> Repo.all()
+  end
+
+  @spec get_relationships_by_member_ids_source_entities_join(Ecto.Query.t(), list(String.t())) ::
+          Ecto.Query.t()
+  defp get_relationships_by_member_ids_source_entities_join(query, []), do: query
+
+  defp get_relationships_by_member_ids_source_entities_join(query, source_entity_guids) do
+    from r in query,
+      join: rse in RelationshipSourceEntity,
+      on:
+        rse.relationship_guid == r.relationship_guid and
+          rse.entity_guid in ^source_entity_guids
+  end
+
+  @spec get_relationships_by_member_ids_source_components_join(Ecto.Query.t(), list(String.t())) ::
+          Ecto.Query.t()
+  defp get_relationships_by_member_ids_source_components_join(query, []), do: query
+
+  defp get_relationships_by_member_ids_source_components_join(query, source_component_guids) do
+    from r in query,
+      join: rsc in RelationshipSourceComponent,
+      on:
+        rsc.relationship_guid == r.relationship_guid and
+          rsc.component_guid in ^source_component_guids
+  end
+
+  @spec get_relationships_by_member_ids_destination_entities_join(
+          Ecto.Query.t(),
+          list(String.t())
+        ) :: Ecto.Query.t()
+  defp get_relationships_by_member_ids_destination_entities_join(query, []), do: query
+
+  defp get_relationships_by_member_ids_destination_entities_join(query, destination_entity_guids) do
+    from r in query,
+      join: rde in RelationshipDestinationEntity,
+      on:
+        rde.relationship_guid == r.relationship_guid and
+          rde.entity_guid in ^destination_entity_guids
+  end
+
+  @spec get_relationships_by_member_ids_destination_components_join(
+          Ecto.Query.t(),
+          list(String.t())
+        ) :: Ecto.Query.t()
+  defp get_relationships_by_member_ids_destination_components_join(query, []), do: query
+
+  defp get_relationships_by_member_ids_destination_components_join(
+         query,
+         destination_component_guids
+       ) do
+    from r in query,
+      join: rse in RelationshipDestinationComponent,
+      on:
+        rse.relationship_guid == r.relationship_guid and
+          rse.component_guid in ^destination_component_guids
+  end
 
   @doc """
   Returns the list of relationships.

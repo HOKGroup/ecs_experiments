@@ -18,6 +18,71 @@ defmodule HokEcs.RelationshipsTest do
       relationship_name: 1234
     }
 
+    test "get_relationships_by_member_ids/2 returns all relationships for empty lists" do
+      relationship_1 = relationship_fixture()
+      relationship_2 = relationship_fixture()
+      relationship_3 = relationship_fixture()
+
+      result =
+        Relationships.get_relationships_by_member_ids([], [], [], [])
+        |> Enum.sort_by(& &1.relationship_guid)
+
+      expected =
+        [relationship_1, relationship_2, relationship_3] |> Enum.sort_by(& &1.relationship_guid)
+
+      assert result == expected
+    end
+
+    test "get_relationships_by_member_ids/2 filters relationships by source entity guids" do
+      entity = entity_fixture()
+
+      matching_relationship = relationship_fixture()
+
+      _relationship_source_entity =
+        relationship_source_entity_fixture(%{
+          entity_guid: entity.entity_guid,
+          relationship_guid: matching_relationship.relationship_guid
+        })
+
+      _relationship_2 = relationship_fixture()
+
+      result = Relationships.get_relationships_by_member_ids([entity.entity_guid], [], [], [])
+
+      assert length(result) == 1
+      assert List.first(result) == matching_relationship
+    end
+
+    test "get_relationships_by_member_ids/2 filters relationships by both source and destination guids" do
+      source_entity = entity_fixture()
+
+      entity_2 = entity_fixture()
+      destination_component = component_fixture(entity_2)
+
+      matching_relationship = relationship_fixture()
+
+      _relationship_source_entity =
+        relationship_source_entity_fixture(%{
+          entity_guid: source_entity.entity_guid,
+          relationship_guid: matching_relationship.relationship_guid
+        })
+
+      _relationship_destination_component =
+        relationship_destination_component_fixture(%{
+          component_guid: destination_component.component_guid,
+          relationship_guid: matching_relationship.relationship_guid
+        })
+
+      _relationship_2 = relationship_fixture()
+
+      result =
+        Relationships.get_relationships_by_member_ids([source_entity.entity_guid], [], [], [
+          destination_component.component_guid
+        ])
+
+      assert length(result) == 1
+      assert List.first(result) == matching_relationship
+    end
+
     test "list_relationships/0 returns all relationships" do
       relationship = relationship_fixture()
       assert Relationships.list_relationships() == [relationship]
