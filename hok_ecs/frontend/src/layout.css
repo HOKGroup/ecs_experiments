@@ -1,0 +1,4 @@
+.nav-link.active {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
