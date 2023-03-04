@@ -21,7 +21,7 @@ defmodule HokEcsWeb.AbsintheSchema do
       end
     end)
 
-    serialize(&Jason.encode!/1)
+    serialize(& &1)
   end
 
   object :entity do

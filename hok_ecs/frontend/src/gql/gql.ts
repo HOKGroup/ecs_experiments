@@ -27,7 +27,7 @@ const documents = {
     types.ComponentsByComponentTypeDocument,
   '\n  query EntityComponentTypes($entityGuid: ID!) {\n    entityComponentTypes(entityGuid: $entityGuid)\n  }\n':
     types.EntityComponentTypesDocument,
-  '\n  query ExistingRelationshipsQuery(\n    $sourceEntityGuids: [ID!],\n    $sourceComponentGuids: [ID!],\n    $destinationEntityGuids: [ID!],\n    $destinationComponentGuids: [ID!]\n  ) {\n    relationships(\n      sourceEntityGuids: $sourceEntityGuids,\n      sourceComponentGuids: $sourceComponentGuids,\n      destinationEntityGuids: $destinationEntityGuids,\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      relationshipGuid\n      relationshipType\n    }\n  }\n':
+  '\n  query ExistingRelationshipsQuery(\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    relationships(\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      relationshipGuid\n      relationshipType\n    }\n  }\n':
     types.ExistingRelationshipsQueryDocument,
   '\n  query Graph {\n    graph {\n      nodes {\n        id\n        label\n        title: type\n        group: type\n      }\n      edges {\n        from\n        to\n      }\n    }\n  }\n':
     types.GraphDocument,
@@ -93,8 +93,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query ExistingRelationshipsQuery(\n    $sourceEntityGuids: [ID!],\n    $sourceComponentGuids: [ID!],\n    $destinationEntityGuids: [ID!],\n    $destinationComponentGuids: [ID!]\n  ) {\n    relationships(\n      sourceEntityGuids: $sourceEntityGuids,\n      sourceComponentGuids: $sourceComponentGuids,\n      destinationEntityGuids: $destinationEntityGuids,\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      relationshipGuid\n      relationshipType\n    }\n  }\n',
-): (typeof documents)['\n  query ExistingRelationshipsQuery(\n    $sourceEntityGuids: [ID!],\n    $sourceComponentGuids: [ID!],\n    $destinationEntityGuids: [ID!],\n    $destinationComponentGuids: [ID!]\n  ) {\n    relationships(\n      sourceEntityGuids: $sourceEntityGuids,\n      sourceComponentGuids: $sourceComponentGuids,\n      destinationEntityGuids: $destinationEntityGuids,\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      relationshipGuid\n      relationshipType\n    }\n  }\n'];
+  source: '\n  query ExistingRelationshipsQuery(\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    relationships(\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      relationshipGuid\n      relationshipType\n    }\n  }\n',
+): (typeof documents)['\n  query ExistingRelationshipsQuery(\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    relationships(\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      relationshipGuid\n      relationshipType\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
