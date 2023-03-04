@@ -207,18 +207,16 @@ const CreateRelationship: React.FC = () => {
           {sourceValue && destinationValue && (
             <ExistingRelationships
               sourceEntityGuids={
-                sourceValue?.type === 'entity' ? [sourceValue.entityGuid] : undefined
+                sourceValue.type === 'entity' ? [sourceValue.entityGuid] : undefined
               }
               sourceComponentGuids={
-                sourceValue?.type === 'component' ? [sourceValue.componentGuid] : undefined
+                sourceValue.type === 'component' ? [sourceValue.componentGuid] : undefined
               }
               destinationEntityGuids={
-                destinationValue?.type === 'entity' ? [destinationValue.entityGuid] : undefined
+                destinationValue.type === 'entity' ? [destinationValue.entityGuid] : undefined
               }
               destinationComponentGuids={
-                destinationValue?.type === 'component'
-                  ? [destinationValue.componentGuid]
-                  : undefined
+                destinationValue.type === 'component' ? [destinationValue.componentGuid] : undefined
               }
             />
           )}
