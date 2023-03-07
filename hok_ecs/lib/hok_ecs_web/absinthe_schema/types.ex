@@ -11,7 +11,7 @@ defmodule HokEcsWeb.AbsintheSchema.Types do
   scalar :json do
     parse(fn input ->
       case Jason.decode(input.value) do
-        {:ok, result} -> result
+        {:ok, result} -> {:ok, result}
         _ -> :error
       end
     end)
