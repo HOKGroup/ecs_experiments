@@ -22,7 +22,7 @@ defmodule HokEcs.Relationships.Relationship do
   @primary_key {:relationship_guid, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   typed_schema "relationships" do
-    field :active, :boolean, default: false
+    field :active, :boolean, default: true
     field :context, :string
     field :relationship_name, :string
     field :relationship_type, :string
