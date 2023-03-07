@@ -19,7 +19,9 @@ const documents = {
     types.EntityQueryDocument,
   '\n  query RelationshipQuery($relationshipGuid: ID!) {\n    relationship(relationshipGuid: $relationshipGuid) {\n      relationshipGuid\n      relationshipName\n      relationshipType\n    }\n  }\n':
     types.RelationshipQueryDocument,
-  '\n  mutation CreateRelationship(\n    $relationshipType: String\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    createRelationship(\n      relationshipType: $relationshipType\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n':
+  '\n  mutation CreateEntity($input: CreateEntityInput!) {\n    createEntity(input: $input) {\n      successful\n      result {\n        entityGuid\n      }\n    }\n  }\n':
+    types.CreateEntityDocument,
+  '\n  mutation CreateRelationship($input: CreateRelationshipInput!) {\n    createRelationship(input: $input) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n':
     types.CreateRelationshipDocument,
   '\n  query EntitiesQuery($entityClassification: String!) {\n    entities(entityClassification: $entityClassification) {\n      entityGuid\n      entityClassification\n      context\n    }\n  }\n':
     types.EntitiesQueryDocument,
@@ -69,8 +71,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation CreateRelationship(\n    $relationshipType: String\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    createRelationship(\n      relationshipType: $relationshipType\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation CreateRelationship(\n    $relationshipType: String\n    $sourceEntityGuids: [ID!]\n    $sourceComponentGuids: [ID!]\n    $destinationEntityGuids: [ID!]\n    $destinationComponentGuids: [ID!]\n  ) {\n    createRelationship(\n      relationshipType: $relationshipType\n      sourceEntityGuids: $sourceEntityGuids\n      sourceComponentGuids: $sourceComponentGuids\n      destinationEntityGuids: $destinationEntityGuids\n      destinationComponentGuids: $destinationComponentGuids\n    ) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n'];
+  source: '\n  mutation CreateEntity($input: CreateEntityInput!) {\n    createEntity(input: $input) {\n      successful\n      result {\n        entityGuid\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateEntity($input: CreateEntityInput!) {\n    createEntity(input: $input) {\n      successful\n      result {\n        entityGuid\n      }\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation CreateRelationship($input: CreateRelationshipInput!) {\n    createRelationship(input: $input) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation CreateRelationship($input: CreateRelationshipInput!) {\n    createRelationship(input: $input) {\n      successful\n      result {\n        relationshipGuid\n      }\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -1,9 +1,11 @@
 defmodule HokEcs.Components do
   import Ecto.Query, warn: false
+
   alias HokEcs.Repo
-  alias __MODULE__.Component
+  alias __MODULE__.{Component, ComponentSchema}
   alias HokEcs.Events
   alias HokEcs.Events.Event
+  alias HokEcs.Entities.Entity
 
   def get_entity_component_types(entity_guid) do
     query =
@@ -80,14 +82,45 @@ defmodule HokEcs.Components do
   """
   @spec create_component(map()) :: {:ok, Component.t()} | {:error, Ecto.Changeset.t()}
   def create_component(attrs \\ %{}) do
+    entity_guid = Map.fetch!(attrs, :entity_guid)
+    component_type = Map.fetch!(attrs, :component_type)
+
     Ecto.Multi.new()
-    |> Ecto.Multi.insert(:component, Component.changeset(%Component{}, attrs))
+    |> Ecto.Multi.one(:entity, from(Entity, where: [entity_guid: ^entity_guid]))
+    |> Ecto.Multi.run(:ensure_entity, fn _repo, %{entity: entity} ->
+      case entity do
+        %Entity{} -> {:ok, true}
+        _ -> {:error, "Entity not found"}
+      end
+    end)
+    |> Ecto.Multi.one(:component_schema, from(ComponentSchema, where: [name: ^component_type]))
+    |> Ecto.Multi.run(:ensure_component_schema, fn _repo, %{component_schema: component_schema} ->
+      case component_schema do
+        %ComponentSchema{} -> {:ok, true}
+        _ -> {:error, "Schema for component type #{component_type} not found"}
+      end
+    end)
+    |> Ecto.Multi.run(:component, fn _repo,
+                                     %{
+                                       entity: %Entity{} = entity,
+                                       component_schema: %ComponentSchema{} = component_schema
+                                     } ->
+      attrs =
+        attrs
+        |> Map.put_new(:entity_classification, entity.entity_classification)
+        |> Map.put_new(:component_schema_guid, component_schema.component_schema_guid)
+
+      %Component{}
+      |> Component.changeset(attrs)
+      |> Repo.insert()
+    end)
     |> Ecto.Multi.run(:event, fn _repo, %{component: component} ->
       {:ok, %Event{}} = Events.create_component_created_event(component, attrs)
     end)
     |> Repo.transaction()
     |> case do
       {:ok, %{component: %Component{} = component}} -> {:ok, component}
+      {:error, :ensure_entity, err, _} -> {:error, err}
       {:error, :component, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
     end
   end

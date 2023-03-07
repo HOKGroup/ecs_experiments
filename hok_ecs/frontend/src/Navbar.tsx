@@ -28,6 +28,9 @@ const Navbar: React.FC = () => {
           <LinkContainer to="/relationships">
             <Nav.Link active={Boolean(relationshipsMatch)}>Relationships</Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/createEntity">
+            <Nav.Link active={false}>Create Entity</Nav.Link>
+          </LinkContainer>
         </Nav>
       </Container>
     </BNavbar>

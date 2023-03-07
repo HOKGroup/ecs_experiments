@@ -24,7 +24,8 @@ defmodule HokEcsWeb.Router do
 
   forward "/api/graphiql",
           Absinthe.Plug.GraphiQL,
-          schema: HokEcsWeb.AbsintheSchema
+          schema: HokEcsWeb.AbsintheSchema,
+          interface: :advanced
 
   scope "/app", HokEcsWeb do
     get "/", WebappController, :index

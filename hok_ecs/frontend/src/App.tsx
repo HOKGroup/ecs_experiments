@@ -9,6 +9,8 @@ import withSuspense from './withSuspense';
 
 const CreateRelationship = withSuspense(React.lazy(() => import('./routes/CreateRelationship')));
 
+const CreateEntity = withSuspense(React.lazy(() => import('./routes/CreateEntity')));
+
 const Relationships = withSuspense(React.lazy(() => import('./routes/Relationships')));
 
 const App: React.FC = () => {
@@ -28,6 +30,8 @@ const App: React.FC = () => {
 
           <Route path="relationships" element={<Relationships />} />
           <Route path="relationships/:relationshipGuid" element={<Relationship />} />
+
+          <Route path="createEntity" element={<CreateEntity />} />
 
           <Route path="*" element={<NoMatch />} />
         </Route>

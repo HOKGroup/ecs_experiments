@@ -48,6 +48,8 @@ defmodule HokEcsWeb.AbsintheSchema.Types do
     field :relationship_guid, non_null(:id)
     field :relationship_name, :string
     field :relationship_type, :string
+    field :relationship_type_reference, :string
+    field :active, non_null(:boolean)
   end
 
   enum :node_type do

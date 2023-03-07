@@ -10,7 +10,7 @@ defmodule HokEcs.ComponentsTest do
     import HokEcs.ECSFixtures
 
     @invalid_attrs %{
-      entity_guid: nil
+      context: nil
     }
 
     test "list_components/0 returns all components" do
@@ -27,6 +27,7 @@ defmodule HokEcs.ComponentsTest do
 
     test "create_component/1 with valid data creates a component and component_created event" do
       entity = entity_fixture()
+      component_schema = component_schema_fixture()
 
       valid_attrs = %{
         entity_guid: entity.entity_guid,
@@ -35,7 +36,7 @@ defmodule HokEcs.ComponentsTest do
         component_id: "some component_id",
         component_name: "some component_name",
         component_type_payload: "some component_type_payload",
-        component_type: "some component_type",
+        component_type: component_schema.name,
         component_type_reference: "some component_type_reference",
         context: "some context",
         context_id: "some context id",
@@ -54,7 +55,7 @@ defmodule HokEcs.ComponentsTest do
       assert component.component_id == "some component_id"
       assert component.component_name == "some component_name"
       assert component.component_type_payload == "some component_type_payload"
-      assert component.component_type == "some component_type"
+      assert component.component_type == component_schema.name
       assert component.component_type_reference == "some component_type_reference"
       assert component.context == "some context"
       assert component.entity_classification == "some entity_classification"
@@ -81,10 +82,9 @@ defmodule HokEcs.ComponentsTest do
 
       attrs = %{
         entity_guid: entity.entity_guid,
-        component_schema_guid: component_schema.component_schema_guid,
         context: "some context",
         context_id: "some context id",
-        component_type: "some component type",
+        component_type: component_schema.name,
         component_type_reference: "some component type reference",
         component_type_payload: "json",
         payload: %{"FirstName" => "Bob"},
@@ -116,7 +116,7 @@ defmodule HokEcs.ComponentsTest do
 
       attrs = %{
         entity_guid: entity.entity_guid,
-        component_schema_guid: component_schema.component_schema_guid,
+        component_type: component_schema.name,
         payload: %{"FirstName" => 1234}
       }
 
@@ -129,8 +129,27 @@ defmodule HokEcs.ComponentsTest do
       assert [] = Events.list_events()
     end
 
-    test "create_component/1 with invalid data returns error changeset and does not create an event" do
-      assert {:error, %Ecto.Changeset{}} = Components.create_component(@invalid_attrs)
+    test "create_component/1 with invalid entity returns an error and does not create an event" do
+      assert {:error, "Entity not found"} =
+               Components.create_component(%{
+                 entity_guid: Ecto.UUID.generate(),
+                 component_type: "some_type"
+               })
+
+      assert [] = Events.list_events()
+    end
+
+    test "create_component/1 with valid entity but invalid component attrs returns an error changeset and does not create an event" do
+      entity = entity_fixture()
+
+      component_schema = component_schema_fixture()
+
+      attrs =
+        @invalid_attrs
+        |> Map.put_new(:entity_guid, entity.entity_guid)
+        |> Map.put_new(:component_type, component_schema.name)
+
+      assert {:error, %Ecto.Changeset{}} = Components.create_component(attrs)
       assert [] = Events.list_events()
     end
 
@@ -144,7 +163,6 @@ defmodule HokEcs.ComponentsTest do
         component_id: "some updated component_id",
         component_name: "some updated component_name",
         component_type_payload: "some updated component_type_payload",
-        component_type: "some updated component_type",
         component_type_reference: "some updated component_type_reference",
         context: "some updated context",
         entity_classification: "some updated entity_classification",
@@ -163,7 +181,6 @@ defmodule HokEcs.ComponentsTest do
       assert component.component_id == "some updated component_id"
       assert component.component_name == "some updated component_name"
       assert component.component_type_payload == "some updated component_type_payload"
-      assert component.component_type == "some updated component_type"
       assert component.component_type_reference == "some updated component_type_reference"
       assert component.context == "some updated context"
       assert component.entity_classification == "some updated entity_classification"

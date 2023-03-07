@@ -15,6 +15,8 @@ defmodule HokEcsWeb.AbsintheSchema do
   end
 
   mutation do
+    import_fields(:entity_mutations)
+    import_fields(:component_mutations)
     import_fields(:relationship_mutations)
   end
 end

@@ -46,20 +46,8 @@ export interface RelationshipType {
 export type EntityOrComponentValue = EntityValue | ComponentValue;
 
 const CreateRelationshipMutation = graphql(`
-  mutation CreateRelationship(
-    $relationshipType: String
-    $sourceEntityGuids: [ID!]
-    $sourceComponentGuids: [ID!]
-    $destinationEntityGuids: [ID!]
-    $destinationComponentGuids: [ID!]
-  ) {
-    createRelationship(
-      relationshipType: $relationshipType
-      sourceEntityGuids: $sourceEntityGuids
-      sourceComponentGuids: $sourceComponentGuids
-      destinationEntityGuids: $destinationEntityGuids
-      destinationComponentGuids: $destinationComponentGuids
-    ) {
+  mutation CreateRelationship($input: CreateRelationshipInput!) {
+    createRelationship(input: $input) {
       successful
       result {
         relationshipGuid
@@ -113,13 +101,15 @@ const CreateRelationship: React.FC = () => {
     if (!destinationValue) return;
 
     void createRelationship({
-      relationshipType: relationshipType.value,
-      sourceEntityGuids: sourceValue.type === 'entity' ? [sourceValue.entityGuid] : [],
-      sourceComponentGuids: sourceValue.type === 'component' ? [sourceValue.componentGuid] : [],
-      destinationEntityGuids:
-        destinationValue.type === 'entity' ? [destinationValue.entityGuid] : [],
-      destinationComponentGuids:
-        destinationValue.type === 'component' ? [destinationValue.componentGuid] : [],
+      input: {
+        relationshipType: relationshipType.value,
+        sourceEntityGuids: sourceValue.type === 'entity' ? [sourceValue.entityGuid] : [],
+        sourceComponentGuids: sourceValue.type === 'component' ? [sourceValue.componentGuid] : [],
+        destinationEntityGuids:
+          destinationValue.type === 'entity' ? [destinationValue.entityGuid] : [],
+        destinationComponentGuids:
+          destinationValue.type === 'component' ? [destinationValue.componentGuid] : [],
+      },
     })
       .then((mutationResult) => {
         if (mutationResult.error) throw mutationResult.error;
